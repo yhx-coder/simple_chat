@@ -14,6 +14,8 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * @author: ming
  * @date: 2021/8/27 18:04
@@ -21,7 +23,10 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 public class Client {
 
     public static void main(String[] args) throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
+
         try {
             new Bootstrap()
                     .group(eventLoopGroup)
