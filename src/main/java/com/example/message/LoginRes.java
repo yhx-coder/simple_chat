@@ -4,6 +4,10 @@
 package com.example.message;
 
 /**
+ * <pre>
+ * 用户登录响应
+ * </pre>
+ *
  * Protobuf type {@code chat.simple.LoginRes}
  */
 public final class LoginRes extends
@@ -451,6 +455,10 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   * 用户登录响应
+   * </pre>
+   *
    * Protobuf type {@code chat.simple.LoginRes}
    */
   public static final class Builder extends

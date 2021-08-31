@@ -13,6 +13,17 @@ message Message{
         MSG_REQ = 2;
         MSG_RES = 3;
         MSG_RX = 4;
+        //--------- 组播字段 --------------
+        GROUP_CREATE_REQ = 5;
+        GROUP_JOIN_REQ = 6;
+        GROUP_QUIT_REQ = 7;
+        GROUP_MEMBER_QUERY_REQ = 8;
+        GROUP_MEMBER_QUERY_RES = 9;
+        GROUP_MSG_REQ = 10;
+        GROUP_MSG_RX = 11;
+        GROUP_RES = 12;
+        GROUP_JOINED_QUERY_REQ = 13;
+        GROUP_JOINED_QUERY_RES = 14;
     }
 
     MessageType messageType = 1;
@@ -22,9 +33,20 @@ message Message{
         MsgRes msgRes = 4;
         LoginRes loginRes = 5;
         MsgRX msgRX = 6;
+
+        GroupCreateReq groupCreateReq = 7;
+        GroupJoinReq groupJoinReq = 8;
+        GroupQuitReq groupQuitReq = 9;
+        GroupMemberQueryReq groupMemberQueryReq = 10;
+        GroupMemberQueryRes groupMemberQueryRes = 11;
+        GroupMessageReq groupMessageReq = 12;
+        GroupMessageRX groupMessageRX = 13;
+        GroupRes groupRes = 14;
+        GroupJoinedQueryReq groupQueryReq = 15;
+        GroupJoinedQueryRes groupQueryRes = 16;
     }
 }
-
+//------------------------ 单聊消息 ----------------------------
 // 用户登录请求
 message LoginReq{
     int32 userId = 1;
@@ -63,4 +85,60 @@ message MsgRes{
 message MsgRX{
     string content = 1;
     int32 sUserId = 2;
+}
+
+//------------------------ 群聊消息 ----------------------------
+
+// 其中的 bool 类型好，还是用 enum 好，我也不知道，就瞎用。
+
+message GroupCreateReq{
+    int32 groupId = 1;
+    int32 userId = 2;
+}
+
+message GroupJoinReq{
+    int32 joinId = 1;
+    int32 userId = 2;
+}
+
+message GroupQuitReq{
+    int32 groupId = 1;
+    int32 userId = 2;
+}
+
+message GroupMemberQueryReq{
+    int32 groupId = 1;
+}
+
+message GroupMemberQueryRes{
+    bool status = 1;
+    string reason = 2;
+    repeated int32 userId = 3;
+}
+
+message GroupJoinedQueryReq{
+    int32 userId = 1;
+}
+
+message GroupJoinedQueryRes{
+    bool status = 1;
+    string reason = 2;
+    repeated int32 groupId = 3;
+}
+
+message GroupMessageReq{
+    int32 groupId = 1;
+    int32 dUserId = 2;
+    string message = 3;
+}
+
+message GroupMessageRX{
+    int32 sUserId = 1;
+    string message = 2;
+}
+
+// 和群聊有关消息的大部分服务器响应
+message GroupRes{
+    bool status = 1;
+    string reason = 2;
 }

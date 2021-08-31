@@ -1,15 +1,16 @@
 package com.example.handler;
 
-import com.example.message.LoginRes;
-import com.example.message.Message;
-import com.example.message.MsgRX;
-import com.example.message.MsgRes;
+import com.example.message.*;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.util.AttributeKey;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author: ming
@@ -17,7 +18,12 @@ import java.util.Map;
  */
 public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
-    private static Map<Integer, Channel> map = new HashMap<>();
+    // 防止并发问题
+    private static Map<Integer, Channel> map = new ConcurrentHashMap<>();
+
+    private static Map<Integer, List<Integer>> userGroupMap = new ConcurrentHashMap<>();
+
+    private static Map<Integer,List<Integer>> groupUserMap = new ConcurrentHashMap<>();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
@@ -34,13 +40,13 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                     map.put(userId, ctx.channel());
                     loginRes = loginRes.newBuilderForType()
                             .setStatus(LoginRes.LoginStatus.SUCCESS)
-                            .setResponse("用户: " + userId + "登录成功")
+                            .setResponse("用户: " + userId + " 登录成功")
                             .setUserId(userId)
                             .build();
                 }else{
                     loginRes = loginRes.newBuilderForType()
                             .setStatus(LoginRes.LoginStatus.SUCCESS)
-                            .setResponse("用户: " + userId + "已经登录")
+                            .setResponse("用户: " + userId + " 已经登录")
                             .setUserId(userId)
                             .build();
                 }
@@ -84,7 +90,49 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                 }
                 break;
             }
+            // 创建聊天组
+            case GROUP_CREATE_REQ: {
+                int groupId = msg.getGroupCreateReq().getGroupId();
+                List<Integer> list = groupUserMap.get(groupId);
+                if (list == null || list.isEmpty()) {
+                    Integer userId = msg.getGroupCreateReq().getUserId();
+                    List<Integer> user = new CopyOnWriteArrayList();
+                    List<Integer> group = new CopyOnWriteArrayList();
+                    user.add(userId);
+                    group.add(groupId);
+                    groupUserMap.put(groupId, user);
+                    userGroupMap.put(userId, group);
+
+                    GroupRes groupCreateRes = Message.newBuilder()
+                            .getGroupRes().newBuilderForType()
+                            .setStatus(true)
+                            .setReason("群组" + groupId + "建立成功")
+                            .build();
+                    Message message = Message.newBuilder()
+                            .setMessageType(Message.MessageType.GROUP_RES)
+                            .setGroupRes(groupCreateRes)
+                            .build();
+                    ctx.channel().writeAndFlush(message);
+                } else {
+                    GroupRes groupCreateRes = Message.newBuilder()
+                            .getGroupRes().newBuilderForType()
+                            .setStatus(false)
+                            .setReason("群组" + groupId + "已经存在")
+                            .build();
+                    Message message = Message.newBuilder()
+                            .setMessageType(Message.MessageType.GROUP_RES)
+                            .setGroupRes(groupCreateRes)
+                            .build();
+                    ctx.channel().writeAndFlush(message);
+                }
+                break;
+            }
         }
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(null);
     }
 
     @Override

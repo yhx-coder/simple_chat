@@ -4,6 +4,11 @@
 package com.example.message;
 
 /**
+ * <pre>
+ *------------------------ 单聊消息 ----------------------------
+ * 用户登录请求
+ * </pre>
+ *
  * Protobuf type {@code chat.simple.LoginReq}
  */
 public final class LoginReq extends
@@ -307,6 +312,11 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   *------------------------ 单聊消息 ----------------------------
+   * 用户登录请求
+   * </pre>
+   *
    * Protobuf type {@code chat.simple.LoginReq}
    */
   public static final class Builder extends

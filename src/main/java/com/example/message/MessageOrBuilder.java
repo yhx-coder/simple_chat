@@ -93,5 +93,155 @@ public interface MessageOrBuilder extends
    */
   com.example.message.MsgRXOrBuilder getMsgRXOrBuilder();
 
+  /**
+   * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+   * @return Whether the groupCreateReq field is set.
+   */
+  boolean hasGroupCreateReq();
+  /**
+   * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+   * @return The groupCreateReq.
+   */
+  com.example.message.GroupCreateReq getGroupCreateReq();
+  /**
+   * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+   */
+  com.example.message.GroupCreateReqOrBuilder getGroupCreateReqOrBuilder();
+
+  /**
+   * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+   * @return Whether the groupJoinReq field is set.
+   */
+  boolean hasGroupJoinReq();
+  /**
+   * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+   * @return The groupJoinReq.
+   */
+  com.example.message.GroupJoinReq getGroupJoinReq();
+  /**
+   * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+   */
+  com.example.message.GroupJoinReqOrBuilder getGroupJoinReqOrBuilder();
+
+  /**
+   * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+   * @return Whether the groupQuitReq field is set.
+   */
+  boolean hasGroupQuitReq();
+  /**
+   * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+   * @return The groupQuitReq.
+   */
+  com.example.message.GroupQuitReq getGroupQuitReq();
+  /**
+   * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+   */
+  com.example.message.GroupQuitReqOrBuilder getGroupQuitReqOrBuilder();
+
+  /**
+   * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+   * @return Whether the groupMemberQueryReq field is set.
+   */
+  boolean hasGroupMemberQueryReq();
+  /**
+   * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+   * @return The groupMemberQueryReq.
+   */
+  com.example.message.GroupMemberQueryReq getGroupMemberQueryReq();
+  /**
+   * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+   */
+  com.example.message.GroupMemberQueryReqOrBuilder getGroupMemberQueryReqOrBuilder();
+
+  /**
+   * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+   * @return Whether the groupMemberQueryRes field is set.
+   */
+  boolean hasGroupMemberQueryRes();
+  /**
+   * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+   * @return The groupMemberQueryRes.
+   */
+  com.example.message.GroupMemberQueryRes getGroupMemberQueryRes();
+  /**
+   * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+   */
+  com.example.message.GroupMemberQueryResOrBuilder getGroupMemberQueryResOrBuilder();
+
+  /**
+   * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+   * @return Whether the groupMessageReq field is set.
+   */
+  boolean hasGroupMessageReq();
+  /**
+   * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+   * @return The groupMessageReq.
+   */
+  com.example.message.GroupMessageReq getGroupMessageReq();
+  /**
+   * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+   */
+  com.example.message.GroupMessageReqOrBuilder getGroupMessageReqOrBuilder();
+
+  /**
+   * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+   * @return Whether the groupMessageRX field is set.
+   */
+  boolean hasGroupMessageRX();
+  /**
+   * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+   * @return The groupMessageRX.
+   */
+  com.example.message.GroupMessageRX getGroupMessageRX();
+  /**
+   * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+   */
+  com.example.message.GroupMessageRXOrBuilder getGroupMessageRXOrBuilder();
+
+  /**
+   * <code>.chat.simple.GroupRes groupRes = 14;</code>
+   * @return Whether the groupRes field is set.
+   */
+  boolean hasGroupRes();
+  /**
+   * <code>.chat.simple.GroupRes groupRes = 14;</code>
+   * @return The groupRes.
+   */
+  com.example.message.GroupRes getGroupRes();
+  /**
+   * <code>.chat.simple.GroupRes groupRes = 14;</code>
+   */
+  com.example.message.GroupResOrBuilder getGroupResOrBuilder();
+
+  /**
+   * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+   * @return Whether the groupQueryReq field is set.
+   */
+  boolean hasGroupQueryReq();
+  /**
+   * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+   * @return The groupQueryReq.
+   */
+  com.example.message.GroupJoinedQueryReq getGroupQueryReq();
+  /**
+   * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+   */
+  com.example.message.GroupJoinedQueryReqOrBuilder getGroupQueryReqOrBuilder();
+
+  /**
+   * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+   * @return Whether the groupQueryRes field is set.
+   */
+  boolean hasGroupQueryRes();
+  /**
+   * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+   * @return The groupQueryRes.
+   */
+  com.example.message.GroupJoinedQueryRes getGroupQueryRes();
+  /**
+   * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+   */
+  com.example.message.GroupJoinedQueryResOrBuilder getGroupQueryResOrBuilder();
+
   public com.example.message.Message.MessageBodyCase getMessageBodyCase();
 }

@@ -125,6 +125,146 @@ private static final long serialVersionUID = 0L;
             messageBodyCase_ = 6;
             break;
           }
+          case 58: {
+            com.example.message.GroupCreateReq.Builder subBuilder = null;
+            if (messageBodyCase_ == 7) {
+              subBuilder = ((com.example.message.GroupCreateReq) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupCreateReq.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupCreateReq) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 7;
+            break;
+          }
+          case 66: {
+            com.example.message.GroupJoinReq.Builder subBuilder = null;
+            if (messageBodyCase_ == 8) {
+              subBuilder = ((com.example.message.GroupJoinReq) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupJoinReq.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupJoinReq) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 8;
+            break;
+          }
+          case 74: {
+            com.example.message.GroupQuitReq.Builder subBuilder = null;
+            if (messageBodyCase_ == 9) {
+              subBuilder = ((com.example.message.GroupQuitReq) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupQuitReq.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupQuitReq) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 9;
+            break;
+          }
+          case 82: {
+            com.example.message.GroupMemberQueryReq.Builder subBuilder = null;
+            if (messageBodyCase_ == 10) {
+              subBuilder = ((com.example.message.GroupMemberQueryReq) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupMemberQueryReq.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupMemberQueryReq) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 10;
+            break;
+          }
+          case 90: {
+            com.example.message.GroupMemberQueryRes.Builder subBuilder = null;
+            if (messageBodyCase_ == 11) {
+              subBuilder = ((com.example.message.GroupMemberQueryRes) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupMemberQueryRes.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupMemberQueryRes) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 11;
+            break;
+          }
+          case 98: {
+            com.example.message.GroupMessageReq.Builder subBuilder = null;
+            if (messageBodyCase_ == 12) {
+              subBuilder = ((com.example.message.GroupMessageReq) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupMessageReq.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupMessageReq) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 12;
+            break;
+          }
+          case 106: {
+            com.example.message.GroupMessageRX.Builder subBuilder = null;
+            if (messageBodyCase_ == 13) {
+              subBuilder = ((com.example.message.GroupMessageRX) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupMessageRX.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupMessageRX) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 13;
+            break;
+          }
+          case 114: {
+            com.example.message.GroupRes.Builder subBuilder = null;
+            if (messageBodyCase_ == 14) {
+              subBuilder = ((com.example.message.GroupRes) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupRes.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupRes) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 14;
+            break;
+          }
+          case 122: {
+            com.example.message.GroupJoinedQueryReq.Builder subBuilder = null;
+            if (messageBodyCase_ == 15) {
+              subBuilder = ((com.example.message.GroupJoinedQueryReq) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupJoinedQueryReq.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupJoinedQueryReq) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 15;
+            break;
+          }
+          case 130: {
+            com.example.message.GroupJoinedQueryRes.Builder subBuilder = null;
+            if (messageBodyCase_ == 16) {
+              subBuilder = ((com.example.message.GroupJoinedQueryRes) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupJoinedQueryRes.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupJoinedQueryRes) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 16;
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -182,6 +322,50 @@ private static final long serialVersionUID = 0L;
      * <code>MSG_RX = 4;</code>
      */
     MSG_RX(4),
+    /**
+     * <pre>
+     *--------- 组播字段 --------------
+     * </pre>
+     *
+     * <code>GROUP_CREATE_REQ = 5;</code>
+     */
+    GROUP_CREATE_REQ(5),
+    /**
+     * <code>GROUP_JOIN_REQ = 6;</code>
+     */
+    GROUP_JOIN_REQ(6),
+    /**
+     * <code>GROUP_QUIT_REQ = 7;</code>
+     */
+    GROUP_QUIT_REQ(7),
+    /**
+     * <code>GROUP_MEMBER_QUERY_REQ = 8;</code>
+     */
+    GROUP_MEMBER_QUERY_REQ(8),
+    /**
+     * <code>GROUP_MEMBER_QUERY_RES = 9;</code>
+     */
+    GROUP_MEMBER_QUERY_RES(9),
+    /**
+     * <code>GROUP_MSG_REQ = 10;</code>
+     */
+    GROUP_MSG_REQ(10),
+    /**
+     * <code>GROUP_MSG_RX = 11;</code>
+     */
+    GROUP_MSG_RX(11),
+    /**
+     * <code>GROUP_RES = 12;</code>
+     */
+    GROUP_RES(12),
+    /**
+     * <code>GROUP_JOINED_QUERY_REQ = 13;</code>
+     */
+    GROUP_JOINED_QUERY_REQ(13),
+    /**
+     * <code>GROUP_JOINED_QUERY_RES = 14;</code>
+     */
+    GROUP_JOINED_QUERY_RES(14),
     UNRECOGNIZED(-1),
     ;
 
@@ -205,6 +389,50 @@ private static final long serialVersionUID = 0L;
      * <code>MSG_RX = 4;</code>
      */
     public static final int MSG_RX_VALUE = 4;
+    /**
+     * <pre>
+     *--------- 组播字段 --------------
+     * </pre>
+     *
+     * <code>GROUP_CREATE_REQ = 5;</code>
+     */
+    public static final int GROUP_CREATE_REQ_VALUE = 5;
+    /**
+     * <code>GROUP_JOIN_REQ = 6;</code>
+     */
+    public static final int GROUP_JOIN_REQ_VALUE = 6;
+    /**
+     * <code>GROUP_QUIT_REQ = 7;</code>
+     */
+    public static final int GROUP_QUIT_REQ_VALUE = 7;
+    /**
+     * <code>GROUP_MEMBER_QUERY_REQ = 8;</code>
+     */
+    public static final int GROUP_MEMBER_QUERY_REQ_VALUE = 8;
+    /**
+     * <code>GROUP_MEMBER_QUERY_RES = 9;</code>
+     */
+    public static final int GROUP_MEMBER_QUERY_RES_VALUE = 9;
+    /**
+     * <code>GROUP_MSG_REQ = 10;</code>
+     */
+    public static final int GROUP_MSG_REQ_VALUE = 10;
+    /**
+     * <code>GROUP_MSG_RX = 11;</code>
+     */
+    public static final int GROUP_MSG_RX_VALUE = 11;
+    /**
+     * <code>GROUP_RES = 12;</code>
+     */
+    public static final int GROUP_RES_VALUE = 12;
+    /**
+     * <code>GROUP_JOINED_QUERY_REQ = 13;</code>
+     */
+    public static final int GROUP_JOINED_QUERY_REQ_VALUE = 13;
+    /**
+     * <code>GROUP_JOINED_QUERY_RES = 14;</code>
+     */
+    public static final int GROUP_JOINED_QUERY_RES_VALUE = 14;
 
 
     public final int getNumber() {
@@ -236,6 +464,16 @@ private static final long serialVersionUID = 0L;
         case 2: return MSG_REQ;
         case 3: return MSG_RES;
         case 4: return MSG_RX;
+        case 5: return GROUP_CREATE_REQ;
+        case 6: return GROUP_JOIN_REQ;
+        case 7: return GROUP_QUIT_REQ;
+        case 8: return GROUP_MEMBER_QUERY_REQ;
+        case 9: return GROUP_MEMBER_QUERY_RES;
+        case 10: return GROUP_MSG_REQ;
+        case 11: return GROUP_MSG_RX;
+        case 12: return GROUP_RES;
+        case 13: return GROUP_JOINED_QUERY_REQ;
+        case 14: return GROUP_JOINED_QUERY_RES;
         default: return null;
       }
     }
@@ -302,6 +540,16 @@ private static final long serialVersionUID = 0L;
     MSGRES(4),
     LOGINRES(5),
     MSGRX(6),
+    GROUPCREATEREQ(7),
+    GROUPJOINREQ(8),
+    GROUPQUITREQ(9),
+    GROUPMEMBERQUERYREQ(10),
+    GROUPMEMBERQUERYRES(11),
+    GROUPMESSAGEREQ(12),
+    GROUPMESSAGERX(13),
+    GROUPRES(14),
+    GROUPQUERYREQ(15),
+    GROUPQUERYRES(16),
     MESSAGEBODY_NOT_SET(0);
     private final int value;
     private MessageBodyCase(int value) {
@@ -324,6 +572,16 @@ private static final long serialVersionUID = 0L;
         case 4: return MSGRES;
         case 5: return LOGINRES;
         case 6: return MSGRX;
+        case 7: return GROUPCREATEREQ;
+        case 8: return GROUPJOINREQ;
+        case 9: return GROUPQUITREQ;
+        case 10: return GROUPMEMBERQUERYREQ;
+        case 11: return GROUPMEMBERQUERYRES;
+        case 12: return GROUPMESSAGEREQ;
+        case 13: return GROUPMESSAGERX;
+        case 14: return GROUPRES;
+        case 15: return GROUPQUERYREQ;
+        case 16: return GROUPQUERYRES;
         case 0: return MESSAGEBODY_NOT_SET;
         default: return null;
       }
@@ -513,6 +771,316 @@ private static final long serialVersionUID = 0L;
     return com.example.message.MsgRX.getDefaultInstance();
   }
 
+  public static final int GROUPCREATEREQ_FIELD_NUMBER = 7;
+  /**
+   * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+   * @return Whether the groupCreateReq field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupCreateReq() {
+    return messageBodyCase_ == 7;
+  }
+  /**
+   * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+   * @return The groupCreateReq.
+   */
+  @java.lang.Override
+  public com.example.message.GroupCreateReq getGroupCreateReq() {
+    if (messageBodyCase_ == 7) {
+       return (com.example.message.GroupCreateReq) messageBody_;
+    }
+    return com.example.message.GroupCreateReq.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupCreateReqOrBuilder getGroupCreateReqOrBuilder() {
+    if (messageBodyCase_ == 7) {
+       return (com.example.message.GroupCreateReq) messageBody_;
+    }
+    return com.example.message.GroupCreateReq.getDefaultInstance();
+  }
+
+  public static final int GROUPJOINREQ_FIELD_NUMBER = 8;
+  /**
+   * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+   * @return Whether the groupJoinReq field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupJoinReq() {
+    return messageBodyCase_ == 8;
+  }
+  /**
+   * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+   * @return The groupJoinReq.
+   */
+  @java.lang.Override
+  public com.example.message.GroupJoinReq getGroupJoinReq() {
+    if (messageBodyCase_ == 8) {
+       return (com.example.message.GroupJoinReq) messageBody_;
+    }
+    return com.example.message.GroupJoinReq.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupJoinReqOrBuilder getGroupJoinReqOrBuilder() {
+    if (messageBodyCase_ == 8) {
+       return (com.example.message.GroupJoinReq) messageBody_;
+    }
+    return com.example.message.GroupJoinReq.getDefaultInstance();
+  }
+
+  public static final int GROUPQUITREQ_FIELD_NUMBER = 9;
+  /**
+   * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+   * @return Whether the groupQuitReq field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupQuitReq() {
+    return messageBodyCase_ == 9;
+  }
+  /**
+   * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+   * @return The groupQuitReq.
+   */
+  @java.lang.Override
+  public com.example.message.GroupQuitReq getGroupQuitReq() {
+    if (messageBodyCase_ == 9) {
+       return (com.example.message.GroupQuitReq) messageBody_;
+    }
+    return com.example.message.GroupQuitReq.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupQuitReqOrBuilder getGroupQuitReqOrBuilder() {
+    if (messageBodyCase_ == 9) {
+       return (com.example.message.GroupQuitReq) messageBody_;
+    }
+    return com.example.message.GroupQuitReq.getDefaultInstance();
+  }
+
+  public static final int GROUPMEMBERQUERYREQ_FIELD_NUMBER = 10;
+  /**
+   * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+   * @return Whether the groupMemberQueryReq field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupMemberQueryReq() {
+    return messageBodyCase_ == 10;
+  }
+  /**
+   * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+   * @return The groupMemberQueryReq.
+   */
+  @java.lang.Override
+  public com.example.message.GroupMemberQueryReq getGroupMemberQueryReq() {
+    if (messageBodyCase_ == 10) {
+       return (com.example.message.GroupMemberQueryReq) messageBody_;
+    }
+    return com.example.message.GroupMemberQueryReq.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupMemberQueryReqOrBuilder getGroupMemberQueryReqOrBuilder() {
+    if (messageBodyCase_ == 10) {
+       return (com.example.message.GroupMemberQueryReq) messageBody_;
+    }
+    return com.example.message.GroupMemberQueryReq.getDefaultInstance();
+  }
+
+  public static final int GROUPMEMBERQUERYRES_FIELD_NUMBER = 11;
+  /**
+   * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+   * @return Whether the groupMemberQueryRes field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupMemberQueryRes() {
+    return messageBodyCase_ == 11;
+  }
+  /**
+   * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+   * @return The groupMemberQueryRes.
+   */
+  @java.lang.Override
+  public com.example.message.GroupMemberQueryRes getGroupMemberQueryRes() {
+    if (messageBodyCase_ == 11) {
+       return (com.example.message.GroupMemberQueryRes) messageBody_;
+    }
+    return com.example.message.GroupMemberQueryRes.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupMemberQueryResOrBuilder getGroupMemberQueryResOrBuilder() {
+    if (messageBodyCase_ == 11) {
+       return (com.example.message.GroupMemberQueryRes) messageBody_;
+    }
+    return com.example.message.GroupMemberQueryRes.getDefaultInstance();
+  }
+
+  public static final int GROUPMESSAGEREQ_FIELD_NUMBER = 12;
+  /**
+   * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+   * @return Whether the groupMessageReq field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupMessageReq() {
+    return messageBodyCase_ == 12;
+  }
+  /**
+   * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+   * @return The groupMessageReq.
+   */
+  @java.lang.Override
+  public com.example.message.GroupMessageReq getGroupMessageReq() {
+    if (messageBodyCase_ == 12) {
+       return (com.example.message.GroupMessageReq) messageBody_;
+    }
+    return com.example.message.GroupMessageReq.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupMessageReqOrBuilder getGroupMessageReqOrBuilder() {
+    if (messageBodyCase_ == 12) {
+       return (com.example.message.GroupMessageReq) messageBody_;
+    }
+    return com.example.message.GroupMessageReq.getDefaultInstance();
+  }
+
+  public static final int GROUPMESSAGERX_FIELD_NUMBER = 13;
+  /**
+   * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+   * @return Whether the groupMessageRX field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupMessageRX() {
+    return messageBodyCase_ == 13;
+  }
+  /**
+   * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+   * @return The groupMessageRX.
+   */
+  @java.lang.Override
+  public com.example.message.GroupMessageRX getGroupMessageRX() {
+    if (messageBodyCase_ == 13) {
+       return (com.example.message.GroupMessageRX) messageBody_;
+    }
+    return com.example.message.GroupMessageRX.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupMessageRXOrBuilder getGroupMessageRXOrBuilder() {
+    if (messageBodyCase_ == 13) {
+       return (com.example.message.GroupMessageRX) messageBody_;
+    }
+    return com.example.message.GroupMessageRX.getDefaultInstance();
+  }
+
+  public static final int GROUPRES_FIELD_NUMBER = 14;
+  /**
+   * <code>.chat.simple.GroupRes groupRes = 14;</code>
+   * @return Whether the groupRes field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupRes() {
+    return messageBodyCase_ == 14;
+  }
+  /**
+   * <code>.chat.simple.GroupRes groupRes = 14;</code>
+   * @return The groupRes.
+   */
+  @java.lang.Override
+  public com.example.message.GroupRes getGroupRes() {
+    if (messageBodyCase_ == 14) {
+       return (com.example.message.GroupRes) messageBody_;
+    }
+    return com.example.message.GroupRes.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupRes groupRes = 14;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupResOrBuilder getGroupResOrBuilder() {
+    if (messageBodyCase_ == 14) {
+       return (com.example.message.GroupRes) messageBody_;
+    }
+    return com.example.message.GroupRes.getDefaultInstance();
+  }
+
+  public static final int GROUPQUERYREQ_FIELD_NUMBER = 15;
+  /**
+   * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+   * @return Whether the groupQueryReq field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupQueryReq() {
+    return messageBodyCase_ == 15;
+  }
+  /**
+   * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+   * @return The groupQueryReq.
+   */
+  @java.lang.Override
+  public com.example.message.GroupJoinedQueryReq getGroupQueryReq() {
+    if (messageBodyCase_ == 15) {
+       return (com.example.message.GroupJoinedQueryReq) messageBody_;
+    }
+    return com.example.message.GroupJoinedQueryReq.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupJoinedQueryReqOrBuilder getGroupQueryReqOrBuilder() {
+    if (messageBodyCase_ == 15) {
+       return (com.example.message.GroupJoinedQueryReq) messageBody_;
+    }
+    return com.example.message.GroupJoinedQueryReq.getDefaultInstance();
+  }
+
+  public static final int GROUPQUERYRES_FIELD_NUMBER = 16;
+  /**
+   * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+   * @return Whether the groupQueryRes field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupQueryRes() {
+    return messageBodyCase_ == 16;
+  }
+  /**
+   * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+   * @return The groupQueryRes.
+   */
+  @java.lang.Override
+  public com.example.message.GroupJoinedQueryRes getGroupQueryRes() {
+    if (messageBodyCase_ == 16) {
+       return (com.example.message.GroupJoinedQueryRes) messageBody_;
+    }
+    return com.example.message.GroupJoinedQueryRes.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupJoinedQueryResOrBuilder getGroupQueryResOrBuilder() {
+    if (messageBodyCase_ == 16) {
+       return (com.example.message.GroupJoinedQueryRes) messageBody_;
+    }
+    return com.example.message.GroupJoinedQueryRes.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -544,6 +1112,36 @@ private static final long serialVersionUID = 0L;
     }
     if (messageBodyCase_ == 6) {
       output.writeMessage(6, (com.example.message.MsgRX) messageBody_);
+    }
+    if (messageBodyCase_ == 7) {
+      output.writeMessage(7, (com.example.message.GroupCreateReq) messageBody_);
+    }
+    if (messageBodyCase_ == 8) {
+      output.writeMessage(8, (com.example.message.GroupJoinReq) messageBody_);
+    }
+    if (messageBodyCase_ == 9) {
+      output.writeMessage(9, (com.example.message.GroupQuitReq) messageBody_);
+    }
+    if (messageBodyCase_ == 10) {
+      output.writeMessage(10, (com.example.message.GroupMemberQueryReq) messageBody_);
+    }
+    if (messageBodyCase_ == 11) {
+      output.writeMessage(11, (com.example.message.GroupMemberQueryRes) messageBody_);
+    }
+    if (messageBodyCase_ == 12) {
+      output.writeMessage(12, (com.example.message.GroupMessageReq) messageBody_);
+    }
+    if (messageBodyCase_ == 13) {
+      output.writeMessage(13, (com.example.message.GroupMessageRX) messageBody_);
+    }
+    if (messageBodyCase_ == 14) {
+      output.writeMessage(14, (com.example.message.GroupRes) messageBody_);
+    }
+    if (messageBodyCase_ == 15) {
+      output.writeMessage(15, (com.example.message.GroupJoinedQueryReq) messageBody_);
+    }
+    if (messageBodyCase_ == 16) {
+      output.writeMessage(16, (com.example.message.GroupJoinedQueryRes) messageBody_);
     }
     unknownFields.writeTo(output);
   }
@@ -577,6 +1175,46 @@ private static final long serialVersionUID = 0L;
     if (messageBodyCase_ == 6) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(6, (com.example.message.MsgRX) messageBody_);
+    }
+    if (messageBodyCase_ == 7) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(7, (com.example.message.GroupCreateReq) messageBody_);
+    }
+    if (messageBodyCase_ == 8) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(8, (com.example.message.GroupJoinReq) messageBody_);
+    }
+    if (messageBodyCase_ == 9) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(9, (com.example.message.GroupQuitReq) messageBody_);
+    }
+    if (messageBodyCase_ == 10) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(10, (com.example.message.GroupMemberQueryReq) messageBody_);
+    }
+    if (messageBodyCase_ == 11) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(11, (com.example.message.GroupMemberQueryRes) messageBody_);
+    }
+    if (messageBodyCase_ == 12) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(12, (com.example.message.GroupMessageReq) messageBody_);
+    }
+    if (messageBodyCase_ == 13) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(13, (com.example.message.GroupMessageRX) messageBody_);
+    }
+    if (messageBodyCase_ == 14) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(14, (com.example.message.GroupRes) messageBody_);
+    }
+    if (messageBodyCase_ == 15) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(15, (com.example.message.GroupJoinedQueryReq) messageBody_);
+    }
+    if (messageBodyCase_ == 16) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(16, (com.example.message.GroupJoinedQueryRes) messageBody_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -616,6 +1254,46 @@ private static final long serialVersionUID = 0L;
         if (!getMsgRX()
             .equals(other.getMsgRX())) return false;
         break;
+      case 7:
+        if (!getGroupCreateReq()
+            .equals(other.getGroupCreateReq())) return false;
+        break;
+      case 8:
+        if (!getGroupJoinReq()
+            .equals(other.getGroupJoinReq())) return false;
+        break;
+      case 9:
+        if (!getGroupQuitReq()
+            .equals(other.getGroupQuitReq())) return false;
+        break;
+      case 10:
+        if (!getGroupMemberQueryReq()
+            .equals(other.getGroupMemberQueryReq())) return false;
+        break;
+      case 11:
+        if (!getGroupMemberQueryRes()
+            .equals(other.getGroupMemberQueryRes())) return false;
+        break;
+      case 12:
+        if (!getGroupMessageReq()
+            .equals(other.getGroupMessageReq())) return false;
+        break;
+      case 13:
+        if (!getGroupMessageRX()
+            .equals(other.getGroupMessageRX())) return false;
+        break;
+      case 14:
+        if (!getGroupRes()
+            .equals(other.getGroupRes())) return false;
+        break;
+      case 15:
+        if (!getGroupQueryReq()
+            .equals(other.getGroupQueryReq())) return false;
+        break;
+      case 16:
+        if (!getGroupQueryRes()
+            .equals(other.getGroupQueryRes())) return false;
+        break;
       case 0:
       default:
     }
@@ -652,6 +1330,46 @@ private static final long serialVersionUID = 0L;
       case 6:
         hash = (37 * hash) + MSGRX_FIELD_NUMBER;
         hash = (53 * hash) + getMsgRX().hashCode();
+        break;
+      case 7:
+        hash = (37 * hash) + GROUPCREATEREQ_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupCreateReq().hashCode();
+        break;
+      case 8:
+        hash = (37 * hash) + GROUPJOINREQ_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupJoinReq().hashCode();
+        break;
+      case 9:
+        hash = (37 * hash) + GROUPQUITREQ_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupQuitReq().hashCode();
+        break;
+      case 10:
+        hash = (37 * hash) + GROUPMEMBERQUERYREQ_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupMemberQueryReq().hashCode();
+        break;
+      case 11:
+        hash = (37 * hash) + GROUPMEMBERQUERYRES_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupMemberQueryRes().hashCode();
+        break;
+      case 12:
+        hash = (37 * hash) + GROUPMESSAGEREQ_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupMessageReq().hashCode();
+        break;
+      case 13:
+        hash = (37 * hash) + GROUPMESSAGERX_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupMessageRX().hashCode();
+        break;
+      case 14:
+        hash = (37 * hash) + GROUPRES_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupRes().hashCode();
+        break;
+      case 15:
+        hash = (37 * hash) + GROUPQUERYREQ_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupQueryReq().hashCode();
+        break;
+      case 16:
+        hash = (37 * hash) + GROUPQUERYRES_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupQueryRes().hashCode();
         break;
       case 0:
       default:
@@ -855,6 +1573,76 @@ private static final long serialVersionUID = 0L;
           result.messageBody_ = msgRXBuilder_.build();
         }
       }
+      if (messageBodyCase_ == 7) {
+        if (groupCreateReqBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupCreateReqBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 8) {
+        if (groupJoinReqBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupJoinReqBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 9) {
+        if (groupQuitReqBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupQuitReqBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 10) {
+        if (groupMemberQueryReqBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupMemberQueryReqBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 11) {
+        if (groupMemberQueryResBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupMemberQueryResBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 12) {
+        if (groupMessageReqBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupMessageReqBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 13) {
+        if (groupMessageRXBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupMessageRXBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 14) {
+        if (groupResBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupResBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 15) {
+        if (groupQueryReqBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupQueryReqBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 16) {
+        if (groupQueryResBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupQueryResBuilder_.build();
+        }
+      }
       result.messageBodyCase_ = messageBodyCase_;
       onBuilt();
       return result;
@@ -926,6 +1714,46 @@ private static final long serialVersionUID = 0L;
         }
         case MSGRX: {
           mergeMsgRX(other.getMsgRX());
+          break;
+        }
+        case GROUPCREATEREQ: {
+          mergeGroupCreateReq(other.getGroupCreateReq());
+          break;
+        }
+        case GROUPJOINREQ: {
+          mergeGroupJoinReq(other.getGroupJoinReq());
+          break;
+        }
+        case GROUPQUITREQ: {
+          mergeGroupQuitReq(other.getGroupQuitReq());
+          break;
+        }
+        case GROUPMEMBERQUERYREQ: {
+          mergeGroupMemberQueryReq(other.getGroupMemberQueryReq());
+          break;
+        }
+        case GROUPMEMBERQUERYRES: {
+          mergeGroupMemberQueryRes(other.getGroupMemberQueryRes());
+          break;
+        }
+        case GROUPMESSAGEREQ: {
+          mergeGroupMessageReq(other.getGroupMessageReq());
+          break;
+        }
+        case GROUPMESSAGERX: {
+          mergeGroupMessageRX(other.getGroupMessageRX());
+          break;
+        }
+        case GROUPRES: {
+          mergeGroupRes(other.getGroupRes());
+          break;
+        }
+        case GROUPQUERYREQ: {
+          mergeGroupQueryReq(other.getGroupQueryReq());
+          break;
+        }
+        case GROUPQUERYRES: {
+          mergeGroupQueryRes(other.getGroupQueryRes());
           break;
         }
         case MESSAGEBODY_NOT_SET: {
@@ -1733,6 +2561,1416 @@ private static final long serialVersionUID = 0L;
       messageBodyCase_ = 6;
       onChanged();;
       return msgRXBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupCreateReq, com.example.message.GroupCreateReq.Builder, com.example.message.GroupCreateReqOrBuilder> groupCreateReqBuilder_;
+    /**
+     * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+     * @return Whether the groupCreateReq field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupCreateReq() {
+      return messageBodyCase_ == 7;
+    }
+    /**
+     * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+     * @return The groupCreateReq.
+     */
+    @java.lang.Override
+    public com.example.message.GroupCreateReq getGroupCreateReq() {
+      if (groupCreateReqBuilder_ == null) {
+        if (messageBodyCase_ == 7) {
+          return (com.example.message.GroupCreateReq) messageBody_;
+        }
+        return com.example.message.GroupCreateReq.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 7) {
+          return groupCreateReqBuilder_.getMessage();
+        }
+        return com.example.message.GroupCreateReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+     */
+    public Builder setGroupCreateReq(com.example.message.GroupCreateReq value) {
+      if (groupCreateReqBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupCreateReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 7;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+     */
+    public Builder setGroupCreateReq(
+        com.example.message.GroupCreateReq.Builder builderForValue) {
+      if (groupCreateReqBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupCreateReqBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 7;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+     */
+    public Builder mergeGroupCreateReq(com.example.message.GroupCreateReq value) {
+      if (groupCreateReqBuilder_ == null) {
+        if (messageBodyCase_ == 7 &&
+            messageBody_ != com.example.message.GroupCreateReq.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupCreateReq.newBuilder((com.example.message.GroupCreateReq) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 7) {
+          groupCreateReqBuilder_.mergeFrom(value);
+        }
+        groupCreateReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 7;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+     */
+    public Builder clearGroupCreateReq() {
+      if (groupCreateReqBuilder_ == null) {
+        if (messageBodyCase_ == 7) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 7) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupCreateReqBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+     */
+    public com.example.message.GroupCreateReq.Builder getGroupCreateReqBuilder() {
+      return getGroupCreateReqFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupCreateReqOrBuilder getGroupCreateReqOrBuilder() {
+      if ((messageBodyCase_ == 7) && (groupCreateReqBuilder_ != null)) {
+        return groupCreateReqBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 7) {
+          return (com.example.message.GroupCreateReq) messageBody_;
+        }
+        return com.example.message.GroupCreateReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupCreateReq groupCreateReq = 7;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupCreateReq, com.example.message.GroupCreateReq.Builder, com.example.message.GroupCreateReqOrBuilder> 
+        getGroupCreateReqFieldBuilder() {
+      if (groupCreateReqBuilder_ == null) {
+        if (!(messageBodyCase_ == 7)) {
+          messageBody_ = com.example.message.GroupCreateReq.getDefaultInstance();
+        }
+        groupCreateReqBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupCreateReq, com.example.message.GroupCreateReq.Builder, com.example.message.GroupCreateReqOrBuilder>(
+                (com.example.message.GroupCreateReq) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 7;
+      onChanged();;
+      return groupCreateReqBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupJoinReq, com.example.message.GroupJoinReq.Builder, com.example.message.GroupJoinReqOrBuilder> groupJoinReqBuilder_;
+    /**
+     * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+     * @return Whether the groupJoinReq field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupJoinReq() {
+      return messageBodyCase_ == 8;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+     * @return The groupJoinReq.
+     */
+    @java.lang.Override
+    public com.example.message.GroupJoinReq getGroupJoinReq() {
+      if (groupJoinReqBuilder_ == null) {
+        if (messageBodyCase_ == 8) {
+          return (com.example.message.GroupJoinReq) messageBody_;
+        }
+        return com.example.message.GroupJoinReq.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 8) {
+          return groupJoinReqBuilder_.getMessage();
+        }
+        return com.example.message.GroupJoinReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+     */
+    public Builder setGroupJoinReq(com.example.message.GroupJoinReq value) {
+      if (groupJoinReqBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupJoinReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 8;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+     */
+    public Builder setGroupJoinReq(
+        com.example.message.GroupJoinReq.Builder builderForValue) {
+      if (groupJoinReqBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupJoinReqBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 8;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+     */
+    public Builder mergeGroupJoinReq(com.example.message.GroupJoinReq value) {
+      if (groupJoinReqBuilder_ == null) {
+        if (messageBodyCase_ == 8 &&
+            messageBody_ != com.example.message.GroupJoinReq.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupJoinReq.newBuilder((com.example.message.GroupJoinReq) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 8) {
+          groupJoinReqBuilder_.mergeFrom(value);
+        }
+        groupJoinReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 8;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+     */
+    public Builder clearGroupJoinReq() {
+      if (groupJoinReqBuilder_ == null) {
+        if (messageBodyCase_ == 8) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 8) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupJoinReqBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+     */
+    public com.example.message.GroupJoinReq.Builder getGroupJoinReqBuilder() {
+      return getGroupJoinReqFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupJoinReqOrBuilder getGroupJoinReqOrBuilder() {
+      if ((messageBodyCase_ == 8) && (groupJoinReqBuilder_ != null)) {
+        return groupJoinReqBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 8) {
+          return (com.example.message.GroupJoinReq) messageBody_;
+        }
+        return com.example.message.GroupJoinReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupJoinReq, com.example.message.GroupJoinReq.Builder, com.example.message.GroupJoinReqOrBuilder> 
+        getGroupJoinReqFieldBuilder() {
+      if (groupJoinReqBuilder_ == null) {
+        if (!(messageBodyCase_ == 8)) {
+          messageBody_ = com.example.message.GroupJoinReq.getDefaultInstance();
+        }
+        groupJoinReqBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupJoinReq, com.example.message.GroupJoinReq.Builder, com.example.message.GroupJoinReqOrBuilder>(
+                (com.example.message.GroupJoinReq) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 8;
+      onChanged();;
+      return groupJoinReqBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupQuitReq, com.example.message.GroupQuitReq.Builder, com.example.message.GroupQuitReqOrBuilder> groupQuitReqBuilder_;
+    /**
+     * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+     * @return Whether the groupQuitReq field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupQuitReq() {
+      return messageBodyCase_ == 9;
+    }
+    /**
+     * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+     * @return The groupQuitReq.
+     */
+    @java.lang.Override
+    public com.example.message.GroupQuitReq getGroupQuitReq() {
+      if (groupQuitReqBuilder_ == null) {
+        if (messageBodyCase_ == 9) {
+          return (com.example.message.GroupQuitReq) messageBody_;
+        }
+        return com.example.message.GroupQuitReq.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 9) {
+          return groupQuitReqBuilder_.getMessage();
+        }
+        return com.example.message.GroupQuitReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+     */
+    public Builder setGroupQuitReq(com.example.message.GroupQuitReq value) {
+      if (groupQuitReqBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupQuitReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 9;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+     */
+    public Builder setGroupQuitReq(
+        com.example.message.GroupQuitReq.Builder builderForValue) {
+      if (groupQuitReqBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupQuitReqBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 9;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+     */
+    public Builder mergeGroupQuitReq(com.example.message.GroupQuitReq value) {
+      if (groupQuitReqBuilder_ == null) {
+        if (messageBodyCase_ == 9 &&
+            messageBody_ != com.example.message.GroupQuitReq.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupQuitReq.newBuilder((com.example.message.GroupQuitReq) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 9) {
+          groupQuitReqBuilder_.mergeFrom(value);
+        }
+        groupQuitReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 9;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+     */
+    public Builder clearGroupQuitReq() {
+      if (groupQuitReqBuilder_ == null) {
+        if (messageBodyCase_ == 9) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 9) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupQuitReqBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+     */
+    public com.example.message.GroupQuitReq.Builder getGroupQuitReqBuilder() {
+      return getGroupQuitReqFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupQuitReqOrBuilder getGroupQuitReqOrBuilder() {
+      if ((messageBodyCase_ == 9) && (groupQuitReqBuilder_ != null)) {
+        return groupQuitReqBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 9) {
+          return (com.example.message.GroupQuitReq) messageBody_;
+        }
+        return com.example.message.GroupQuitReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupQuitReq groupQuitReq = 9;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupQuitReq, com.example.message.GroupQuitReq.Builder, com.example.message.GroupQuitReqOrBuilder> 
+        getGroupQuitReqFieldBuilder() {
+      if (groupQuitReqBuilder_ == null) {
+        if (!(messageBodyCase_ == 9)) {
+          messageBody_ = com.example.message.GroupQuitReq.getDefaultInstance();
+        }
+        groupQuitReqBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupQuitReq, com.example.message.GroupQuitReq.Builder, com.example.message.GroupQuitReqOrBuilder>(
+                (com.example.message.GroupQuitReq) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 9;
+      onChanged();;
+      return groupQuitReqBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupMemberQueryReq, com.example.message.GroupMemberQueryReq.Builder, com.example.message.GroupMemberQueryReqOrBuilder> groupMemberQueryReqBuilder_;
+    /**
+     * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+     * @return Whether the groupMemberQueryReq field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupMemberQueryReq() {
+      return messageBodyCase_ == 10;
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+     * @return The groupMemberQueryReq.
+     */
+    @java.lang.Override
+    public com.example.message.GroupMemberQueryReq getGroupMemberQueryReq() {
+      if (groupMemberQueryReqBuilder_ == null) {
+        if (messageBodyCase_ == 10) {
+          return (com.example.message.GroupMemberQueryReq) messageBody_;
+        }
+        return com.example.message.GroupMemberQueryReq.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 10) {
+          return groupMemberQueryReqBuilder_.getMessage();
+        }
+        return com.example.message.GroupMemberQueryReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+     */
+    public Builder setGroupMemberQueryReq(com.example.message.GroupMemberQueryReq value) {
+      if (groupMemberQueryReqBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupMemberQueryReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 10;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+     */
+    public Builder setGroupMemberQueryReq(
+        com.example.message.GroupMemberQueryReq.Builder builderForValue) {
+      if (groupMemberQueryReqBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupMemberQueryReqBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 10;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+     */
+    public Builder mergeGroupMemberQueryReq(com.example.message.GroupMemberQueryReq value) {
+      if (groupMemberQueryReqBuilder_ == null) {
+        if (messageBodyCase_ == 10 &&
+            messageBody_ != com.example.message.GroupMemberQueryReq.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupMemberQueryReq.newBuilder((com.example.message.GroupMemberQueryReq) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 10) {
+          groupMemberQueryReqBuilder_.mergeFrom(value);
+        }
+        groupMemberQueryReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 10;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+     */
+    public Builder clearGroupMemberQueryReq() {
+      if (groupMemberQueryReqBuilder_ == null) {
+        if (messageBodyCase_ == 10) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 10) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupMemberQueryReqBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+     */
+    public com.example.message.GroupMemberQueryReq.Builder getGroupMemberQueryReqBuilder() {
+      return getGroupMemberQueryReqFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupMemberQueryReqOrBuilder getGroupMemberQueryReqOrBuilder() {
+      if ((messageBodyCase_ == 10) && (groupMemberQueryReqBuilder_ != null)) {
+        return groupMemberQueryReqBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 10) {
+          return (com.example.message.GroupMemberQueryReq) messageBody_;
+        }
+        return com.example.message.GroupMemberQueryReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryReq groupMemberQueryReq = 10;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupMemberQueryReq, com.example.message.GroupMemberQueryReq.Builder, com.example.message.GroupMemberQueryReqOrBuilder> 
+        getGroupMemberQueryReqFieldBuilder() {
+      if (groupMemberQueryReqBuilder_ == null) {
+        if (!(messageBodyCase_ == 10)) {
+          messageBody_ = com.example.message.GroupMemberQueryReq.getDefaultInstance();
+        }
+        groupMemberQueryReqBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupMemberQueryReq, com.example.message.GroupMemberQueryReq.Builder, com.example.message.GroupMemberQueryReqOrBuilder>(
+                (com.example.message.GroupMemberQueryReq) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 10;
+      onChanged();;
+      return groupMemberQueryReqBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupMemberQueryRes, com.example.message.GroupMemberQueryRes.Builder, com.example.message.GroupMemberQueryResOrBuilder> groupMemberQueryResBuilder_;
+    /**
+     * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+     * @return Whether the groupMemberQueryRes field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupMemberQueryRes() {
+      return messageBodyCase_ == 11;
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+     * @return The groupMemberQueryRes.
+     */
+    @java.lang.Override
+    public com.example.message.GroupMemberQueryRes getGroupMemberQueryRes() {
+      if (groupMemberQueryResBuilder_ == null) {
+        if (messageBodyCase_ == 11) {
+          return (com.example.message.GroupMemberQueryRes) messageBody_;
+        }
+        return com.example.message.GroupMemberQueryRes.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 11) {
+          return groupMemberQueryResBuilder_.getMessage();
+        }
+        return com.example.message.GroupMemberQueryRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+     */
+    public Builder setGroupMemberQueryRes(com.example.message.GroupMemberQueryRes value) {
+      if (groupMemberQueryResBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupMemberQueryResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 11;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+     */
+    public Builder setGroupMemberQueryRes(
+        com.example.message.GroupMemberQueryRes.Builder builderForValue) {
+      if (groupMemberQueryResBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupMemberQueryResBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 11;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+     */
+    public Builder mergeGroupMemberQueryRes(com.example.message.GroupMemberQueryRes value) {
+      if (groupMemberQueryResBuilder_ == null) {
+        if (messageBodyCase_ == 11 &&
+            messageBody_ != com.example.message.GroupMemberQueryRes.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupMemberQueryRes.newBuilder((com.example.message.GroupMemberQueryRes) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 11) {
+          groupMemberQueryResBuilder_.mergeFrom(value);
+        }
+        groupMemberQueryResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 11;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+     */
+    public Builder clearGroupMemberQueryRes() {
+      if (groupMemberQueryResBuilder_ == null) {
+        if (messageBodyCase_ == 11) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 11) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupMemberQueryResBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+     */
+    public com.example.message.GroupMemberQueryRes.Builder getGroupMemberQueryResBuilder() {
+      return getGroupMemberQueryResFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupMemberQueryResOrBuilder getGroupMemberQueryResOrBuilder() {
+      if ((messageBodyCase_ == 11) && (groupMemberQueryResBuilder_ != null)) {
+        return groupMemberQueryResBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 11) {
+          return (com.example.message.GroupMemberQueryRes) messageBody_;
+        }
+        return com.example.message.GroupMemberQueryRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupMemberQueryRes groupMemberQueryRes = 11;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupMemberQueryRes, com.example.message.GroupMemberQueryRes.Builder, com.example.message.GroupMemberQueryResOrBuilder> 
+        getGroupMemberQueryResFieldBuilder() {
+      if (groupMemberQueryResBuilder_ == null) {
+        if (!(messageBodyCase_ == 11)) {
+          messageBody_ = com.example.message.GroupMemberQueryRes.getDefaultInstance();
+        }
+        groupMemberQueryResBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupMemberQueryRes, com.example.message.GroupMemberQueryRes.Builder, com.example.message.GroupMemberQueryResOrBuilder>(
+                (com.example.message.GroupMemberQueryRes) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 11;
+      onChanged();;
+      return groupMemberQueryResBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupMessageReq, com.example.message.GroupMessageReq.Builder, com.example.message.GroupMessageReqOrBuilder> groupMessageReqBuilder_;
+    /**
+     * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+     * @return Whether the groupMessageReq field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupMessageReq() {
+      return messageBodyCase_ == 12;
+    }
+    /**
+     * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+     * @return The groupMessageReq.
+     */
+    @java.lang.Override
+    public com.example.message.GroupMessageReq getGroupMessageReq() {
+      if (groupMessageReqBuilder_ == null) {
+        if (messageBodyCase_ == 12) {
+          return (com.example.message.GroupMessageReq) messageBody_;
+        }
+        return com.example.message.GroupMessageReq.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 12) {
+          return groupMessageReqBuilder_.getMessage();
+        }
+        return com.example.message.GroupMessageReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+     */
+    public Builder setGroupMessageReq(com.example.message.GroupMessageReq value) {
+      if (groupMessageReqBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupMessageReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 12;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+     */
+    public Builder setGroupMessageReq(
+        com.example.message.GroupMessageReq.Builder builderForValue) {
+      if (groupMessageReqBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupMessageReqBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 12;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+     */
+    public Builder mergeGroupMessageReq(com.example.message.GroupMessageReq value) {
+      if (groupMessageReqBuilder_ == null) {
+        if (messageBodyCase_ == 12 &&
+            messageBody_ != com.example.message.GroupMessageReq.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupMessageReq.newBuilder((com.example.message.GroupMessageReq) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 12) {
+          groupMessageReqBuilder_.mergeFrom(value);
+        }
+        groupMessageReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 12;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+     */
+    public Builder clearGroupMessageReq() {
+      if (groupMessageReqBuilder_ == null) {
+        if (messageBodyCase_ == 12) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 12) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupMessageReqBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+     */
+    public com.example.message.GroupMessageReq.Builder getGroupMessageReqBuilder() {
+      return getGroupMessageReqFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupMessageReqOrBuilder getGroupMessageReqOrBuilder() {
+      if ((messageBodyCase_ == 12) && (groupMessageReqBuilder_ != null)) {
+        return groupMessageReqBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 12) {
+          return (com.example.message.GroupMessageReq) messageBody_;
+        }
+        return com.example.message.GroupMessageReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupMessageReq groupMessageReq = 12;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupMessageReq, com.example.message.GroupMessageReq.Builder, com.example.message.GroupMessageReqOrBuilder> 
+        getGroupMessageReqFieldBuilder() {
+      if (groupMessageReqBuilder_ == null) {
+        if (!(messageBodyCase_ == 12)) {
+          messageBody_ = com.example.message.GroupMessageReq.getDefaultInstance();
+        }
+        groupMessageReqBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupMessageReq, com.example.message.GroupMessageReq.Builder, com.example.message.GroupMessageReqOrBuilder>(
+                (com.example.message.GroupMessageReq) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 12;
+      onChanged();;
+      return groupMessageReqBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupMessageRX, com.example.message.GroupMessageRX.Builder, com.example.message.GroupMessageRXOrBuilder> groupMessageRXBuilder_;
+    /**
+     * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+     * @return Whether the groupMessageRX field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupMessageRX() {
+      return messageBodyCase_ == 13;
+    }
+    /**
+     * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+     * @return The groupMessageRX.
+     */
+    @java.lang.Override
+    public com.example.message.GroupMessageRX getGroupMessageRX() {
+      if (groupMessageRXBuilder_ == null) {
+        if (messageBodyCase_ == 13) {
+          return (com.example.message.GroupMessageRX) messageBody_;
+        }
+        return com.example.message.GroupMessageRX.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 13) {
+          return groupMessageRXBuilder_.getMessage();
+        }
+        return com.example.message.GroupMessageRX.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+     */
+    public Builder setGroupMessageRX(com.example.message.GroupMessageRX value) {
+      if (groupMessageRXBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupMessageRXBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 13;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+     */
+    public Builder setGroupMessageRX(
+        com.example.message.GroupMessageRX.Builder builderForValue) {
+      if (groupMessageRXBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupMessageRXBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 13;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+     */
+    public Builder mergeGroupMessageRX(com.example.message.GroupMessageRX value) {
+      if (groupMessageRXBuilder_ == null) {
+        if (messageBodyCase_ == 13 &&
+            messageBody_ != com.example.message.GroupMessageRX.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupMessageRX.newBuilder((com.example.message.GroupMessageRX) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 13) {
+          groupMessageRXBuilder_.mergeFrom(value);
+        }
+        groupMessageRXBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 13;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+     */
+    public Builder clearGroupMessageRX() {
+      if (groupMessageRXBuilder_ == null) {
+        if (messageBodyCase_ == 13) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 13) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupMessageRXBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+     */
+    public com.example.message.GroupMessageRX.Builder getGroupMessageRXBuilder() {
+      return getGroupMessageRXFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupMessageRXOrBuilder getGroupMessageRXOrBuilder() {
+      if ((messageBodyCase_ == 13) && (groupMessageRXBuilder_ != null)) {
+        return groupMessageRXBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 13) {
+          return (com.example.message.GroupMessageRX) messageBody_;
+        }
+        return com.example.message.GroupMessageRX.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupMessageRX groupMessageRX = 13;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupMessageRX, com.example.message.GroupMessageRX.Builder, com.example.message.GroupMessageRXOrBuilder> 
+        getGroupMessageRXFieldBuilder() {
+      if (groupMessageRXBuilder_ == null) {
+        if (!(messageBodyCase_ == 13)) {
+          messageBody_ = com.example.message.GroupMessageRX.getDefaultInstance();
+        }
+        groupMessageRXBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupMessageRX, com.example.message.GroupMessageRX.Builder, com.example.message.GroupMessageRXOrBuilder>(
+                (com.example.message.GroupMessageRX) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 13;
+      onChanged();;
+      return groupMessageRXBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupRes, com.example.message.GroupRes.Builder, com.example.message.GroupResOrBuilder> groupResBuilder_;
+    /**
+     * <code>.chat.simple.GroupRes groupRes = 14;</code>
+     * @return Whether the groupRes field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupRes() {
+      return messageBodyCase_ == 14;
+    }
+    /**
+     * <code>.chat.simple.GroupRes groupRes = 14;</code>
+     * @return The groupRes.
+     */
+    @java.lang.Override
+    public com.example.message.GroupRes getGroupRes() {
+      if (groupResBuilder_ == null) {
+        if (messageBodyCase_ == 14) {
+          return (com.example.message.GroupRes) messageBody_;
+        }
+        return com.example.message.GroupRes.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 14) {
+          return groupResBuilder_.getMessage();
+        }
+        return com.example.message.GroupRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupRes groupRes = 14;</code>
+     */
+    public Builder setGroupRes(com.example.message.GroupRes value) {
+      if (groupResBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 14;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupRes groupRes = 14;</code>
+     */
+    public Builder setGroupRes(
+        com.example.message.GroupRes.Builder builderForValue) {
+      if (groupResBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupResBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 14;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupRes groupRes = 14;</code>
+     */
+    public Builder mergeGroupRes(com.example.message.GroupRes value) {
+      if (groupResBuilder_ == null) {
+        if (messageBodyCase_ == 14 &&
+            messageBody_ != com.example.message.GroupRes.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupRes.newBuilder((com.example.message.GroupRes) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 14) {
+          groupResBuilder_.mergeFrom(value);
+        }
+        groupResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 14;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupRes groupRes = 14;</code>
+     */
+    public Builder clearGroupRes() {
+      if (groupResBuilder_ == null) {
+        if (messageBodyCase_ == 14) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 14) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupResBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupRes groupRes = 14;</code>
+     */
+    public com.example.message.GroupRes.Builder getGroupResBuilder() {
+      return getGroupResFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupRes groupRes = 14;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupResOrBuilder getGroupResOrBuilder() {
+      if ((messageBodyCase_ == 14) && (groupResBuilder_ != null)) {
+        return groupResBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 14) {
+          return (com.example.message.GroupRes) messageBody_;
+        }
+        return com.example.message.GroupRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupRes groupRes = 14;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupRes, com.example.message.GroupRes.Builder, com.example.message.GroupResOrBuilder> 
+        getGroupResFieldBuilder() {
+      if (groupResBuilder_ == null) {
+        if (!(messageBodyCase_ == 14)) {
+          messageBody_ = com.example.message.GroupRes.getDefaultInstance();
+        }
+        groupResBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupRes, com.example.message.GroupRes.Builder, com.example.message.GroupResOrBuilder>(
+                (com.example.message.GroupRes) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 14;
+      onChanged();;
+      return groupResBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupJoinedQueryReq, com.example.message.GroupJoinedQueryReq.Builder, com.example.message.GroupJoinedQueryReqOrBuilder> groupQueryReqBuilder_;
+    /**
+     * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+     * @return Whether the groupQueryReq field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupQueryReq() {
+      return messageBodyCase_ == 15;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+     * @return The groupQueryReq.
+     */
+    @java.lang.Override
+    public com.example.message.GroupJoinedQueryReq getGroupQueryReq() {
+      if (groupQueryReqBuilder_ == null) {
+        if (messageBodyCase_ == 15) {
+          return (com.example.message.GroupJoinedQueryReq) messageBody_;
+        }
+        return com.example.message.GroupJoinedQueryReq.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 15) {
+          return groupQueryReqBuilder_.getMessage();
+        }
+        return com.example.message.GroupJoinedQueryReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+     */
+    public Builder setGroupQueryReq(com.example.message.GroupJoinedQueryReq value) {
+      if (groupQueryReqBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupQueryReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 15;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+     */
+    public Builder setGroupQueryReq(
+        com.example.message.GroupJoinedQueryReq.Builder builderForValue) {
+      if (groupQueryReqBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupQueryReqBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 15;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+     */
+    public Builder mergeGroupQueryReq(com.example.message.GroupJoinedQueryReq value) {
+      if (groupQueryReqBuilder_ == null) {
+        if (messageBodyCase_ == 15 &&
+            messageBody_ != com.example.message.GroupJoinedQueryReq.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupJoinedQueryReq.newBuilder((com.example.message.GroupJoinedQueryReq) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 15) {
+          groupQueryReqBuilder_.mergeFrom(value);
+        }
+        groupQueryReqBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 15;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+     */
+    public Builder clearGroupQueryReq() {
+      if (groupQueryReqBuilder_ == null) {
+        if (messageBodyCase_ == 15) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 15) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupQueryReqBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+     */
+    public com.example.message.GroupJoinedQueryReq.Builder getGroupQueryReqBuilder() {
+      return getGroupQueryReqFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupJoinedQueryReqOrBuilder getGroupQueryReqOrBuilder() {
+      if ((messageBodyCase_ == 15) && (groupQueryReqBuilder_ != null)) {
+        return groupQueryReqBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 15) {
+          return (com.example.message.GroupJoinedQueryReq) messageBody_;
+        }
+        return com.example.message.GroupJoinedQueryReq.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryReq groupQueryReq = 15;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupJoinedQueryReq, com.example.message.GroupJoinedQueryReq.Builder, com.example.message.GroupJoinedQueryReqOrBuilder> 
+        getGroupQueryReqFieldBuilder() {
+      if (groupQueryReqBuilder_ == null) {
+        if (!(messageBodyCase_ == 15)) {
+          messageBody_ = com.example.message.GroupJoinedQueryReq.getDefaultInstance();
+        }
+        groupQueryReqBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupJoinedQueryReq, com.example.message.GroupJoinedQueryReq.Builder, com.example.message.GroupJoinedQueryReqOrBuilder>(
+                (com.example.message.GroupJoinedQueryReq) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 15;
+      onChanged();;
+      return groupQueryReqBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupJoinedQueryRes, com.example.message.GroupJoinedQueryRes.Builder, com.example.message.GroupJoinedQueryResOrBuilder> groupQueryResBuilder_;
+    /**
+     * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+     * @return Whether the groupQueryRes field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupQueryRes() {
+      return messageBodyCase_ == 16;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+     * @return The groupQueryRes.
+     */
+    @java.lang.Override
+    public com.example.message.GroupJoinedQueryRes getGroupQueryRes() {
+      if (groupQueryResBuilder_ == null) {
+        if (messageBodyCase_ == 16) {
+          return (com.example.message.GroupJoinedQueryRes) messageBody_;
+        }
+        return com.example.message.GroupJoinedQueryRes.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 16) {
+          return groupQueryResBuilder_.getMessage();
+        }
+        return com.example.message.GroupJoinedQueryRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+     */
+    public Builder setGroupQueryRes(com.example.message.GroupJoinedQueryRes value) {
+      if (groupQueryResBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupQueryResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 16;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+     */
+    public Builder setGroupQueryRes(
+        com.example.message.GroupJoinedQueryRes.Builder builderForValue) {
+      if (groupQueryResBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupQueryResBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 16;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+     */
+    public Builder mergeGroupQueryRes(com.example.message.GroupJoinedQueryRes value) {
+      if (groupQueryResBuilder_ == null) {
+        if (messageBodyCase_ == 16 &&
+            messageBody_ != com.example.message.GroupJoinedQueryRes.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupJoinedQueryRes.newBuilder((com.example.message.GroupJoinedQueryRes) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 16) {
+          groupQueryResBuilder_.mergeFrom(value);
+        }
+        groupQueryResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 16;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+     */
+    public Builder clearGroupQueryRes() {
+      if (groupQueryResBuilder_ == null) {
+        if (messageBodyCase_ == 16) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 16) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupQueryResBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+     */
+    public com.example.message.GroupJoinedQueryRes.Builder getGroupQueryResBuilder() {
+      return getGroupQueryResFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupJoinedQueryResOrBuilder getGroupQueryResOrBuilder() {
+      if ((messageBodyCase_ == 16) && (groupQueryResBuilder_ != null)) {
+        return groupQueryResBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 16) {
+          return (com.example.message.GroupJoinedQueryRes) messageBody_;
+        }
+        return com.example.message.GroupJoinedQueryRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupJoinedQueryRes groupQueryRes = 16;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupJoinedQueryRes, com.example.message.GroupJoinedQueryRes.Builder, com.example.message.GroupJoinedQueryResOrBuilder> 
+        getGroupQueryResFieldBuilder() {
+      if (groupQueryResBuilder_ == null) {
+        if (!(messageBodyCase_ == 16)) {
+          messageBody_ = com.example.message.GroupJoinedQueryRes.getDefaultInstance();
+        }
+        groupQueryResBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupJoinedQueryRes, com.example.message.GroupJoinedQueryRes.Builder, com.example.message.GroupJoinedQueryResOrBuilder>(
+                (com.example.message.GroupJoinedQueryRes) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 16;
+      onChanged();;
+      return groupQueryResBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

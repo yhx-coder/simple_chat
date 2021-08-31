@@ -4,6 +4,10 @@
 package com.example.message;
 
 /**
+ * <pre>
+ * 具体消息的封装
+ * </pre>
+ *
  * Protobuf type {@code chat.simple.MsgRX}
  */
 public final class MsgRX extends
@@ -307,6 +311,10 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   * 具体消息的封装
+   * </pre>
+   *
    * Protobuf type {@code chat.simple.MsgRX}
    */
   public static final class Builder extends

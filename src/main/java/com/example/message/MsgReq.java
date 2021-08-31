@@ -4,6 +4,10 @@
 package com.example.message;
 
 /**
+ * <pre>
+ * 消息发送请求
+ * </pre>
+ *
  * Protobuf type {@code chat.simple.MsgReq}
  */
 public final class MsgReq extends
@@ -334,6 +338,10 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   * 消息发送请求
+   * </pre>
+   *
    * Protobuf type {@code chat.simple.MsgReq}
    */
   public static final class Builder extends

@@ -4,6 +4,10 @@
 package com.example.message;
 
 /**
+ * <pre>
+ * 消息发送失败，会向源客户端发送。消息发送成功则不发送。
+ * </pre>
+ *
  * Protobuf type {@code chat.simple.MsgRes}
  */
 public final class MsgRes extends
@@ -424,6 +428,10 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   * 消息发送失败，会向源客户端发送。消息发送成功则不发送。
+   * </pre>
+   *
    * Protobuf type {@code chat.simple.MsgRes}
    */
   public static final class Builder extends
