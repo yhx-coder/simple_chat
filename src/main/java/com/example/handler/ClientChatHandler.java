@@ -17,6 +17,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
 
     private CountDownLatch latch = new CountDownLatch(1);
 
+    // 在这里接收消息，即处理各种 *Res
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
 
@@ -52,6 +53,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
         }
     }
 
+    // 在这里发送消息，即构造各种 *Req。
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         new Thread(() -> {
@@ -107,6 +109,20 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                         Message message = Message.newBuilder()
                                 .setMessageType(Message.MessageType.GROUP_JOIN_REQ)
                                 .setGroupJoinReq(joinReq)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                        break;
+                    }
+                    case "gquit":{
+                        GroupQuitReq groupQuitReq = Message.newBuilder()
+                                .getGroupQuitReq().newBuilderForType()
+                                .setUserId(Integer.parseInt(s[1]))
+                                .setGroupId(Integer.parseInt(s[2]))
+                                .build();
+
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.GROUP_QUIT_REQ)
+                                .setGroupQuitReq(groupQuitReq)
                                 .build();
                         ctx.channel().writeAndFlush(message);
                         break;

@@ -188,6 +188,42 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                 ctx.channel().writeAndFlush(message);
 
             }
+            // 退出聊天组
+            case GROUP_QUIT_REQ:{
+                int userId = msg.getGroupQuitReq().getUserId();
+                int groupId = msg.getGroupQuitReq().getGroupId();
+                List<Integer> groupIds = userGroupMap.get(userId);
+
+                GroupRes groupRes;
+
+                if (groupIds != null && groupIds.contains(groupId)){
+                    groupIds.remove(Integer.valueOf(groupId));
+                    userGroupMap.put(userId,groupIds);
+
+                    List<Integer> userIds = groupUserMap.get(groupId);
+                    userIds.remove(Integer.valueOf(userId));
+                    groupUserMap.put(groupId,userIds);
+
+                    groupRes = Message.newBuilder()
+                            .getGroupRes().newBuilderForType()
+                            .setStatus(true)
+                            .setReason("用户" + userId + "退出聊天组" + groupId + "成功")
+                            .build();
+                }else{
+                    groupRes = Message.newBuilder()
+                            .getGroupRes().newBuilderForType()
+                            .setStatus(false)
+                            .setReason("用户" + userId + "未加入聊天组" + groupId)
+                            .build();
+                }
+
+                // 发送消息
+                Message message = Message.newBuilder()
+                        .setMessageType(Message.MessageType.GROUP_RES)
+                        .setGroupRes(groupRes)
+                        .build();
+                ctx.channel().writeAndFlush(message);
+            }
         }
     }
 
