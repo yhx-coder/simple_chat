@@ -2734,8 +2734,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
+     * @param value
      */
-    public Builder setGroupJoinReq(com.example.message.GroupJoinReq value) {
+    public Builder setGroupJoinReq(GroupJoinReq value) {
       if (groupJoinReqBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();

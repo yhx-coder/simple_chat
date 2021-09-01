@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 
@@ -23,12 +24,12 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
 
         Message.MessageType messageType = msg.getMessageType();
 
-        switch (messageType){
-            case MSG_RES:{
+        switch (messageType) {
+            case MSG_RES: {
                 System.out.println(msg.getMsgRes().getResponse());
                 break;
             }
-            case LOGIN_RES:{
+            case LOGIN_RES: {
                 LoginRes loginRes = msg.getLoginRes();
                 System.out.println(loginRes.getResponse());
                 if (loginRes.getStatus() == LoginRes.LoginStatus.SUCCESS) {
@@ -40,14 +41,27 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                 }
                 break;
             }
-            case MSG_RX:{
+            case MSG_RX: {
                 MsgRX msgRX = msg.getMsgRX();
                 System.out.println("用户" + msgRX.getSUserId() + "说: " + msgRX.getContent());
                 break;
             }
-            case GROUP_RES:{
+            case GROUP_RES: {
                 System.out.println(msg.getGroupRes().getReason());
                 break;
+            }
+            case GROUP_JOINED_QUERY_RES: {
+                GroupJoinedQueryRes groupQueryRes = msg.getGroupQueryRes();
+                if (!groupQueryRes.getStatus()) {
+                    System.out.println(groupQueryRes.getReason());
+                } else {
+                    List<Integer> groupIdList = groupQueryRes.getGroupIdList();
+                    System.out.print("用户加入的群组有: ");
+                    groupIdList.forEach(id -> {
+                        System.out.print(id + " ");
+                    });
+                    System.out.println();
+                }
             }
 
         }
@@ -56,6 +70,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
     // 在这里发送消息，即构造各种 *Req。
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+
         new Thread(() -> {
             login(ctx);
             try {
@@ -100,7 +115,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                         ctx.channel().writeAndFlush(message);
                         break;
                     }
-                    case "gjoin":{
+                    case "gjoin": {
                         GroupJoinReq joinReq = Message.newBuilder()
                                 .getGroupJoinReq().newBuilderForType()
                                 .setUserId(Integer.parseInt(s[1]))
@@ -113,7 +128,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                         ctx.channel().writeAndFlush(message);
                         break;
                     }
-                    case "gquit":{
+                    case "gquit": {
                         GroupQuitReq groupQuitReq = Message.newBuilder()
                                 .getGroupQuitReq().newBuilderForType()
                                 .setUserId(Integer.parseInt(s[1]))
@@ -127,6 +142,19 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                         ctx.channel().writeAndFlush(message);
                         break;
                     }
+                    case "gquery": {
+                        GroupJoinedQueryReq groupJoinedQueryReq = Message.newBuilder()
+                                .getGroupQueryReq().newBuilderForType()
+                                .setUserId(Integer.parseInt(s[1]))
+                                .build();
+
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.GROUP_JOINED_QUERY_REQ)
+                                .setGroupQueryReq(groupJoinedQueryReq)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                        break;
+                    }
                     case "quit": {
                         ctx.close();
                         System.out.println("您已退出聊天室！");
@@ -135,6 +163,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                 }
             }
         }, "waitForSelection").start();
+
     }
 
     @Override

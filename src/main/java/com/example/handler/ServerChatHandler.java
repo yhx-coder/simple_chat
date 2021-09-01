@@ -95,13 +95,20 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                 int groupId = msg.getGroupCreateReq().getGroupId();
                 List<Integer> list = groupUserMap.get(groupId);
                 if (list == null || list.isEmpty()) {
+                    List<Integer> userIds = new CopyOnWriteArrayList<>();
                     Integer userId = msg.getGroupCreateReq().getUserId();
-                    List<Integer> user = new CopyOnWriteArrayList<>();
-                    List<Integer> group = new CopyOnWriteArrayList<>();
-                    user.add(userId);
-                    group.add(groupId);
-                    groupUserMap.put(groupId, user);
-                    userGroupMap.put(userId, group);
+                    userIds.add(userId);
+                    groupUserMap.put(groupId, userIds);
+
+                    List<Integer> groupIds = userGroupMap.get(userId);
+                    if (groupIds!=null){
+                        groupIds.add(groupId);
+                    }else{
+                        groupIds = new CopyOnWriteArrayList<>();
+                        groupIds.add(groupId);
+                    }
+                    userGroupMap.put(userId,groupIds);
+
 
                     GroupRes groupCreateRes = Message.newBuilder()
                             .getGroupRes().newBuilderForType()
@@ -221,6 +228,33 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                 Message message = Message.newBuilder()
                         .setMessageType(Message.MessageType.GROUP_RES)
                         .setGroupRes(groupRes)
+                        .build();
+                ctx.channel().writeAndFlush(message);
+            }
+            // 用户加入的聊天组查询
+            case GROUP_JOINED_QUERY_REQ:{
+                GroupJoinedQueryReq groupQueryReq = msg.getGroupQueryReq();
+                int userId = groupQueryReq.getUserId();
+                List<Integer> list = userGroupMap.get(userId);
+
+                GroupJoinedQueryRes groupQueryRes;
+
+                if (list==null|| list.isEmpty()){
+                    groupQueryRes = Message.newBuilder()
+                            .getGroupQueryRes().newBuilderForType()
+                            .setStatus(false)
+                            .setReason("用户" + userId + "未加入过聊天组")
+                            .build();
+                }else{
+                    groupQueryRes = Message.newBuilder()
+                            .getGroupQueryRes().newBuilderForType()
+                            .setStatus(true)
+                            .addAllGroupId(list)
+                            .build();
+                }
+                Message message = Message.newBuilder()
+                        .setMessageType(Message.MessageType.GROUP_JOINED_QUERY_RES)
+                        .setGroupQueryRes(groupQueryRes)
                         .build();
                 ctx.channel().writeAndFlush(message);
             }
