@@ -134,15 +134,21 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
                 List<Integer> userIds = groupUserMap.get(groupId);
 
-                GroupRes groupRes = null;
+                GroupRes groupRes;
 
                 // 先看该组有没有被创建
                 if (userIds == null) {
+                    // 为什么必须在这里发送，无法利用下面的统一消息发送? 奇怪
                     groupRes = Message.newBuilder()
                             .getGroupRes().newBuilderForType()
                             .setStatus(false)
-                            .setReason("群组" + groupId + " 不存在, 请先创建!")
+                            .setReason("群组" + groupId + "不存在, 请先创建!")
                             .build();
+                    Message message = Message.newBuilder()
+                            .setMessageType(Message.MessageType.GROUP_RES)
+                            .setGroupRes(groupRes)
+                            .build();
+                    ctx.channel().writeAndFlush(message);
                 }
 
                 // 检查用户是否在该组内
