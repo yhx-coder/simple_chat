@@ -23,7 +23,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
     private static Map<Integer, List<Integer>> userGroupMap = new ConcurrentHashMap<>();
 
-    private static Map<Integer,List<Integer>> groupUserMap = new ConcurrentHashMap<>();
+    private static Map<Integer, List<Integer>> groupUserMap = new ConcurrentHashMap<>();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
@@ -43,7 +43,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                             .setResponse("用户: " + userId + " 登录成功")
                             .setUserId(userId)
                             .build();
-                }else{
+                } else {
                     loginRes = loginRes.newBuilderForType()
                             .setStatus(LoginRes.LoginStatus.SUCCESS)
                             .setResponse("用户: " + userId + " 已经登录")
@@ -64,7 +64,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                 // 获取的是通信对端的连接，消息要靠这个连接发送
                 Channel channel = map.get(dUserId);
 
-                if (channel == null){
+                if (channel == null) {
                     MsgRes msgRes = Message.newBuilder().getMsgRes()
                             .newBuilderForType()
                             .setStatus(MsgRes.Status.FAIL)
@@ -75,7 +75,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                             .setMsgRes(msgRes)
                             .build();
                     ctx.channel().writeAndFlush(message);
-                }else{
+                } else {
                     int sUserId = msg.getMsgReq().getSUserId();
                     MsgRX msgRes = Message.newBuilder().getMsgRX()
                             .newBuilderForType()
@@ -96,8 +96,8 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                 List<Integer> list = groupUserMap.get(groupId);
                 if (list == null || list.isEmpty()) {
                     Integer userId = msg.getGroupCreateReq().getUserId();
-                    List<Integer> user = new CopyOnWriteArrayList();
-                    List<Integer> group = new CopyOnWriteArrayList();
+                    List<Integer> user = new CopyOnWriteArrayList<>();
+                    List<Integer> group = new CopyOnWriteArrayList<>();
                     user.add(userId);
                     group.add(groupId);
                     groupUserMap.put(groupId, user);
@@ -126,6 +126,61 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                     ctx.channel().writeAndFlush(message);
                 }
                 break;
+            }
+            // 加入聊天组
+            case GROUP_JOIN_REQ: {
+                int userId = msg.getGroupJoinReq().getUserId();
+                int groupId = msg.getGroupJoinReq().getJoinId();
+
+                List<Integer> userIds = groupUserMap.get(groupId);
+
+                GroupRes groupRes = null;
+
+                // 先看该组有没有被创建
+                if (userIds == null) {
+                    groupRes = Message.newBuilder()
+                            .getGroupRes().newBuilderForType()
+                            .setStatus(false)
+                            .setReason("群组" + groupId + " 不存在, 请先创建!")
+                            .build();
+                }
+
+                // 检查用户是否在该组内
+                if (userIds.contains(userId)) {
+                    groupRes = Message.newBuilder()
+                            .getGroupRes().newBuilderForType()
+                            .setStatus(true)
+                            .setReason("用户" + userId + "已经在聊天组" + groupId + "中了")
+                            .build();
+                } else {
+                    userIds.add(userId);
+                    groupUserMap.put(groupId, userIds);
+
+                    List<Integer> groupIds = userGroupMap.get(userId);
+                    // 若该用户之前没有加过群组
+                    if (groupIds == null) {
+                        List<Integer> group = new CopyOnWriteArrayList<>();
+                        group.add(groupId);
+                        userGroupMap.put(userId, group);
+                    } else {
+                        groupIds.add(groupId);
+                        userGroupMap.put(userId, groupIds);
+                    }
+
+                    groupRes = Message.newBuilder()
+                            .getGroupRes().newBuilderForType()
+                            .setStatus(true)
+                            .setReason("用户" + userId + "加入聊天组" + groupId + "成功")
+                            .build();
+                }
+
+                // 构造发送的消息
+                Message message = Message.newBuilder()
+                        .setMessageType(Message.MessageType.GROUP_RES)
+                        .setGroupRes(groupRes)
+                        .build();
+                ctx.channel().writeAndFlush(message);
+
             }
         }
     }

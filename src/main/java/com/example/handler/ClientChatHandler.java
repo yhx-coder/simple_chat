@@ -98,9 +98,22 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                         ctx.channel().writeAndFlush(message);
                         break;
                     }
+                    case "gjoin":{
+                        GroupJoinReq joinReq = Message.newBuilder()
+                                .getGroupJoinReq().newBuilderForType()
+                                .setUserId(Integer.parseInt(s[1]))
+                                .setJoinId(Integer.parseInt(s[2]))
+                                .build();
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.GROUP_JOIN_REQ)
+                                .setGroupJoinReq(joinReq)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                        break;
+                    }
                     case "quit": {
-                        System.out.println("您已退出聊天室！");
                         ctx.close();
+                        System.out.println("您已退出聊天室！");
                         return;
                     }
                 }
