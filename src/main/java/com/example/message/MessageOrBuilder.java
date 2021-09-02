@@ -243,50 +243,5 @@ public interface MessageOrBuilder extends
    */
   com.example.message.GroupJoinedQueryResOrBuilder getGroupQueryResOrBuilder();
 
-  /**
-   * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
-   * @return Whether the groupCreateRes field is set.
-   */
-  boolean hasGroupCreateRes();
-  /**
-   * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
-   * @return The groupCreateRes.
-   */
-  com.example.message.GroupCreateRes getGroupCreateRes();
-  /**
-   * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
-   */
-  com.example.message.GroupCreateResOrBuilder getGroupCreateResOrBuilder();
-
-  /**
-   * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
-   * @return Whether the groupJoinRes field is set.
-   */
-  boolean hasGroupJoinRes();
-  /**
-   * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
-   * @return The groupJoinRes.
-   */
-  com.example.message.GroupJoinRes getGroupJoinRes();
-  /**
-   * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
-   */
-  com.example.message.GroupJoinResOrBuilder getGroupJoinResOrBuilder();
-
-  /**
-   * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
-   * @return Whether the groupQuitRes field is set.
-   */
-  boolean hasGroupQuitRes();
-  /**
-   * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
-   * @return The groupQuitRes.
-   */
-  com.example.message.GroupQuitRes getGroupQuitRes();
-  /**
-   * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
-   */
-  com.example.message.GroupQuitResOrBuilder getGroupQuitResOrBuilder();
-
   public com.example.message.Message.MessageBodyCase getMessageBodyCase();
 }

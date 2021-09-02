@@ -50,30 +50,15 @@ public final class MessageProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_chat_simple_GroupCreateReq_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_chat_simple_GroupCreateRes_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_chat_simple_GroupCreateRes_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_chat_simple_GroupJoinReq_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_chat_simple_GroupJoinReq_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_chat_simple_GroupJoinRes_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_chat_simple_GroupJoinRes_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_chat_simple_GroupQuitReq_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_chat_simple_GroupQuitReq_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_chat_simple_GroupQuitRes_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_chat_simple_GroupQuitRes_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_chat_simple_GroupMemberQueryReq_descriptor;
   static final 
@@ -119,7 +104,7 @@ public final class MessageProto {
   static {
     java.lang.String[] descriptorData = {
       "\n+small_chat/src/main/resources/message." +
-      "proto\022\013chat.simple\"\331\n\n\007Message\0225\n\013messag" +
+      "proto\022\013chat.simple\"\210\t\n\007Message\0225\n\013messag" +
       "eType\030\001 \001(\0162 .chat.simple.Message.Messag" +
       "eType\022)\n\010loginReq\030\002 \001(\0132\025.chat.simple.Lo" +
       "ginReqH\000\022%\n\006msgReq\030\003 \001(\0132\023.chat.simple.M" +
@@ -140,50 +125,40 @@ public final class MessageProto {
       "oupResH\000\0229\n\rgroupQueryReq\030\017 \001(\0132 .chat.s" +
       "imple.GroupJoinedQueryReqH\000\0229\n\rgroupQuer" +
       "yRes\030\020 \001(\0132 .chat.simple.GroupJoinedQuer" +
-      "yResH\000\0225\n\016groupCreateRes\030\021 \001(\0132\033.chat.si" +
-      "mple.GroupCreateResH\000\0221\n\014groupJoinRes\030\022 " +
-      "\001(\0132\031.chat.simple.GroupJoinResH\000\0221\n\014grou" +
-      "pQuitRes\030\023 \001(\0132\031.chat.simple.GroupQuitRe" +
-      "sH\000\"\361\002\n\013MessageType\022\r\n\tLOGIN_REQ\020\000\022\r\n\tLO" +
-      "GIN_RES\020\001\022\013\n\007MSG_REQ\020\002\022\013\n\007MSG_RES\020\003\022\n\n\006M" +
-      "SG_RX\020\004\022\024\n\020GROUP_CREATE_REQ\020\005\022\022\n\016GROUP_J" +
-      "OIN_REQ\020\006\022\022\n\016GROUP_QUIT_REQ\020\007\022\032\n\026GROUP_M" +
-      "EMBER_QUERY_REQ\020\010\022\032\n\026GROUP_MEMBER_QUERY_" +
-      "RES\020\t\022\021\n\rGROUP_MSG_REQ\020\n\022\020\n\014GROUP_MSG_RX" +
-      "\020\013\022\r\n\tGROUP_RES\020\014\022\032\n\026GROUP_JOINED_QUERY_" +
-      "REQ\020\r\022\032\n\026GROUP_JOINED_QUERY_RES\020\016\022\024\n\020GRO" +
-      "UP_CREATE_RES\020\017\022\022\n\016GROUP_JOIN_RES\020\020\022\022\n\016G" +
-      "ROUP_QUIT_RES\020\021B\r\n\013messageBody\",\n\010LoginR" +
-      "eq\022\016\n\006userId\030\001 \001(\005\022\020\n\010username\030\002 \001(\t\"\205\001\n" +
-      "\010LoginRes\0221\n\006status\030\001 \001(\0162!.chat.simple." +
-      "LoginRes.LoginStatus\022\020\n\010response\030\002 \001(\t\022\016" +
-      "\n\006userId\030\003 \001(\005\"$\n\013LoginStatus\022\013\n\007SUCCESS" +
-      "\020\000\022\010\n\004FAIL\020\001\"7\n\006MsgReq\022\017\n\007sUserId\030\001 \001(\005\022" +
-      "\017\n\007dUserId\030\002 \001(\005\022\013\n\003msg\030\003 \001(\t\"g\n\006MsgRes\022" +
-      "*\n\006status\030\001 \001(\0162\032.chat.simple.MsgRes.Sta" +
-      "tus\022\020\n\010response\030\002 \001(\t\"\037\n\006Status\022\013\n\007SUCCE" +
-      "SS\020\000\022\010\n\004FAIL\020\001\")\n\005MsgRX\022\017\n\007content\030\001 \001(\t" +
-      "\022\017\n\007sUserId\030\002 \001(\005\"1\n\016GroupCreateReq\022\017\n\007g" +
-      "roupId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\"A\n\016GroupCre" +
-      "ateRes\022\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 \001(\t\022\017" +
-      "\n\007groupId\030\003 \001(\005\".\n\014GroupJoinReq\022\016\n\006joinI" +
-      "d\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\"?\n\014GroupJoinRes\022" +
-      "\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 \001(\t\022\017\n\007group" +
-      "Id\030\003 \001(\005\"/\n\014GroupQuitReq\022\017\n\007groupId\030\001 \001(" +
-      "\005\022\016\n\006userId\030\002 \001(\005\"?\n\014GroupQuitRes\022\016\n\006sta" +
-      "tus\030\001 \001(\010\022\016\n\006reason\030\002 \001(\t\022\017\n\007groupId\030\003 \001" +
-      "(\005\"&\n\023GroupMemberQueryReq\022\017\n\007groupId\030\001 \001" +
-      "(\005\"E\n\023GroupMemberQueryRes\022\016\n\006status\030\001 \001(" +
-      "\010\022\016\n\006reason\030\002 \001(\t\022\016\n\006userId\030\003 \003(\005\"%\n\023Gro" +
-      "upJoinedQueryReq\022\016\n\006userId\030\001 \001(\005\"F\n\023Grou" +
-      "pJoinedQueryRes\022\016\n\006status\030\001 \001(\010\022\016\n\006reaso" +
-      "n\030\002 \001(\t\022\017\n\007groupId\030\003 \003(\005\"D\n\017GroupMessage" +
-      "Req\022\017\n\007groupId\030\001 \001(\005\022\017\n\007sUserId\030\002 \001(\005\022\017\n" +
-      "\007message\030\003 \001(\t\"C\n\016GroupMessageRX\022\017\n\007sUse" +
-      "rId\030\001 \001(\005\022\017\n\007groupId\030\002 \001(\005\022\017\n\007message\030\003 " +
-      "\001(\t\"*\n\010GroupRes\022\016\n\006status\030\001 \001(\010\022\016\n\006reaso" +
-      "n\030\002 \001(\tB%\n\023com.example.messageB\014MessageP" +
-      "rotoP\001b\006proto3"
+      "yResH\000\"\275\002\n\013MessageType\022\r\n\tLOGIN_REQ\020\000\022\r\n" +
+      "\tLOGIN_RES\020\001\022\013\n\007MSG_REQ\020\002\022\013\n\007MSG_RES\020\003\022\n" +
+      "\n\006MSG_RX\020\004\022\024\n\020GROUP_CREATE_REQ\020\005\022\022\n\016GROU" +
+      "P_JOIN_REQ\020\006\022\022\n\016GROUP_QUIT_REQ\020\007\022\032\n\026GROU" +
+      "P_MEMBER_QUERY_REQ\020\010\022\032\n\026GROUP_MEMBER_QUE" +
+      "RY_RES\020\t\022\021\n\rGROUP_MSG_REQ\020\n\022\020\n\014GROUP_MSG" +
+      "_RX\020\013\022\r\n\tGROUP_RES\020\014\022\032\n\026GROUP_JOINED_QUE" +
+      "RY_REQ\020\r\022\032\n\026GROUP_JOINED_QUERY_RES\020\016\022\010\n\004" +
+      "PING\020\017B\r\n\013messageBody\",\n\010LoginReq\022\016\n\006use" +
+      "rId\030\001 \001(\005\022\020\n\010username\030\002 \001(\t\"\205\001\n\010LoginRes" +
+      "\0221\n\006status\030\001 \001(\0162!.chat.simple.LoginRes." +
+      "LoginStatus\022\020\n\010response\030\002 \001(\t\022\016\n\006userId\030" +
+      "\003 \001(\005\"$\n\013LoginStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAI" +
+      "L\020\001\"7\n\006MsgReq\022\017\n\007sUserId\030\001 \001(\005\022\017\n\007dUserI" +
+      "d\030\002 \001(\005\022\013\n\003msg\030\003 \001(\t\"g\n\006MsgRes\022*\n\006status" +
+      "\030\001 \001(\0162\032.chat.simple.MsgRes.Status\022\020\n\010re" +
+      "sponse\030\002 \001(\t\"\037\n\006Status\022\013\n\007SUCCESS\020\000\022\010\n\004F" +
+      "AIL\020\001\")\n\005MsgRX\022\017\n\007content\030\001 \001(\t\022\017\n\007sUser" +
+      "Id\030\002 \001(\005\"1\n\016GroupCreateReq\022\017\n\007groupId\030\001 " +
+      "\001(\005\022\016\n\006userId\030\002 \001(\005\".\n\014GroupJoinReq\022\016\n\006j" +
+      "oinId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\"/\n\014GroupQuit" +
+      "Req\022\017\n\007groupId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\"&\n\023" +
+      "GroupMemberQueryReq\022\017\n\007groupId\030\001 \001(\005\"E\n\023" +
+      "GroupMemberQueryRes\022\016\n\006status\030\001 \001(\010\022\016\n\006r" +
+      "eason\030\002 \001(\t\022\016\n\006userId\030\003 \003(\005\"%\n\023GroupJoin" +
+      "edQueryReq\022\016\n\006userId\030\001 \001(\005\"F\n\023GroupJoine" +
+      "dQueryRes\022\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 \001(" +
+      "\t\022\017\n\007groupId\030\003 \003(\005\"D\n\017GroupMessageReq\022\017\n" +
+      "\007groupId\030\001 \001(\005\022\017\n\007sUserId\030\002 \001(\005\022\017\n\007messa" +
+      "ge\030\003 \001(\t\"C\n\016GroupMessageRX\022\017\n\007sUserId\030\001 " +
+      "\001(\005\022\017\n\007groupId\030\002 \001(\005\022\017\n\007message\030\003 \001(\t\"*\n" +
+      "\010GroupRes\022\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 \001(" +
+      "\tB%\n\023com.example.messageB\014MessageProtoP\001" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -194,7 +169,7 @@ public final class MessageProto {
     internal_static_chat_simple_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_Message_descriptor,
-        new java.lang.String[] { "MessageType", "LoginReq", "MsgReq", "MsgRes", "LoginRes", "MsgRX", "GroupCreateReq", "GroupJoinReq", "GroupQuitReq", "GroupMemberQueryReq", "GroupMemberQueryRes", "GroupMessageReq", "GroupMessageRX", "GroupRes", "GroupQueryReq", "GroupQueryRes", "GroupCreateRes", "GroupJoinRes", "GroupQuitRes", "MessageBody", });
+        new java.lang.String[] { "MessageType", "LoginReq", "MsgReq", "MsgRes", "LoginRes", "MsgRX", "GroupCreateReq", "GroupJoinReq", "GroupQuitReq", "GroupMemberQueryReq", "GroupMemberQueryRes", "GroupMessageReq", "GroupMessageRX", "GroupRes", "GroupQueryReq", "GroupQueryRes", "MessageBody", });
     internal_static_chat_simple_LoginReq_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_chat_simple_LoginReq_fieldAccessorTable = new
@@ -231,74 +206,56 @@ public final class MessageProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_GroupCreateReq_descriptor,
         new java.lang.String[] { "GroupId", "UserId", });
-    internal_static_chat_simple_GroupCreateRes_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_chat_simple_GroupCreateRes_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_chat_simple_GroupCreateRes_descriptor,
-        new java.lang.String[] { "Status", "Reason", "GroupId", });
     internal_static_chat_simple_GroupJoinReq_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_chat_simple_GroupJoinReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_GroupJoinReq_descriptor,
         new java.lang.String[] { "JoinId", "UserId", });
-    internal_static_chat_simple_GroupJoinRes_descriptor =
-      getDescriptor().getMessageTypes().get(9);
-    internal_static_chat_simple_GroupJoinRes_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_chat_simple_GroupJoinRes_descriptor,
-        new java.lang.String[] { "Status", "Reason", "GroupId", });
     internal_static_chat_simple_GroupQuitReq_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_chat_simple_GroupQuitReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_GroupQuitReq_descriptor,
         new java.lang.String[] { "GroupId", "UserId", });
-    internal_static_chat_simple_GroupQuitRes_descriptor =
-      getDescriptor().getMessageTypes().get(11);
-    internal_static_chat_simple_GroupQuitRes_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_chat_simple_GroupQuitRes_descriptor,
-        new java.lang.String[] { "Status", "Reason", "GroupId", });
     internal_static_chat_simple_GroupMemberQueryReq_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_chat_simple_GroupMemberQueryReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_GroupMemberQueryReq_descriptor,
         new java.lang.String[] { "GroupId", });
     internal_static_chat_simple_GroupMemberQueryRes_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_chat_simple_GroupMemberQueryRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_GroupMemberQueryRes_descriptor,
         new java.lang.String[] { "Status", "Reason", "UserId", });
     internal_static_chat_simple_GroupJoinedQueryReq_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_chat_simple_GroupJoinedQueryReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_GroupJoinedQueryReq_descriptor,
         new java.lang.String[] { "UserId", });
     internal_static_chat_simple_GroupJoinedQueryRes_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_chat_simple_GroupJoinedQueryRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_GroupJoinedQueryRes_descriptor,
         new java.lang.String[] { "Status", "Reason", "GroupId", });
     internal_static_chat_simple_GroupMessageReq_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_chat_simple_GroupMessageReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_GroupMessageReq_descriptor,
         new java.lang.String[] { "GroupId", "SUserId", "Message", });
     internal_static_chat_simple_GroupMessageRX_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_chat_simple_GroupMessageRX_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_GroupMessageRX_descriptor,
         new java.lang.String[] { "SUserId", "GroupId", "Message", });
     internal_static_chat_simple_GroupRes_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_chat_simple_GroupRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_GroupRes_descriptor,

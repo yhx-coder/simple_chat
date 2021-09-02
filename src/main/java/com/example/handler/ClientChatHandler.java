@@ -20,8 +20,6 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
 
     private CountDownLatch latch = new CountDownLatch(1);
 
-    private List<Integer> groupIds = new ArrayList<>();
-
     // 在这里接收消息，即处理各种 *Res
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
@@ -84,38 +82,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
             }
             case GROUP_MSG_RX: {
                 GroupMessageRX messageRX = msg.getGroupMessageRX();
-                int groupId = messageRX.getGroupId();
-                if (groupIds.contains(groupId)) {
-                    System.out.println("用户" + messageRX.getSUserId() + "说: " + messageRX.getMessage());
-                }
-                break;
-            }
-            case GROUP_CREATE_RES: {
-                GroupCreateRes groupCreateRes = msg.getGroupCreateRes();
-                if (groupCreateRes.getStatus()) {
-                    groupIds.add(groupCreateRes.getGroupId());
-                }
-                System.out.println(groupCreateRes.getReason());
-
-                break;
-            }
-            case GROUP_JOIN_RES: {
-                GroupJoinRes groupJoinRes = msg.getGroupJoinRes();
-                if (groupJoinRes.getStatus()) {
-                    groupIds.add(groupJoinRes.getGroupId());
-                }
-                System.out.println(groupJoinRes.getReason());
-
-                break;
-            }
-            case GROUP_QUIT_RES: {
-                GroupQuitRes groupQuitRes = msg.getGroupQuitRes();
-
-                if (groupQuitRes.getStatus()) {
-                    groupIds.add(groupQuitRes.getGroupId());
-                }
-
-                System.out.println(groupQuitRes.getReason());
+                System.out.println("用户" + messageRX.getSUserId() + "说: " + messageRX.getMessage());
                 break;
             }
         }
