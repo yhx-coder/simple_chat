@@ -19,11 +19,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
     // 防止并发问题
-    private static Map<Integer, Channel> map = new ConcurrentHashMap<>();
+    private static volatile Map<Integer, Channel> map = new ConcurrentHashMap<>();
 
-    private static Map<Integer, List<Integer>> userGroupMap = new ConcurrentHashMap<>();
+    private static volatile Map<Integer, List<Integer>> userGroupMap = new ConcurrentHashMap<>();
 
-    private static Map<Integer, List<Integer>> groupUserMap = new ConcurrentHashMap<>();
+    private static volatile Map<Integer, List<Integer>> groupUserMap = new ConcurrentHashMap<>();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
@@ -101,34 +101,35 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                     groupUserMap.put(groupId, userIds);
 
                     List<Integer> groupIds = userGroupMap.get(userId);
-                    if (groupIds!=null){
+                    if (groupIds != null) {
                         groupIds.add(groupId);
-                    }else{
+                    } else {
                         groupIds = new CopyOnWriteArrayList<>();
                         groupIds.add(groupId);
                     }
-                    userGroupMap.put(userId,groupIds);
+                    userGroupMap.put(userId, groupIds);
 
 
-                    GroupRes groupCreateRes = Message.newBuilder()
-                            .getGroupRes().newBuilderForType()
+                    GroupCreateRes groupCreateRes = Message.newBuilder()
+                            .getGroupCreateRes().newBuilderForType()
                             .setStatus(true)
                             .setReason("群组" + groupId + "建立成功")
+                            .setGroupId(groupId)
                             .build();
                     Message message = Message.newBuilder()
-                            .setMessageType(Message.MessageType.GROUP_RES)
-                            .setGroupRes(groupCreateRes)
+                            .setMessageType(Message.MessageType.GROUP_CREATE_RES)
+                            .setGroupCreateRes(groupCreateRes)
                             .build();
                     ctx.channel().writeAndFlush(message);
                 } else {
-                    GroupRes groupCreateRes = Message.newBuilder()
-                            .getGroupRes().newBuilderForType()
+                    GroupCreateRes groupCreateRes = Message.newBuilder()
+                            .getGroupCreateRes().newBuilderForType()
                             .setStatus(false)
                             .setReason("群组" + groupId + "已经存在")
                             .build();
                     Message message = Message.newBuilder()
-                            .setMessageType(Message.MessageType.GROUP_RES)
-                            .setGroupRes(groupCreateRes)
+                            .setMessageType(Message.MessageType.GROUP_CREATE_RES)
+                            .setGroupCreateRes(groupCreateRes)
                             .build();
                     ctx.channel().writeAndFlush(message);
                 }
@@ -141,29 +142,30 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
                 List<Integer> userIds = groupUserMap.get(groupId);
 
-                GroupRes groupRes;
+                GroupJoinRes groupJoinRes;
 
                 // 先看该组有没有被创建
                 if (userIds == null) {
                     // 为什么必须在这里发送，无法利用下面的统一消息发送? 奇怪
-                    groupRes = Message.newBuilder()
-                            .getGroupRes().newBuilderForType()
+                    groupJoinRes = Message.newBuilder()
+                            .getGroupJoinRes().newBuilderForType()
                             .setStatus(false)
                             .setReason("群组" + groupId + "不存在, 请先创建!")
                             .build();
                     Message message = Message.newBuilder()
-                            .setMessageType(Message.MessageType.GROUP_RES)
-                            .setGroupRes(groupRes)
+                            .setMessageType(Message.MessageType.GROUP_JOIN_RES)
+                            .setGroupJoinRes(groupJoinRes)
                             .build();
                     ctx.channel().writeAndFlush(message);
                 }
 
                 // 检查用户是否在该组内
                 if (userIds.contains(userId)) {
-                    groupRes = Message.newBuilder()
-                            .getGroupRes().newBuilderForType()
-                            .setStatus(true)
+                    groupJoinRes = Message.newBuilder()
+                            .getGroupJoinRes().newBuilderForType()
+                            .setStatus(false)
                             .setReason("用户" + userId + "已经在聊天组" + groupId + "中了")
+                            .setGroupId(groupId)
                             .build();
                 } else {
                     userIds.add(userId);
@@ -180,45 +182,47 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                         userGroupMap.put(userId, groupIds);
                     }
 
-                    groupRes = Message.newBuilder()
-                            .getGroupRes().newBuilderForType()
+                    groupJoinRes = Message.newBuilder()
+                            .getGroupJoinRes().newBuilderForType()
                             .setStatus(true)
                             .setReason("用户" + userId + "加入聊天组" + groupId + "成功")
+                            .setGroupId(groupId)
                             .build();
                 }
 
                 // 构造发送的消息
                 Message message = Message.newBuilder()
-                        .setMessageType(Message.MessageType.GROUP_RES)
-                        .setGroupRes(groupRes)
+                        .setMessageType(Message.MessageType.GROUP_JOIN_RES)
+                        .setGroupJoinRes(groupJoinRes)
                         .build();
                 ctx.channel().writeAndFlush(message);
-
+                break;
             }
             // 退出聊天组
-            case GROUP_QUIT_REQ:{
+            case GROUP_QUIT_REQ: {
                 int userId = msg.getGroupQuitReq().getUserId();
                 int groupId = msg.getGroupQuitReq().getGroupId();
                 List<Integer> groupIds = userGroupMap.get(userId);
 
-                GroupRes groupRes;
+                GroupQuitRes groupQuitRes;
 
-                if (groupIds != null && groupIds.contains(groupId)){
+                if (groupIds != null && groupIds.contains(groupId)) {
                     groupIds.remove(Integer.valueOf(groupId));
-                    userGroupMap.put(userId,groupIds);
+                    userGroupMap.put(userId, groupIds);
 
                     List<Integer> userIds = groupUserMap.get(groupId);
                     userIds.remove(Integer.valueOf(userId));
-                    groupUserMap.put(groupId,userIds);
+                    groupUserMap.put(groupId, userIds);
 
-                    groupRes = Message.newBuilder()
-                            .getGroupRes().newBuilderForType()
+                    groupQuitRes = Message.newBuilder()
+                            .getGroupQuitRes().newBuilderForType()
                             .setStatus(true)
                             .setReason("用户" + userId + "退出聊天组" + groupId + "成功")
+                            .setGroupId(groupId)
                             .build();
-                }else{
-                    groupRes = Message.newBuilder()
-                            .getGroupRes().newBuilderForType()
+                } else {
+                    groupQuitRes = Message.newBuilder()
+                            .getGroupQuitRes().newBuilderForType()
                             .setStatus(false)
                             .setReason("用户" + userId + "未加入聊天组" + groupId)
                             .build();
@@ -226,26 +230,27 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
                 // 发送消息
                 Message message = Message.newBuilder()
-                        .setMessageType(Message.MessageType.GROUP_RES)
-                        .setGroupRes(groupRes)
+                        .setMessageType(Message.MessageType.GROUP_QUIT_RES)
+                        .setGroupQuitRes(groupQuitRes)
                         .build();
                 ctx.channel().writeAndFlush(message);
+                break;
             }
             // 用户加入的聊天组查询
-            case GROUP_JOINED_QUERY_REQ:{
+            case GROUP_JOINED_QUERY_REQ: {
                 GroupJoinedQueryReq groupQueryReq = msg.getGroupQueryReq();
                 int userId = groupQueryReq.getUserId();
                 List<Integer> list = userGroupMap.get(userId);
 
                 GroupJoinedQueryRes groupQueryRes;
 
-                if (list==null|| list.isEmpty()){
+                if (list == null || list.isEmpty()) {
                     groupQueryRes = Message.newBuilder()
                             .getGroupQueryRes().newBuilderForType()
                             .setStatus(false)
                             .setReason("用户" + userId + "未加入过聊天组")
                             .build();
-                }else{
+                } else {
                     groupQueryRes = Message.newBuilder()
                             .getGroupQueryRes().newBuilderForType()
                             .setStatus(true)
@@ -257,6 +262,71 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                         .setGroupQueryRes(groupQueryRes)
                         .build();
                 ctx.channel().writeAndFlush(message);
+                break;
+            }
+            // 群组中加入的用户查询
+            case GROUP_MEMBER_QUERY_REQ: {
+                GroupMemberQueryReq groupMemberQueryReq = msg.getGroupMemberQueryReq();
+                int groupId = groupMemberQueryReq.getGroupId();
+                List<Integer> userIds = groupUserMap.get(groupId);
+
+                GroupMemberQueryRes groupMemberQueryRes;
+
+                if (userIds == null || userIds.isEmpty()) {
+                    groupMemberQueryRes = Message.newBuilder()
+                            .getGroupMemberQueryRes().newBuilderForType()
+                            .setStatus(false)
+                            .setReason("聊天组" + groupId + "未创建")
+                            .build();
+                } else {
+                    groupMemberQueryRes = Message.newBuilder()
+                            .getGroupMemberQueryRes().newBuilderForType()
+                            .setStatus(true)
+                            .addAllUserId(userIds)
+                            .build();
+                }
+                Message message = Message.newBuilder()
+                        .setMessageType(Message.MessageType.GROUP_MEMBER_QUERY_RES)
+                        .setGroupMemberQueryRes(groupMemberQueryRes)
+                        .build();
+                ctx.channel().writeAndFlush(message);
+                break;
+            }
+            //用户的群发消息处理
+            case GROUP_MSG_REQ: {
+                GroupMessageReq groupMessageReq = msg.getGroupMessageReq();
+
+                int sUserId = groupMessageReq.getSUserId();
+                int groupId = groupMessageReq.getGroupId();
+                List<Integer> groupIds = userGroupMap.get(sUserId);
+
+                if (groupIds != null && groupIds.contains(groupId)) {
+                    GroupMessageRX groupMessageRX = Message.newBuilder()
+                            .getGroupMessageRX().newBuilderForType()
+                            .setSUserId(sUserId)
+                            .setMessage(groupMessageReq.getMessage())
+                            .build();
+
+                    Message message = Message.newBuilder()
+                            .setMessageType(Message.MessageType.GROUP_MSG_RX)
+                            .setGroupMessageRX(groupMessageRX)
+                            .build();
+                    ctx.channel().writeAndFlush(message);
+                } else {
+                    GroupRes groupRes = Message.newBuilder()
+                            .getGroupRes().newBuilderForType()
+                            .setStatus(false)
+                            .setReason("用户" + sUserId + "未加入群组" + groupId)
+                            .build();
+
+                    Message message = Message.newBuilder()
+                            .setMessageType(Message.MessageType.GROUP_RES)
+                            .setGroupRes(groupRes)
+                            .build();
+                    ctx.channel().writeAndFlush(message);
+                }
+
+                break;
             }
         }
     }

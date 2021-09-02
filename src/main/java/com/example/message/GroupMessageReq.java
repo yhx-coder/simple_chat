@@ -56,7 +56,7 @@ private static final long serialVersionUID = 0L;
           }
           case 16: {
 
-            dUserId_ = input.readInt32();
+            sUserId_ = input.readInt32();
             break;
           }
           case 26: {
@@ -108,15 +108,15 @@ private static final long serialVersionUID = 0L;
     return groupId_;
   }
 
-  public static final int DUSERID_FIELD_NUMBER = 2;
-  private int dUserId_;
+  public static final int SUSERID_FIELD_NUMBER = 2;
+  private int sUserId_;
   /**
-   * <code>int32 dUserId = 2;</code>
-   * @return The dUserId.
+   * <code>int32 sUserId = 2;</code>
+   * @return The sUserId.
    */
   @java.lang.Override
-  public int getDUserId() {
-    return dUserId_;
+  public int getSUserId() {
+    return sUserId_;
   }
 
   public static final int MESSAGE_FIELD_NUMBER = 3;
@@ -174,8 +174,8 @@ private static final long serialVersionUID = 0L;
     if (groupId_ != 0) {
       output.writeInt32(1, groupId_);
     }
-    if (dUserId_ != 0) {
-      output.writeInt32(2, dUserId_);
+    if (sUserId_ != 0) {
+      output.writeInt32(2, sUserId_);
     }
     if (!getMessageBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, message_);
@@ -193,9 +193,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, groupId_);
     }
-    if (dUserId_ != 0) {
+    if (sUserId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, dUserId_);
+        .computeInt32Size(2, sUserId_);
     }
     if (!getMessageBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, message_);
@@ -217,8 +217,8 @@ private static final long serialVersionUID = 0L;
 
     if (getGroupId()
         != other.getGroupId()) return false;
-    if (getDUserId()
-        != other.getDUserId()) return false;
+    if (getSUserId()
+        != other.getSUserId()) return false;
     if (!getMessage()
         .equals(other.getMessage())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
@@ -234,8 +234,8 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + GROUPID_FIELD_NUMBER;
     hash = (53 * hash) + getGroupId();
-    hash = (37 * hash) + DUSERID_FIELD_NUMBER;
-    hash = (53 * hash) + getDUserId();
+    hash = (37 * hash) + SUSERID_FIELD_NUMBER;
+    hash = (53 * hash) + getSUserId();
     hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
     hash = (53 * hash) + getMessage().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -373,7 +373,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       groupId_ = 0;
 
-      dUserId_ = 0;
+      sUserId_ = 0;
 
       message_ = "";
 
@@ -404,7 +404,7 @@ private static final long serialVersionUID = 0L;
     public com.example.message.GroupMessageReq buildPartial() {
       com.example.message.GroupMessageReq result = new com.example.message.GroupMessageReq(this);
       result.groupId_ = groupId_;
-      result.dUserId_ = dUserId_;
+      result.sUserId_ = sUserId_;
       result.message_ = message_;
       onBuilt();
       return result;
@@ -457,8 +457,8 @@ private static final long serialVersionUID = 0L;
       if (other.getGroupId() != 0) {
         setGroupId(other.getGroupId());
       }
-      if (other.getDUserId() != 0) {
-        setDUserId(other.getDUserId());
+      if (other.getSUserId() != 0) {
+        setSUserId(other.getSUserId());
       }
       if (!other.getMessage().isEmpty()) {
         message_ = other.message_;
@@ -524,33 +524,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int dUserId_ ;
+    private int sUserId_ ;
     /**
-     * <code>int32 dUserId = 2;</code>
-     * @return The dUserId.
+     * <code>int32 sUserId = 2;</code>
+     * @return The sUserId.
      */
     @java.lang.Override
-    public int getDUserId() {
-      return dUserId_;
+    public int getSUserId() {
+      return sUserId_;
     }
     /**
-     * <code>int32 dUserId = 2;</code>
-     * @param value The dUserId to set.
+     * <code>int32 sUserId = 2;</code>
+     * @param value The sUserId to set.
      * @return This builder for chaining.
      */
-    public Builder setDUserId(int value) {
+    public Builder setSUserId(int value) {
       
-      dUserId_ = value;
+      sUserId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 dUserId = 2;</code>
+     * <code>int32 sUserId = 2;</code>
      * @return This builder for chaining.
      */
-    public Builder clearDUserId() {
+    public Builder clearSUserId() {
       
-      dUserId_ = 0;
+      sUserId_ = 0;
       onChanged();
       return this;
     }

@@ -24,6 +24,9 @@ message Message{
         GROUP_RES = 12;
         GROUP_JOINED_QUERY_REQ = 13;
         GROUP_JOINED_QUERY_RES = 14;
+        GROUP_CREATE_RES = 15;
+        GROUP_JOIN_RES = 16;
+        GROUP_QUIT_RES = 17;
     }
 
     MessageType messageType = 1;
@@ -44,6 +47,9 @@ message Message{
         GroupRes groupRes = 14;
         GroupJoinedQueryReq groupQueryReq = 15;
         GroupJoinedQueryRes groupQueryRes = 16;
+        GroupCreateRes groupCreateRes = 17;
+        GroupJoinRes groupJoinRes = 18;
+        GroupQuitRes groupQuitRes = 19;
     }
 }
 //------------------------ 单聊消息 ----------------------------
@@ -96,14 +102,32 @@ message GroupCreateReq{
     int32 userId = 2;
 }
 
+message GroupCreateRes{
+    bool status = 1;
+    string reason = 2;
+    int32 groupId = 3;
+}
+
 message GroupJoinReq{
     int32 joinId = 1;
     int32 userId = 2;
 }
 
+message GroupJoinRes{
+    bool status = 1;
+    string reason = 2;
+    int32 groupId = 3;
+}
+
 message GroupQuitReq{
     int32 groupId = 1;
     int32 userId = 2;
+}
+
+message GroupQuitRes{
+    bool status = 1;
+    string reason = 2;
+    int32 groupId = 3;
 }
 
 message GroupMemberQueryReq{
@@ -128,13 +152,14 @@ message GroupJoinedQueryRes{
 
 message GroupMessageReq{
     int32 groupId = 1;
-    int32 dUserId = 2;
+    int32 sUserId = 2;
     string message = 3;
 }
 
 message GroupMessageRX{
     int32 sUserId = 1;
-    string message = 2;
+    int32 groupId = 2;
+    string message = 3;
 }
 
 // 和群聊有关消息的大部分服务器响应

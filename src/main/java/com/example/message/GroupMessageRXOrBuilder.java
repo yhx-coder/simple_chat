@@ -14,12 +14,18 @@ public interface GroupMessageRXOrBuilder extends
   int getSUserId();
 
   /**
-   * <code>string message = 2;</code>
+   * <code>int32 groupId = 2;</code>
+   * @return The groupId.
+   */
+  int getGroupId();
+
+  /**
+   * <code>string message = 3;</code>
    * @return The message.
    */
   java.lang.String getMessage();
   /**
-   * <code>string message = 2;</code>
+   * <code>string message = 3;</code>
    * @return The bytes for message.
    */
   com.google.protobuf.ByteString

@@ -265,6 +265,48 @@ private static final long serialVersionUID = 0L;
             messageBodyCase_ = 16;
             break;
           }
+          case 138: {
+            com.example.message.GroupCreateRes.Builder subBuilder = null;
+            if (messageBodyCase_ == 17) {
+              subBuilder = ((com.example.message.GroupCreateRes) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupCreateRes.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupCreateRes) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 17;
+            break;
+          }
+          case 146: {
+            com.example.message.GroupJoinRes.Builder subBuilder = null;
+            if (messageBodyCase_ == 18) {
+              subBuilder = ((com.example.message.GroupJoinRes) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupJoinRes.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupJoinRes) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 18;
+            break;
+          }
+          case 154: {
+            com.example.message.GroupQuitRes.Builder subBuilder = null;
+            if (messageBodyCase_ == 19) {
+              subBuilder = ((com.example.message.GroupQuitRes) messageBody_).toBuilder();
+            }
+            messageBody_ =
+                input.readMessage(com.example.message.GroupQuitRes.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.message.GroupQuitRes) messageBody_);
+              messageBody_ = subBuilder.buildPartial();
+            }
+            messageBodyCase_ = 19;
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -366,6 +408,18 @@ private static final long serialVersionUID = 0L;
      * <code>GROUP_JOINED_QUERY_RES = 14;</code>
      */
     GROUP_JOINED_QUERY_RES(14),
+    /**
+     * <code>GROUP_CREATE_RES = 15;</code>
+     */
+    GROUP_CREATE_RES(15),
+    /**
+     * <code>GROUP_JOIN_RES = 16;</code>
+     */
+    GROUP_JOIN_RES(16),
+    /**
+     * <code>GROUP_QUIT_RES = 17;</code>
+     */
+    GROUP_QUIT_RES(17),
     UNRECOGNIZED(-1),
     ;
 
@@ -433,6 +487,18 @@ private static final long serialVersionUID = 0L;
      * <code>GROUP_JOINED_QUERY_RES = 14;</code>
      */
     public static final int GROUP_JOINED_QUERY_RES_VALUE = 14;
+    /**
+     * <code>GROUP_CREATE_RES = 15;</code>
+     */
+    public static final int GROUP_CREATE_RES_VALUE = 15;
+    /**
+     * <code>GROUP_JOIN_RES = 16;</code>
+     */
+    public static final int GROUP_JOIN_RES_VALUE = 16;
+    /**
+     * <code>GROUP_QUIT_RES = 17;</code>
+     */
+    public static final int GROUP_QUIT_RES_VALUE = 17;
 
 
     public final int getNumber() {
@@ -474,6 +540,9 @@ private static final long serialVersionUID = 0L;
         case 12: return GROUP_RES;
         case 13: return GROUP_JOINED_QUERY_REQ;
         case 14: return GROUP_JOINED_QUERY_RES;
+        case 15: return GROUP_CREATE_RES;
+        case 16: return GROUP_JOIN_RES;
+        case 17: return GROUP_QUIT_RES;
         default: return null;
       }
     }
@@ -550,6 +619,9 @@ private static final long serialVersionUID = 0L;
     GROUPRES(14),
     GROUPQUERYREQ(15),
     GROUPQUERYRES(16),
+    GROUPCREATERES(17),
+    GROUPJOINRES(18),
+    GROUPQUITRES(19),
     MESSAGEBODY_NOT_SET(0);
     private final int value;
     private MessageBodyCase(int value) {
@@ -582,6 +654,9 @@ private static final long serialVersionUID = 0L;
         case 14: return GROUPRES;
         case 15: return GROUPQUERYREQ;
         case 16: return GROUPQUERYRES;
+        case 17: return GROUPCREATERES;
+        case 18: return GROUPJOINRES;
+        case 19: return GROUPQUITRES;
         case 0: return MESSAGEBODY_NOT_SET;
         default: return null;
       }
@@ -1081,6 +1156,99 @@ private static final long serialVersionUID = 0L;
     return com.example.message.GroupJoinedQueryRes.getDefaultInstance();
   }
 
+  public static final int GROUPCREATERES_FIELD_NUMBER = 17;
+  /**
+   * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+   * @return Whether the groupCreateRes field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupCreateRes() {
+    return messageBodyCase_ == 17;
+  }
+  /**
+   * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+   * @return The groupCreateRes.
+   */
+  @java.lang.Override
+  public com.example.message.GroupCreateRes getGroupCreateRes() {
+    if (messageBodyCase_ == 17) {
+       return (com.example.message.GroupCreateRes) messageBody_;
+    }
+    return com.example.message.GroupCreateRes.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupCreateResOrBuilder getGroupCreateResOrBuilder() {
+    if (messageBodyCase_ == 17) {
+       return (com.example.message.GroupCreateRes) messageBody_;
+    }
+    return com.example.message.GroupCreateRes.getDefaultInstance();
+  }
+
+  public static final int GROUPJOINRES_FIELD_NUMBER = 18;
+  /**
+   * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+   * @return Whether the groupJoinRes field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupJoinRes() {
+    return messageBodyCase_ == 18;
+  }
+  /**
+   * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+   * @return The groupJoinRes.
+   */
+  @java.lang.Override
+  public com.example.message.GroupJoinRes getGroupJoinRes() {
+    if (messageBodyCase_ == 18) {
+       return (com.example.message.GroupJoinRes) messageBody_;
+    }
+    return com.example.message.GroupJoinRes.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupJoinResOrBuilder getGroupJoinResOrBuilder() {
+    if (messageBodyCase_ == 18) {
+       return (com.example.message.GroupJoinRes) messageBody_;
+    }
+    return com.example.message.GroupJoinRes.getDefaultInstance();
+  }
+
+  public static final int GROUPQUITRES_FIELD_NUMBER = 19;
+  /**
+   * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+   * @return Whether the groupQuitRes field is set.
+   */
+  @java.lang.Override
+  public boolean hasGroupQuitRes() {
+    return messageBodyCase_ == 19;
+  }
+  /**
+   * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+   * @return The groupQuitRes.
+   */
+  @java.lang.Override
+  public com.example.message.GroupQuitRes getGroupQuitRes() {
+    if (messageBodyCase_ == 19) {
+       return (com.example.message.GroupQuitRes) messageBody_;
+    }
+    return com.example.message.GroupQuitRes.getDefaultInstance();
+  }
+  /**
+   * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+   */
+  @java.lang.Override
+  public com.example.message.GroupQuitResOrBuilder getGroupQuitResOrBuilder() {
+    if (messageBodyCase_ == 19) {
+       return (com.example.message.GroupQuitRes) messageBody_;
+    }
+    return com.example.message.GroupQuitRes.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -1142,6 +1310,15 @@ private static final long serialVersionUID = 0L;
     }
     if (messageBodyCase_ == 16) {
       output.writeMessage(16, (com.example.message.GroupJoinedQueryRes) messageBody_);
+    }
+    if (messageBodyCase_ == 17) {
+      output.writeMessage(17, (com.example.message.GroupCreateRes) messageBody_);
+    }
+    if (messageBodyCase_ == 18) {
+      output.writeMessage(18, (com.example.message.GroupJoinRes) messageBody_);
+    }
+    if (messageBodyCase_ == 19) {
+      output.writeMessage(19, (com.example.message.GroupQuitRes) messageBody_);
     }
     unknownFields.writeTo(output);
   }
@@ -1215,6 +1392,18 @@ private static final long serialVersionUID = 0L;
     if (messageBodyCase_ == 16) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(16, (com.example.message.GroupJoinedQueryRes) messageBody_);
+    }
+    if (messageBodyCase_ == 17) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(17, (com.example.message.GroupCreateRes) messageBody_);
+    }
+    if (messageBodyCase_ == 18) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(18, (com.example.message.GroupJoinRes) messageBody_);
+    }
+    if (messageBodyCase_ == 19) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(19, (com.example.message.GroupQuitRes) messageBody_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1294,6 +1483,18 @@ private static final long serialVersionUID = 0L;
         if (!getGroupQueryRes()
             .equals(other.getGroupQueryRes())) return false;
         break;
+      case 17:
+        if (!getGroupCreateRes()
+            .equals(other.getGroupCreateRes())) return false;
+        break;
+      case 18:
+        if (!getGroupJoinRes()
+            .equals(other.getGroupJoinRes())) return false;
+        break;
+      case 19:
+        if (!getGroupQuitRes()
+            .equals(other.getGroupQuitRes())) return false;
+        break;
       case 0:
       default:
     }
@@ -1370,6 +1571,18 @@ private static final long serialVersionUID = 0L;
       case 16:
         hash = (37 * hash) + GROUPQUERYRES_FIELD_NUMBER;
         hash = (53 * hash) + getGroupQueryRes().hashCode();
+        break;
+      case 17:
+        hash = (37 * hash) + GROUPCREATERES_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupCreateRes().hashCode();
+        break;
+      case 18:
+        hash = (37 * hash) + GROUPJOINRES_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupJoinRes().hashCode();
+        break;
+      case 19:
+        hash = (37 * hash) + GROUPQUITRES_FIELD_NUMBER;
+        hash = (53 * hash) + getGroupQuitRes().hashCode();
         break;
       case 0:
       default:
@@ -1643,6 +1856,27 @@ private static final long serialVersionUID = 0L;
           result.messageBody_ = groupQueryResBuilder_.build();
         }
       }
+      if (messageBodyCase_ == 17) {
+        if (groupCreateResBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupCreateResBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 18) {
+        if (groupJoinResBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupJoinResBuilder_.build();
+        }
+      }
+      if (messageBodyCase_ == 19) {
+        if (groupQuitResBuilder_ == null) {
+          result.messageBody_ = messageBody_;
+        } else {
+          result.messageBody_ = groupQuitResBuilder_.build();
+        }
+      }
       result.messageBodyCase_ = messageBodyCase_;
       onBuilt();
       return result;
@@ -1754,6 +1988,18 @@ private static final long serialVersionUID = 0L;
         }
         case GROUPQUERYRES: {
           mergeGroupQueryRes(other.getGroupQueryRes());
+          break;
+        }
+        case GROUPCREATERES: {
+          mergeGroupCreateRes(other.getGroupCreateRes());
+          break;
+        }
+        case GROUPJOINRES: {
+          mergeGroupJoinRes(other.getGroupJoinRes());
+          break;
+        }
+        case GROUPQUITRES: {
+          mergeGroupQuitRes(other.getGroupQuitRes());
           break;
         }
         case MESSAGEBODY_NOT_SET: {
@@ -2734,9 +2980,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.chat.simple.GroupJoinReq groupJoinReq = 8;</code>
-     * @param value
      */
-    public Builder setGroupJoinReq(GroupJoinReq value) {
+    public Builder setGroupJoinReq(com.example.message.GroupJoinReq value) {
       if (groupJoinReqBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -3972,6 +4217,429 @@ private static final long serialVersionUID = 0L;
       messageBodyCase_ = 16;
       onChanged();;
       return groupQueryResBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupCreateRes, com.example.message.GroupCreateRes.Builder, com.example.message.GroupCreateResOrBuilder> groupCreateResBuilder_;
+    /**
+     * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+     * @return Whether the groupCreateRes field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupCreateRes() {
+      return messageBodyCase_ == 17;
+    }
+    /**
+     * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+     * @return The groupCreateRes.
+     */
+    @java.lang.Override
+    public com.example.message.GroupCreateRes getGroupCreateRes() {
+      if (groupCreateResBuilder_ == null) {
+        if (messageBodyCase_ == 17) {
+          return (com.example.message.GroupCreateRes) messageBody_;
+        }
+        return com.example.message.GroupCreateRes.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 17) {
+          return groupCreateResBuilder_.getMessage();
+        }
+        return com.example.message.GroupCreateRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+     */
+    public Builder setGroupCreateRes(com.example.message.GroupCreateRes value) {
+      if (groupCreateResBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupCreateResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 17;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+     */
+    public Builder setGroupCreateRes(
+        com.example.message.GroupCreateRes.Builder builderForValue) {
+      if (groupCreateResBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupCreateResBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 17;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+     */
+    public Builder mergeGroupCreateRes(com.example.message.GroupCreateRes value) {
+      if (groupCreateResBuilder_ == null) {
+        if (messageBodyCase_ == 17 &&
+            messageBody_ != com.example.message.GroupCreateRes.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupCreateRes.newBuilder((com.example.message.GroupCreateRes) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 17) {
+          groupCreateResBuilder_.mergeFrom(value);
+        }
+        groupCreateResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 17;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+     */
+    public Builder clearGroupCreateRes() {
+      if (groupCreateResBuilder_ == null) {
+        if (messageBodyCase_ == 17) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 17) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupCreateResBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+     */
+    public com.example.message.GroupCreateRes.Builder getGroupCreateResBuilder() {
+      return getGroupCreateResFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupCreateResOrBuilder getGroupCreateResOrBuilder() {
+      if ((messageBodyCase_ == 17) && (groupCreateResBuilder_ != null)) {
+        return groupCreateResBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 17) {
+          return (com.example.message.GroupCreateRes) messageBody_;
+        }
+        return com.example.message.GroupCreateRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupCreateRes groupCreateRes = 17;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupCreateRes, com.example.message.GroupCreateRes.Builder, com.example.message.GroupCreateResOrBuilder> 
+        getGroupCreateResFieldBuilder() {
+      if (groupCreateResBuilder_ == null) {
+        if (!(messageBodyCase_ == 17)) {
+          messageBody_ = com.example.message.GroupCreateRes.getDefaultInstance();
+        }
+        groupCreateResBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupCreateRes, com.example.message.GroupCreateRes.Builder, com.example.message.GroupCreateResOrBuilder>(
+                (com.example.message.GroupCreateRes) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 17;
+      onChanged();;
+      return groupCreateResBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupJoinRes, com.example.message.GroupJoinRes.Builder, com.example.message.GroupJoinResOrBuilder> groupJoinResBuilder_;
+    /**
+     * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+     * @return Whether the groupJoinRes field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupJoinRes() {
+      return messageBodyCase_ == 18;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+     * @return The groupJoinRes.
+     */
+    @java.lang.Override
+    public com.example.message.GroupJoinRes getGroupJoinRes() {
+      if (groupJoinResBuilder_ == null) {
+        if (messageBodyCase_ == 18) {
+          return (com.example.message.GroupJoinRes) messageBody_;
+        }
+        return com.example.message.GroupJoinRes.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 18) {
+          return groupJoinResBuilder_.getMessage();
+        }
+        return com.example.message.GroupJoinRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+     */
+    public Builder setGroupJoinRes(com.example.message.GroupJoinRes value) {
+      if (groupJoinResBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupJoinResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 18;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+     */
+    public Builder setGroupJoinRes(
+        com.example.message.GroupJoinRes.Builder builderForValue) {
+      if (groupJoinResBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupJoinResBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 18;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+     */
+    public Builder mergeGroupJoinRes(com.example.message.GroupJoinRes value) {
+      if (groupJoinResBuilder_ == null) {
+        if (messageBodyCase_ == 18 &&
+            messageBody_ != com.example.message.GroupJoinRes.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupJoinRes.newBuilder((com.example.message.GroupJoinRes) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 18) {
+          groupJoinResBuilder_.mergeFrom(value);
+        }
+        groupJoinResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 18;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+     */
+    public Builder clearGroupJoinRes() {
+      if (groupJoinResBuilder_ == null) {
+        if (messageBodyCase_ == 18) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 18) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupJoinResBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+     */
+    public com.example.message.GroupJoinRes.Builder getGroupJoinResBuilder() {
+      return getGroupJoinResFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupJoinResOrBuilder getGroupJoinResOrBuilder() {
+      if ((messageBodyCase_ == 18) && (groupJoinResBuilder_ != null)) {
+        return groupJoinResBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 18) {
+          return (com.example.message.GroupJoinRes) messageBody_;
+        }
+        return com.example.message.GroupJoinRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupJoinRes groupJoinRes = 18;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupJoinRes, com.example.message.GroupJoinRes.Builder, com.example.message.GroupJoinResOrBuilder> 
+        getGroupJoinResFieldBuilder() {
+      if (groupJoinResBuilder_ == null) {
+        if (!(messageBodyCase_ == 18)) {
+          messageBody_ = com.example.message.GroupJoinRes.getDefaultInstance();
+        }
+        groupJoinResBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupJoinRes, com.example.message.GroupJoinRes.Builder, com.example.message.GroupJoinResOrBuilder>(
+                (com.example.message.GroupJoinRes) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 18;
+      onChanged();;
+      return groupJoinResBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupQuitRes, com.example.message.GroupQuitRes.Builder, com.example.message.GroupQuitResOrBuilder> groupQuitResBuilder_;
+    /**
+     * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+     * @return Whether the groupQuitRes field is set.
+     */
+    @java.lang.Override
+    public boolean hasGroupQuitRes() {
+      return messageBodyCase_ == 19;
+    }
+    /**
+     * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+     * @return The groupQuitRes.
+     */
+    @java.lang.Override
+    public com.example.message.GroupQuitRes getGroupQuitRes() {
+      if (groupQuitResBuilder_ == null) {
+        if (messageBodyCase_ == 19) {
+          return (com.example.message.GroupQuitRes) messageBody_;
+        }
+        return com.example.message.GroupQuitRes.getDefaultInstance();
+      } else {
+        if (messageBodyCase_ == 19) {
+          return groupQuitResBuilder_.getMessage();
+        }
+        return com.example.message.GroupQuitRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+     */
+    public Builder setGroupQuitRes(com.example.message.GroupQuitRes value) {
+      if (groupQuitResBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        messageBody_ = value;
+        onChanged();
+      } else {
+        groupQuitResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 19;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+     */
+    public Builder setGroupQuitRes(
+        com.example.message.GroupQuitRes.Builder builderForValue) {
+      if (groupQuitResBuilder_ == null) {
+        messageBody_ = builderForValue.build();
+        onChanged();
+      } else {
+        groupQuitResBuilder_.setMessage(builderForValue.build());
+      }
+      messageBodyCase_ = 19;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+     */
+    public Builder mergeGroupQuitRes(com.example.message.GroupQuitRes value) {
+      if (groupQuitResBuilder_ == null) {
+        if (messageBodyCase_ == 19 &&
+            messageBody_ != com.example.message.GroupQuitRes.getDefaultInstance()) {
+          messageBody_ = com.example.message.GroupQuitRes.newBuilder((com.example.message.GroupQuitRes) messageBody_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          messageBody_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageBodyCase_ == 19) {
+          groupQuitResBuilder_.mergeFrom(value);
+        }
+        groupQuitResBuilder_.setMessage(value);
+      }
+      messageBodyCase_ = 19;
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+     */
+    public Builder clearGroupQuitRes() {
+      if (groupQuitResBuilder_ == null) {
+        if (messageBodyCase_ == 19) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageBodyCase_ == 19) {
+          messageBodyCase_ = 0;
+          messageBody_ = null;
+        }
+        groupQuitResBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+     */
+    public com.example.message.GroupQuitRes.Builder getGroupQuitResBuilder() {
+      return getGroupQuitResFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+     */
+    @java.lang.Override
+    public com.example.message.GroupQuitResOrBuilder getGroupQuitResOrBuilder() {
+      if ((messageBodyCase_ == 19) && (groupQuitResBuilder_ != null)) {
+        return groupQuitResBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageBodyCase_ == 19) {
+          return (com.example.message.GroupQuitRes) messageBody_;
+        }
+        return com.example.message.GroupQuitRes.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.chat.simple.GroupQuitRes groupQuitRes = 19;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.message.GroupQuitRes, com.example.message.GroupQuitRes.Builder, com.example.message.GroupQuitResOrBuilder> 
+        getGroupQuitResFieldBuilder() {
+      if (groupQuitResBuilder_ == null) {
+        if (!(messageBodyCase_ == 19)) {
+          messageBody_ = com.example.message.GroupQuitRes.getDefaultInstance();
+        }
+        groupQuitResBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.message.GroupQuitRes, com.example.message.GroupQuitRes.Builder, com.example.message.GroupQuitResOrBuilder>(
+                (com.example.message.GroupQuitRes) messageBody_,
+                getParentForChildren(),
+                isClean());
+        messageBody_ = null;
+      }
+      messageBodyCase_ = 19;
+      onChanged();;
+      return groupQuitResBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

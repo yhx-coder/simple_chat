@@ -4,26 +4,26 @@
 package com.example.message;
 
 /**
- * Protobuf type {@code chat.simple.GroupMessageRX}
+ * Protobuf type {@code chat.simple.GroupQuitRes}
  */
-public final class GroupMessageRX extends
+public final class GroupQuitRes extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:chat.simple.GroupMessageRX)
-    GroupMessageRXOrBuilder {
+    // @@protoc_insertion_point(message_implements:chat.simple.GroupQuitRes)
+    GroupQuitResOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use GroupMessageRX.newBuilder() to construct.
-  private GroupMessageRX(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use GroupQuitRes.newBuilder() to construct.
+  private GroupQuitRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private GroupMessageRX() {
-    message_ = "";
+  private GroupQuitRes() {
+    reason_ = "";
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new GroupMessageRX();
+    return new GroupQuitRes();
   }
 
   @java.lang.Override
@@ -31,7 +31,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private GroupMessageRX(
+  private GroupQuitRes(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -51,18 +51,18 @@ private static final long serialVersionUID = 0L;
             break;
           case 8: {
 
-            sUserId_ = input.readInt32();
+            status_ = input.readBool();
             break;
           }
-          case 16: {
-
-            groupId_ = input.readInt32();
-            break;
-          }
-          case 26: {
+          case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            message_ = s;
+            reason_ = s;
+            break;
+          }
+          case 24: {
+
+            groupId_ = input.readInt32();
             break;
           }
           default: {
@@ -86,75 +86,75 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.example.message.MessageProto.internal_static_chat_simple_GroupMessageRX_descriptor;
+    return com.example.message.MessageProto.internal_static_chat_simple_GroupQuitRes_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.example.message.MessageProto.internal_static_chat_simple_GroupMessageRX_fieldAccessorTable
+    return com.example.message.MessageProto.internal_static_chat_simple_GroupQuitRes_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.example.message.GroupMessageRX.class, com.example.message.GroupMessageRX.Builder.class);
+            com.example.message.GroupQuitRes.class, com.example.message.GroupQuitRes.Builder.class);
   }
 
-  public static final int SUSERID_FIELD_NUMBER = 1;
-  private int sUserId_;
+  public static final int STATUS_FIELD_NUMBER = 1;
+  private boolean status_;
   /**
-   * <code>int32 sUserId = 1;</code>
-   * @return The sUserId.
+   * <code>bool status = 1;</code>
+   * @return The status.
    */
   @java.lang.Override
-  public int getSUserId() {
-    return sUserId_;
+  public boolean getStatus() {
+    return status_;
   }
 
-  public static final int GROUPID_FIELD_NUMBER = 2;
-  private int groupId_;
+  public static final int REASON_FIELD_NUMBER = 2;
+  private volatile java.lang.Object reason_;
   /**
-   * <code>int32 groupId = 2;</code>
-   * @return The groupId.
+   * <code>string reason = 2;</code>
+   * @return The reason.
    */
   @java.lang.Override
-  public int getGroupId() {
-    return groupId_;
-  }
-
-  public static final int MESSAGE_FIELD_NUMBER = 3;
-  private volatile java.lang.Object message_;
-  /**
-   * <code>string message = 3;</code>
-   * @return The message.
-   */
-  @java.lang.Override
-  public java.lang.String getMessage() {
-    java.lang.Object ref = message_;
+  public java.lang.String getReason() {
+    java.lang.Object ref = reason_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      message_ = s;
+      reason_ = s;
       return s;
     }
   }
   /**
-   * <code>string message = 3;</code>
-   * @return The bytes for message.
+   * <code>string reason = 2;</code>
+   * @return The bytes for reason.
    */
   @java.lang.Override
   public com.google.protobuf.ByteString
-      getMessageBytes() {
-    java.lang.Object ref = message_;
+      getReasonBytes() {
+    java.lang.Object ref = reason_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      message_ = b;
+      reason_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
+  }
+
+  public static final int GROUPID_FIELD_NUMBER = 3;
+  private int groupId_;
+  /**
+   * <code>int32 groupId = 3;</code>
+   * @return The groupId.
+   */
+  @java.lang.Override
+  public int getGroupId() {
+    return groupId_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -171,14 +171,14 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (sUserId_ != 0) {
-      output.writeInt32(1, sUserId_);
+    if (status_ != false) {
+      output.writeBool(1, status_);
+    }
+    if (!getReasonBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, reason_);
     }
     if (groupId_ != 0) {
-      output.writeInt32(2, groupId_);
-    }
-    if (!getMessageBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, message_);
+      output.writeInt32(3, groupId_);
     }
     unknownFields.writeTo(output);
   }
@@ -189,16 +189,16 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (sUserId_ != 0) {
+    if (status_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, sUserId_);
+        .computeBoolSize(1, status_);
+    }
+    if (!getReasonBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, reason_);
     }
     if (groupId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, groupId_);
-    }
-    if (!getMessageBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, message_);
+        .computeInt32Size(3, groupId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -210,17 +210,17 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.example.message.GroupMessageRX)) {
+    if (!(obj instanceof com.example.message.GroupQuitRes)) {
       return super.equals(obj);
     }
-    com.example.message.GroupMessageRX other = (com.example.message.GroupMessageRX) obj;
+    com.example.message.GroupQuitRes other = (com.example.message.GroupQuitRes) obj;
 
-    if (getSUserId()
-        != other.getSUserId()) return false;
+    if (getStatus()
+        != other.getStatus()) return false;
+    if (!getReason()
+        .equals(other.getReason())) return false;
     if (getGroupId()
         != other.getGroupId()) return false;
-    if (!getMessage()
-        .equals(other.getMessage())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -232,80 +232,81 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + SUSERID_FIELD_NUMBER;
-    hash = (53 * hash) + getSUserId();
+    hash = (37 * hash) + STATUS_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getStatus());
+    hash = (37 * hash) + REASON_FIELD_NUMBER;
+    hash = (53 * hash) + getReason().hashCode();
     hash = (37 * hash) + GROUPID_FIELD_NUMBER;
     hash = (53 * hash) + getGroupId();
-    hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
-    hash = (53 * hash) + getMessage().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static com.example.message.GroupMessageRX parseFrom(
+  public static com.example.message.GroupQuitRes parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.message.GroupMessageRX parseFrom(
+  public static com.example.message.GroupQuitRes parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.message.GroupMessageRX parseFrom(
+  public static com.example.message.GroupQuitRes parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.message.GroupMessageRX parseFrom(
+  public static com.example.message.GroupQuitRes parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.message.GroupMessageRX parseFrom(byte[] data)
+  public static com.example.message.GroupQuitRes parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.message.GroupMessageRX parseFrom(
+  public static com.example.message.GroupQuitRes parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.message.GroupMessageRX parseFrom(java.io.InputStream input)
+  public static com.example.message.GroupQuitRes parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.message.GroupMessageRX parseFrom(
+  public static com.example.message.GroupQuitRes parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.message.GroupMessageRX parseDelimitedFrom(java.io.InputStream input)
+  public static com.example.message.GroupQuitRes parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.example.message.GroupMessageRX parseDelimitedFrom(
+  public static com.example.message.GroupQuitRes parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.message.GroupMessageRX parseFrom(
+  public static com.example.message.GroupQuitRes parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.message.GroupMessageRX parseFrom(
+  public static com.example.message.GroupQuitRes parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -318,7 +319,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.example.message.GroupMessageRX prototype) {
+  public static Builder newBuilder(com.example.message.GroupQuitRes prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -334,26 +335,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code chat.simple.GroupMessageRX}
+   * Protobuf type {@code chat.simple.GroupQuitRes}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:chat.simple.GroupMessageRX)
-      com.example.message.GroupMessageRXOrBuilder {
+      // @@protoc_insertion_point(builder_implements:chat.simple.GroupQuitRes)
+      com.example.message.GroupQuitResOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.message.MessageProto.internal_static_chat_simple_GroupMessageRX_descriptor;
+      return com.example.message.MessageProto.internal_static_chat_simple_GroupQuitRes_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.example.message.MessageProto.internal_static_chat_simple_GroupMessageRX_fieldAccessorTable
+      return com.example.message.MessageProto.internal_static_chat_simple_GroupQuitRes_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.example.message.GroupMessageRX.class, com.example.message.GroupMessageRX.Builder.class);
+              com.example.message.GroupQuitRes.class, com.example.message.GroupQuitRes.Builder.class);
     }
 
-    // Construct using com.example.message.GroupMessageRX.newBuilder()
+    // Construct using com.example.message.GroupQuitRes.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -371,11 +372,11 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      sUserId_ = 0;
+      status_ = false;
+
+      reason_ = "";
 
       groupId_ = 0;
-
-      message_ = "";
 
       return this;
     }
@@ -383,17 +384,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.example.message.MessageProto.internal_static_chat_simple_GroupMessageRX_descriptor;
+      return com.example.message.MessageProto.internal_static_chat_simple_GroupQuitRes_descriptor;
     }
 
     @java.lang.Override
-    public com.example.message.GroupMessageRX getDefaultInstanceForType() {
-      return com.example.message.GroupMessageRX.getDefaultInstance();
+    public com.example.message.GroupQuitRes getDefaultInstanceForType() {
+      return com.example.message.GroupQuitRes.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.example.message.GroupMessageRX build() {
-      com.example.message.GroupMessageRX result = buildPartial();
+    public com.example.message.GroupQuitRes build() {
+      com.example.message.GroupQuitRes result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -401,11 +402,11 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.example.message.GroupMessageRX buildPartial() {
-      com.example.message.GroupMessageRX result = new com.example.message.GroupMessageRX(this);
-      result.sUserId_ = sUserId_;
+    public com.example.message.GroupQuitRes buildPartial() {
+      com.example.message.GroupQuitRes result = new com.example.message.GroupQuitRes(this);
+      result.status_ = status_;
+      result.reason_ = reason_;
       result.groupId_ = groupId_;
-      result.message_ = message_;
       onBuilt();
       return result;
     }
@@ -444,25 +445,25 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.example.message.GroupMessageRX) {
-        return mergeFrom((com.example.message.GroupMessageRX)other);
+      if (other instanceof com.example.message.GroupQuitRes) {
+        return mergeFrom((com.example.message.GroupQuitRes)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.example.message.GroupMessageRX other) {
-      if (other == com.example.message.GroupMessageRX.getDefaultInstance()) return this;
-      if (other.getSUserId() != 0) {
-        setSUserId(other.getSUserId());
+    public Builder mergeFrom(com.example.message.GroupQuitRes other) {
+      if (other == com.example.message.GroupQuitRes.getDefaultInstance()) return this;
+      if (other.getStatus() != false) {
+        setStatus(other.getStatus());
+      }
+      if (!other.getReason().isEmpty()) {
+        reason_ = other.reason_;
+        onChanged();
       }
       if (other.getGroupId() != 0) {
         setGroupId(other.getGroupId());
-      }
-      if (!other.getMessage().isEmpty()) {
-        message_ = other.message_;
-        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -479,11 +480,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.example.message.GroupMessageRX parsedMessage = null;
+      com.example.message.GroupQuitRes parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.example.message.GroupMessageRX) e.getUnfinishedMessage();
+        parsedMessage = (com.example.message.GroupQuitRes) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -493,40 +494,116 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int sUserId_ ;
+    private boolean status_ ;
     /**
-     * <code>int32 sUserId = 1;</code>
-     * @return The sUserId.
+     * <code>bool status = 1;</code>
+     * @return The status.
      */
     @java.lang.Override
-    public int getSUserId() {
-      return sUserId_;
+    public boolean getStatus() {
+      return status_;
     }
     /**
-     * <code>int32 sUserId = 1;</code>
-     * @param value The sUserId to set.
+     * <code>bool status = 1;</code>
+     * @param value The status to set.
      * @return This builder for chaining.
      */
-    public Builder setSUserId(int value) {
+    public Builder setStatus(boolean value) {
       
-      sUserId_ = value;
+      status_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 sUserId = 1;</code>
+     * <code>bool status = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder clearSUserId() {
+    public Builder clearStatus() {
       
-      sUserId_ = 0;
+      status_ = false;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object reason_ = "";
+    /**
+     * <code>string reason = 2;</code>
+     * @return The reason.
+     */
+    public java.lang.String getReason() {
+      java.lang.Object ref = reason_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        reason_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string reason = 2;</code>
+     * @return The bytes for reason.
+     */
+    public com.google.protobuf.ByteString
+        getReasonBytes() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        reason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string reason = 2;</code>
+     * @param value The reason to set.
+     * @return This builder for chaining.
+     */
+    public Builder setReason(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      reason_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string reason = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearReason() {
+      
+      reason_ = getDefaultInstance().getReason();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string reason = 2;</code>
+     * @param value The bytes for reason to set.
+     * @return This builder for chaining.
+     */
+    public Builder setReasonBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      reason_ = value;
       onChanged();
       return this;
     }
 
     private int groupId_ ;
     /**
-     * <code>int32 groupId = 2;</code>
+     * <code>int32 groupId = 3;</code>
      * @return The groupId.
      */
     @java.lang.Override
@@ -534,7 +611,7 @@ private static final long serialVersionUID = 0L;
       return groupId_;
     }
     /**
-     * <code>int32 groupId = 2;</code>
+     * <code>int32 groupId = 3;</code>
      * @param value The groupId to set.
      * @return This builder for chaining.
      */
@@ -545,88 +622,12 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int32 groupId = 2;</code>
+     * <code>int32 groupId = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearGroupId() {
       
       groupId_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private java.lang.Object message_ = "";
-    /**
-     * <code>string message = 3;</code>
-     * @return The message.
-     */
-    public java.lang.String getMessage() {
-      java.lang.Object ref = message_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        message_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
-    }
-    /**
-     * <code>string message = 3;</code>
-     * @return The bytes for message.
-     */
-    public com.google.protobuf.ByteString
-        getMessageBytes() {
-      java.lang.Object ref = message_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        message_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string message = 3;</code>
-     * @param value The message to set.
-     * @return This builder for chaining.
-     */
-    public Builder setMessage(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      message_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string message = 3;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearMessage() {
-      
-      message_ = getDefaultInstance().getMessage();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string message = 3;</code>
-     * @param value The bytes for message to set.
-     * @return This builder for chaining.
-     */
-    public Builder setMessageBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      message_ = value;
       onChanged();
       return this;
     }
@@ -643,41 +644,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:chat.simple.GroupMessageRX)
+    // @@protoc_insertion_point(builder_scope:chat.simple.GroupQuitRes)
   }
 
-  // @@protoc_insertion_point(class_scope:chat.simple.GroupMessageRX)
-  private static final com.example.message.GroupMessageRX DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:chat.simple.GroupQuitRes)
+  private static final com.example.message.GroupQuitRes DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.example.message.GroupMessageRX();
+    DEFAULT_INSTANCE = new com.example.message.GroupQuitRes();
   }
 
-  public static com.example.message.GroupMessageRX getDefaultInstance() {
+  public static com.example.message.GroupQuitRes getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<GroupMessageRX>
-      PARSER = new com.google.protobuf.AbstractParser<GroupMessageRX>() {
+  private static final com.google.protobuf.Parser<GroupQuitRes>
+      PARSER = new com.google.protobuf.AbstractParser<GroupQuitRes>() {
     @java.lang.Override
-    public GroupMessageRX parsePartialFrom(
+    public GroupQuitRes parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new GroupMessageRX(input, extensionRegistry);
+      return new GroupQuitRes(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<GroupMessageRX> parser() {
+  public static com.google.protobuf.Parser<GroupQuitRes> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<GroupMessageRX> getParserForType() {
+  public com.google.protobuf.Parser<GroupQuitRes> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.example.message.GroupMessageRX getDefaultInstanceForType() {
+  public com.example.message.GroupQuitRes getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

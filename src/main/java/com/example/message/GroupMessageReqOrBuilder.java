@@ -14,10 +14,10 @@ public interface GroupMessageReqOrBuilder extends
   int getGroupId();
 
   /**
-   * <code>int32 dUserId = 2;</code>
-   * @return The dUserId.
+   * <code>int32 sUserId = 2;</code>
+   * @return The sUserId.
    */
-  int getDUserId();
+  int getSUserId();
 
   /**
    * <code>string message = 3;</code>
