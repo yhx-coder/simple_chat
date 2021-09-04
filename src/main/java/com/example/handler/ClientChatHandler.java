@@ -91,133 +91,136 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
     // 在这里发送消息，即构造各种 *Req。
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        Thread selectMenu;
-        try {
-            selectMenu = new Thread(() -> {
-                login(ctx);
-                try {
-                    latch.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        Thread selectMenu = new Thread(() -> {
+            login(ctx);
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-                while (true) {
-                    menu();
+            while (true) {
+                menu();
 
-                    Scanner scanner = new Scanner(System.in);
-                    String line = scanner.nextLine();
-                    String[] s = line.split(" ");
-                    switch (s[0]) {
-                        case "send": {
-                            MsgReq req = Message.newBuilder()
-                                    .getMsgReq().newBuilderForType()
-                                    .setSUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
-                                    .setDUserId(Integer.parseInt(s[1]))
-                                    .setMsg(s[2])
-                                    .build();
+                Scanner scanner = new Scanner(System.in);
+                String line = scanner.nextLine();
+                String[] s = line.split(" ");
+                switch (s[0]) {
+                    case "send": {
+                        MsgReq req = Message.newBuilder()
+                                .getMsgReq().newBuilderForType()
+                                .setSUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
+                                .setDUserId(Integer.parseInt(s[1]))
+                                .setMsg(s[2])
+                                .build();
 
-                            Message msgReq = Message.newBuilder()
-                                    .setMessageType(Message.MessageType.MSG_REQ)
-                                    .setMsgReq(req)
-                                    .build();
+                        Message msgReq = Message.newBuilder()
+                                .setMessageType(Message.MessageType.MSG_REQ)
+                                .setMsgReq(req)
+                                .build();
 
-                            ctx.channel().writeAndFlush(msgReq);
-                            break;
-                        }
-                        case "gcreate": {
-                            GroupCreateReq groupCreateReq = Message.newBuilder()
-                                    .getGroupCreateReq().newBuilderForType()
-                                    .setUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
-                                    .setGroupId(Integer.parseInt(s[1]))
-                                    .build();
-                            Message message = Message.newBuilder()
-                                    .setMessageType(Message.MessageType.GROUP_CREATE_REQ)
-                                    .setGroupCreateReq(groupCreateReq)
-                                    .build();
-                            ctx.channel().writeAndFlush(message);
-                            break;
-                        }
-                        case "gjoin": {
-                            GroupJoinReq joinReq = Message.newBuilder()
-                                    .getGroupJoinReq().newBuilderForType()
-                                    .setUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
-                                    .setJoinId(Integer.parseInt(s[1]))
-                                    .build();
-                            Message message = Message.newBuilder()
-                                    .setMessageType(Message.MessageType.GROUP_JOIN_REQ)
-                                    .setGroupJoinReq(joinReq)
-                                    .build();
-                            ctx.channel().writeAndFlush(message);
-                            break;
-                        }
-                        case "gquit": {
-                            GroupQuitReq groupQuitReq = Message.newBuilder()
-                                    .getGroupQuitReq().newBuilderForType()
-                                    .setUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
-                                    .setGroupId(Integer.parseInt(s[1]))
-                                    .build();
+                        ctx.channel().writeAndFlush(msgReq);
+                        break;
+                    }
+                    case "gcreate": {
+                        GroupCreateReq groupCreateReq = Message.newBuilder()
+                                .getGroupCreateReq().newBuilderForType()
+                                .setUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
+                                .setGroupId(Integer.parseInt(s[1]))
+                                .build();
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.GROUP_CREATE_REQ)
+                                .setGroupCreateReq(groupCreateReq)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                        break;
+                    }
+                    case "gjoin": {
+                        GroupJoinReq joinReq = Message.newBuilder()
+                                .getGroupJoinReq().newBuilderForType()
+                                .setUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
+                                .setJoinId(Integer.parseInt(s[1]))
+                                .build();
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.GROUP_JOIN_REQ)
+                                .setGroupJoinReq(joinReq)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                        break;
+                    }
+                    case "gquit": {
+                        GroupQuitReq groupQuitReq = Message.newBuilder()
+                                .getGroupQuitReq().newBuilderForType()
+                                .setUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
+                                .setGroupId(Integer.parseInt(s[1]))
+                                .build();
 
-                            Message message = Message.newBuilder()
-                                    .setMessageType(Message.MessageType.GROUP_QUIT_REQ)
-                                    .setGroupQuitReq(groupQuitReq)
-                                    .build();
-                            ctx.channel().writeAndFlush(message);
-                            break;
-                        }
-                        case "gquery": {
-                            GroupJoinedQueryReq groupJoinedQueryReq = Message.newBuilder()
-                                    .getGroupQueryReq().newBuilderForType()
-                                    .setUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
-                                    .build();
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.GROUP_QUIT_REQ)
+                                .setGroupQuitReq(groupQuitReq)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                        break;
+                    }
+                    case "gquery": {
+                        GroupJoinedQueryReq groupJoinedQueryReq = Message.newBuilder()
+                                .getGroupQueryReq().newBuilderForType()
+                                .setUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
+                                .build();
 
-                            Message message = Message.newBuilder()
-                                    .setMessageType(Message.MessageType.GROUP_JOINED_QUERY_REQ)
-                                    .setGroupQueryReq(groupJoinedQueryReq)
-                                    .build();
-                            ctx.channel().writeAndFlush(message);
-                            break;
-                        }
-                        case "gquerymen": {
-                            GroupMemberQueryReq memberQueryReq = Message.newBuilder()
-                                    .getGroupMemberQueryReq().newBuilderForType()
-                                    .setGroupId(Integer.parseInt(s[1]))
-                                    .build();
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.GROUP_JOINED_QUERY_REQ)
+                                .setGroupQueryReq(groupJoinedQueryReq)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                        break;
+                    }
+                    case "gquerymen": {
+                        GroupMemberQueryReq memberQueryReq = Message.newBuilder()
+                                .getGroupMemberQueryReq().newBuilderForType()
+                                .setGroupId(Integer.parseInt(s[1]))
+                                .build();
 
-                            Message message = Message.newBuilder()
-                                    .setMessageType(Message.MessageType.GROUP_MEMBER_QUERY_REQ)
-                                    .setGroupMemberQueryReq(memberQueryReq)
-                                    .build();
-                            ctx.channel().writeAndFlush(message);
-                            break;
-                        }
-                        case "gsend": {
-                            GroupMessageReq groupMessageReq = Message.newBuilder()
-                                    .getGroupMessageReq().newBuilderForType()
-                                    .setSUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
-                                    .setGroupId(Integer.parseInt(s[1]))
-                                    .setMessage(s[2])
-                                    .build();
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.GROUP_MEMBER_QUERY_REQ)
+                                .setGroupMemberQueryReq(memberQueryReq)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                        break;
+                    }
+                    case "gsend": {
+                        GroupMessageReq groupMessageReq = Message.newBuilder()
+                                .getGroupMessageReq().newBuilderForType()
+                                .setSUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
+                                .setGroupId(Integer.parseInt(s[1]))
+                                .setMessage(s[2])
+                                .build();
 
-                            Message message = Message.newBuilder()
-                                    .setMessageType(Message.MessageType.GROUP_MSG_REQ)
-                                    .setGroupMessageReq(groupMessageReq)
-                                    .build();
-                            ctx.channel().writeAndFlush(message);
-                            break;
-                        }
-                        case "quit": {
-                            ctx.close();
-                            System.out.println("您已退出聊天室！");
-                            return;
-                        }
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.GROUP_MSG_REQ)
+                                .setGroupMessageReq(groupMessageReq)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                        break;
+                    }
+                    case "quit": {
+                        ctx.close();
+                        System.out.println("您已退出聊天室！");
+                        return;
+                    }
+                    default:{
+                        System.out.println("输入指令有误，请重新输入。");
                     }
                 }
-            }, "waitForSelection");
-            selectMenu.start();
-        } catch (Exception e) {
-            throw e;
-        }
+            }
+        }, "waitForSelection");
 
+        selectMenu.setUncaughtExceptionHandler((t, e) -> {
+            System.out.println("客户端崩溃，请重启客户端！");
+            ctx.channel().close();
+        });
+
+        selectMenu.start();
     }
 
     @Override
