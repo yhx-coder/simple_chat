@@ -99,6 +99,8 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                 e.printStackTrace();
             }
 
+            // 想解决指令输错的异常，还不用重启客户端，我该怎么办？？？？
+
             while (true) {
                 menu();
 
@@ -215,6 +217,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
             }
         }, "waitForSelection");
 
+        // 刚查的，在外面捕获子线程的错误。
         selectMenu.setUncaughtExceptionHandler((t, e) -> {
             System.out.println("客户端崩溃，请重启客户端！");
             ctx.channel().close();
