@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.config.Config;
 import com.example.handler.ServerChatHandler;
 import com.example.message.Message;
 import com.example.message.MessageProto;
@@ -58,7 +59,7 @@ public class Server {
                             pipeline.addLast(new ServerChatHandler());
                         }
                     })
-                    .bind(8899)
+                    .bind(Config.getPort())
                     .sync()
                     .channel()
                     .closeFuture()
