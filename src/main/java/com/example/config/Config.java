@@ -27,4 +27,20 @@ public class Config {
         }
         return Integer.parseInt(port);
     }
+
+    public static int getReaderIdleTime(){
+        String readerIdleTime = properties.getProperty("conn.readerIdleTime");
+        if (readerIdleTime==null){
+            return 50;
+        }
+        return Integer.parseInt(readerIdleTime);
+    }
+
+    public static int getWriterIdleTime(){
+        String writerIdleTime = properties.getProperty("conn.writerIdleTime");
+        if (writerIdleTime==null){
+            return 30;
+        }
+        return Integer.parseInt(writerIdleTime);
+    }
 }

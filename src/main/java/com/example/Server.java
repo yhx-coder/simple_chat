@@ -13,6 +13,8 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
@@ -36,6 +38,9 @@ public class Server {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
+
+                            pipeline.addLast(new LoggingHandler(LogLevel.INFO));
+
                             pipeline.addLast(new ProtobufVarint32FrameDecoder());
                             pipeline.addLast(new ProtobufDecoder(Message.getDefaultInstance()));
 
@@ -43,7 +48,7 @@ public class Server {
                             pipeline.addLast(new ProtobufEncoder());
 
                             // 服务器 50 秒没有收到消息就断开连接。
-                            pipeline.addLast(new IdleStateHandler(50,0,0, TimeUnit.SECONDS));
+                            pipeline.addLast(new IdleStateHandler(Config.getReaderIdleTime(),0,0, TimeUnit.SECONDS));
                             pipeline.addLast(new ChannelInboundHandlerAdapter(){
                                 @Override
                                 public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
