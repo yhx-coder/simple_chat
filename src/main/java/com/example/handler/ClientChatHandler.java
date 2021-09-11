@@ -1,10 +1,18 @@
 package com.example.handler;
 
+import com.example.dao.UserDao;
 import com.example.message.*;
+import com.example.pojo.User;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -33,13 +41,13 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
             }
             case LOGIN_RES: {
                 LoginRes loginRes = msg.getLoginRes();
-                System.out.println(loginRes.getResponse());
                 if (loginRes.getStatus() == LoginRes.LoginStatus.SUCCESS) {
                     ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(loginRes.getUserId());
+                    System.out.println(loginRes.getResponse());
                     latch.countDown();
                 } else {
-                    System.out.println("登录失败");
-                    ctx.close();
+                    System.out.println(loginRes.getResponse());
+                    login(ctx);
                 }
                 break;
             }
@@ -92,7 +100,11 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         Thread selectMenu = new Thread(() -> {
-            login(ctx);
+            try {
+                login(ctx);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             try {
                 latch.await();
             } catch (InterruptedException e) {
@@ -210,7 +222,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                         System.out.println("您已退出聊天室！");
                         return;
                     }
-                    default:{
+                    default: {
                         System.out.println("输入指令有误，请重新输入。");
                     }
                 }
@@ -240,19 +252,20 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
         super.channelInactive(ctx);
     }
 
-    private void login(ChannelHandlerContext ctx) {
+    private void login(ChannelHandlerContext ctx) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("请输入用户名: ");
         String username = scanner.nextLine();
-        System.out.print("请输入UserId: ");
-        int userId = scanner.nextInt();
+        System.out.print("请输入密码: ");
+        String password = scanner.nextLine();
+
 
         // 一定要分两段构建消息，否则要报错。因为要解析的是 Message 。 若一次构建则是 LoginReq 了。
         LoginReq req = Message.newBuilder()
                 .getLoginReq().newBuilderForType()
                 .setUsername(username)
-                .setUserId(userId)
+                .setPassword(password)
                 .build();
 
         Message loginReq = Message.newBuilder()

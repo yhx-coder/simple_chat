@@ -61,7 +61,7 @@ public class Client {
                             pipeline.addLast(new ClientChatHandler());
                         }
                     })
-                    .connect("localhost",8899)
+                    .connect(Config.getAddress(),Config.getPort())
                     .sync()
                     .channel()
                     .closeFuture()

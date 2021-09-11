@@ -8,20 +8,26 @@ public interface LoginReqOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 userId = 1;</code>
-   * @return The userId.
-   */
-  int getUserId();
-
-  /**
-   * <code>string username = 2;</code>
+   * <code>string username = 1;</code>
    * @return The username.
    */
   java.lang.String getUsername();
   /**
-   * <code>string username = 2;</code>
+   * <code>string username = 1;</code>
    * @return The bytes for username.
    */
   com.google.protobuf.ByteString
       getUsernameBytes();
+
+  /**
+   * <code>string password = 2;</code>
+   * @return The password.
+   */
+  java.lang.String getPassword();
+  /**
+   * <code>string password = 2;</code>
+   * @return The bytes for password.
+   */
+  com.google.protobuf.ByteString
+      getPasswordBytes();
 }

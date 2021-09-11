@@ -1,11 +1,18 @@
 package com.example.handler;
 
+import com.example.dao.UserDao;
 import com.example.message.*;
+import com.example.pojo.User;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,30 +39,76 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
         switch (messageType) {
             // 登录请求
             case LOGIN_REQ: {
-                int userId = msg.getLoginReq().getUserId();
-                Channel channel = map.get(userId);
 
-                LoginRes loginRes = Message.newBuilder().getLoginRes();
-                // 用户处于离线状态
-                if (channel == null) {
-                    map.put(userId, ctx.channel());
-                    loginRes = loginRes.newBuilderForType()
-                            .setStatus(LoginRes.LoginStatus.SUCCESS)
-                            .setResponse("用户: " + userId + " 登录成功")
-                            .setUserId(userId)
-                            .build();
-                } else {
-                    loginRes = loginRes.newBuilderForType()
+                // 数据库的连接怎么关啊？放在 finally 块中就显示未初始化。求教。
+                LoginReq loginReq = msg.getLoginReq();
+                String username = loginReq.getUsername();
+                String password = loginReq.getPassword();
+
+                InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
+                SqlSessionFactoryBuilder sessionFactoryBuilder = new SqlSessionFactoryBuilder();
+                SqlSessionFactory factory = sessionFactoryBuilder.build(resourceAsStream);
+
+                SqlSession session = factory.openSession();
+                UserDao userDao = session.getMapper(UserDao.class);
+
+                User user = userDao.queryByUsernameAndPassword(username, password);
+//                在这写， 下面 Message 就接收不到对象。很奇怪，必须现用现构造，使得重复构造消息的代码很多。有人解释一下吗？
+//                LoginRes loginRes = Message.newBuilder().getLoginRes();
+
+                // 查到用户
+                if (user != null) {
+                    Integer userId = user.getUserId();
+                    Channel channel = map.get(userId);
+                    // 用户处于离线状态
+                    if (channel == null) {
+                        map.put(userId, ctx.channel());
+                        LoginRes loginRes = Message.newBuilder()
+                                .getLoginRes().newBuilderForType()
+                                .setStatus(LoginRes.LoginStatus.SUCCESS)
+                                .setResponse("用户: " + userId + " 登录成功")
+                                .setUserId(userId)
+                                .build();
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.LOGIN_RES)
+                                .setLoginRes(loginRes)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                        resourceAsStream.close();
+                        session.close();
+                        break;
+                    }
+                    LoginRes loginRes = Message.newBuilder().getLoginRes().newBuilderForType()
                             .setStatus(LoginRes.LoginStatus.SUCCESS)
                             .setResponse("用户: " + userId + " 已经登录")
                             .setUserId(userId)
                             .build();
+                    Message message = Message.newBuilder()
+                            .setMessageType(Message.MessageType.LOGIN_RES)
+                            .setLoginRes(loginRes)
+                            .build();
+                    ctx.channel().writeAndFlush(message);
+                    resourceAsStream.close();
+                    session.close();
+                    break;
+
                 }
+
+                // 未找到用户
+                LoginRes loginRes = Message.newBuilder()
+                        .getLoginRes().newBuilderForType()
+                        .setStatus(LoginRes.LoginStatus.FAIL)
+                        .setResponse("用户名或密码错误")
+                        .build();
+
                 Message message = Message.newBuilder()
                         .setMessageType(Message.MessageType.LOGIN_RES)
                         .setLoginRes(loginRes)
                         .build();
                 ctx.channel().writeAndFlush(message);
+
+                resourceAsStream.close();
+                session.close();
                 break;
             }
             // 消息发送

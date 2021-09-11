@@ -133,32 +133,32 @@ public final class MessageProto {
       "RY_RES\020\t\022\021\n\rGROUP_MSG_REQ\020\n\022\020\n\014GROUP_MSG" +
       "_RX\020\013\022\r\n\tGROUP_RES\020\014\022\032\n\026GROUP_JOINED_QUE" +
       "RY_REQ\020\r\022\032\n\026GROUP_JOINED_QUERY_RES\020\016\022\010\n\004" +
-      "PING\020\017B\r\n\013messageBody\",\n\010LoginReq\022\016\n\006use" +
-      "rId\030\001 \001(\005\022\020\n\010username\030\002 \001(\t\"\205\001\n\010LoginRes" +
-      "\0221\n\006status\030\001 \001(\0162!.chat.simple.LoginRes." +
-      "LoginStatus\022\020\n\010response\030\002 \001(\t\022\016\n\006userId\030" +
-      "\003 \001(\005\"$\n\013LoginStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAI" +
-      "L\020\001\"7\n\006MsgReq\022\017\n\007sUserId\030\001 \001(\005\022\017\n\007dUserI" +
-      "d\030\002 \001(\005\022\013\n\003msg\030\003 \001(\t\"g\n\006MsgRes\022*\n\006status" +
-      "\030\001 \001(\0162\032.chat.simple.MsgRes.Status\022\020\n\010re" +
-      "sponse\030\002 \001(\t\"\037\n\006Status\022\013\n\007SUCCESS\020\000\022\010\n\004F" +
-      "AIL\020\001\")\n\005MsgRX\022\017\n\007content\030\001 \001(\t\022\017\n\007sUser" +
-      "Id\030\002 \001(\005\"1\n\016GroupCreateReq\022\017\n\007groupId\030\001 " +
-      "\001(\005\022\016\n\006userId\030\002 \001(\005\".\n\014GroupJoinReq\022\016\n\006j" +
-      "oinId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\"/\n\014GroupQuit" +
-      "Req\022\017\n\007groupId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\"&\n\023" +
-      "GroupMemberQueryReq\022\017\n\007groupId\030\001 \001(\005\"E\n\023" +
-      "GroupMemberQueryRes\022\016\n\006status\030\001 \001(\010\022\016\n\006r" +
-      "eason\030\002 \001(\t\022\016\n\006userId\030\003 \003(\005\"%\n\023GroupJoin" +
-      "edQueryReq\022\016\n\006userId\030\001 \001(\005\"F\n\023GroupJoine" +
-      "dQueryRes\022\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 \001(" +
-      "\t\022\017\n\007groupId\030\003 \003(\005\"D\n\017GroupMessageReq\022\017\n" +
-      "\007groupId\030\001 \001(\005\022\017\n\007sUserId\030\002 \001(\005\022\017\n\007messa" +
-      "ge\030\003 \001(\t\"C\n\016GroupMessageRX\022\017\n\007sUserId\030\001 " +
-      "\001(\005\022\017\n\007groupId\030\002 \001(\005\022\017\n\007message\030\003 \001(\t\"*\n" +
-      "\010GroupRes\022\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 \001(" +
-      "\tB%\n\023com.example.messageB\014MessageProtoP\001" +
-      "b\006proto3"
+      "PING\020\017B\r\n\013messageBody\".\n\010LoginReq\022\020\n\010use" +
+      "rname\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"\205\001\n\010LoginR" +
+      "es\0221\n\006status\030\001 \001(\0162!.chat.simple.LoginRe" +
+      "s.LoginStatus\022\020\n\010response\030\002 \001(\t\022\016\n\006userI" +
+      "d\030\003 \001(\005\"$\n\013LoginStatus\022\013\n\007SUCCESS\020\000\022\010\n\004F" +
+      "AIL\020\001\"7\n\006MsgReq\022\017\n\007sUserId\030\001 \001(\005\022\017\n\007dUse" +
+      "rId\030\002 \001(\005\022\013\n\003msg\030\003 \001(\t\"g\n\006MsgRes\022*\n\006stat" +
+      "us\030\001 \001(\0162\032.chat.simple.MsgRes.Status\022\020\n\010" +
+      "response\030\002 \001(\t\"\037\n\006Status\022\013\n\007SUCCESS\020\000\022\010\n" +
+      "\004FAIL\020\001\")\n\005MsgRX\022\017\n\007content\030\001 \001(\t\022\017\n\007sUs" +
+      "erId\030\002 \001(\005\"1\n\016GroupCreateReq\022\017\n\007groupId\030" +
+      "\001 \001(\005\022\016\n\006userId\030\002 \001(\005\".\n\014GroupJoinReq\022\016\n" +
+      "\006joinId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\"/\n\014GroupQu" +
+      "itReq\022\017\n\007groupId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\"&" +
+      "\n\023GroupMemberQueryReq\022\017\n\007groupId\030\001 \001(\005\"E" +
+      "\n\023GroupMemberQueryRes\022\016\n\006status\030\001 \001(\010\022\016\n" +
+      "\006reason\030\002 \001(\t\022\016\n\006userId\030\003 \003(\005\"%\n\023GroupJo" +
+      "inedQueryReq\022\016\n\006userId\030\001 \001(\005\"F\n\023GroupJoi" +
+      "nedQueryRes\022\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 " +
+      "\001(\t\022\017\n\007groupId\030\003 \003(\005\"D\n\017GroupMessageReq\022" +
+      "\017\n\007groupId\030\001 \001(\005\022\017\n\007sUserId\030\002 \001(\005\022\017\n\007mes" +
+      "sage\030\003 \001(\t\"C\n\016GroupMessageRX\022\017\n\007sUserId\030" +
+      "\001 \001(\005\022\017\n\007groupId\030\002 \001(\005\022\017\n\007message\030\003 \001(\t\"" +
+      "*\n\010GroupRes\022\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 " +
+      "\001(\tB%\n\023com.example.messageB\014MessageProto" +
+      "P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -175,7 +175,7 @@ public final class MessageProto {
     internal_static_chat_simple_LoginReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chat_simple_LoginReq_descriptor,
-        new java.lang.String[] { "UserId", "Username", });
+        new java.lang.String[] { "Username", "Password", });
     internal_static_chat_simple_LoginRes_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_chat_simple_LoginRes_fieldAccessorTable = new

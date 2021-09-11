@@ -22,6 +22,7 @@ private static final long serialVersionUID = 0L;
   }
   private LoginReq() {
     username_ = "";
+    password_ = "";
   }
 
   @java.lang.Override
@@ -54,15 +55,16 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            userId_ = input.readInt32();
+            username_ = s;
             break;
           }
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            username_ = s;
+            password_ = s;
             break;
           }
           default: {
@@ -97,21 +99,10 @@ private static final long serialVersionUID = 0L;
             com.example.message.LoginReq.class, com.example.message.LoginReq.Builder.class);
   }
 
-  public static final int USERID_FIELD_NUMBER = 1;
-  private int userId_;
-  /**
-   * <code>int32 userId = 1;</code>
-   * @return The userId.
-   */
-  @java.lang.Override
-  public int getUserId() {
-    return userId_;
-  }
-
-  public static final int USERNAME_FIELD_NUMBER = 2;
+  public static final int USERNAME_FIELD_NUMBER = 1;
   private volatile java.lang.Object username_;
   /**
-   * <code>string username = 2;</code>
+   * <code>string username = 1;</code>
    * @return The username.
    */
   @java.lang.Override
@@ -128,7 +119,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string username = 2;</code>
+   * <code>string username = 1;</code>
    * @return The bytes for username.
    */
   @java.lang.Override
@@ -140,6 +131,44 @@ private static final long serialVersionUID = 0L;
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
       username_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int PASSWORD_FIELD_NUMBER = 2;
+  private volatile java.lang.Object password_;
+  /**
+   * <code>string password = 2;</code>
+   * @return The password.
+   */
+  @java.lang.Override
+  public java.lang.String getPassword() {
+    java.lang.Object ref = password_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      password_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string password = 2;</code>
+   * @return The bytes for password.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getPasswordBytes() {
+    java.lang.Object ref = password_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      password_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -160,11 +189,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (userId_ != 0) {
-      output.writeInt32(1, userId_);
-    }
     if (!getUsernameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, username_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, username_);
+    }
+    if (!getPasswordBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
     }
     unknownFields.writeTo(output);
   }
@@ -175,12 +204,11 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (userId_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, userId_);
-    }
     if (!getUsernameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, username_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, username_);
+    }
+    if (!getPasswordBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -197,10 +225,10 @@ private static final long serialVersionUID = 0L;
     }
     com.example.message.LoginReq other = (com.example.message.LoginReq) obj;
 
-    if (getUserId()
-        != other.getUserId()) return false;
     if (!getUsername()
         .equals(other.getUsername())) return false;
+    if (!getPassword()
+        .equals(other.getPassword())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -212,10 +240,10 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + USERID_FIELD_NUMBER;
-    hash = (53 * hash) + getUserId();
     hash = (37 * hash) + USERNAME_FIELD_NUMBER;
     hash = (53 * hash) + getUsername().hashCode();
+    hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
+    hash = (53 * hash) + getPassword().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -354,9 +382,9 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      userId_ = 0;
-
       username_ = "";
+
+      password_ = "";
 
       return this;
     }
@@ -384,8 +412,8 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.example.message.LoginReq buildPartial() {
       com.example.message.LoginReq result = new com.example.message.LoginReq(this);
-      result.userId_ = userId_;
       result.username_ = username_;
+      result.password_ = password_;
       onBuilt();
       return result;
     }
@@ -434,11 +462,12 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.example.message.LoginReq other) {
       if (other == com.example.message.LoginReq.getDefaultInstance()) return this;
-      if (other.getUserId() != 0) {
-        setUserId(other.getUserId());
-      }
       if (!other.getUsername().isEmpty()) {
         username_ = other.username_;
+        onChanged();
+      }
+      if (!other.getPassword().isEmpty()) {
+        password_ = other.password_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -470,40 +499,9 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int userId_ ;
-    /**
-     * <code>int32 userId = 1;</code>
-     * @return The userId.
-     */
-    @java.lang.Override
-    public int getUserId() {
-      return userId_;
-    }
-    /**
-     * <code>int32 userId = 1;</code>
-     * @param value The userId to set.
-     * @return This builder for chaining.
-     */
-    public Builder setUserId(int value) {
-      
-      userId_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 userId = 1;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearUserId() {
-      
-      userId_ = 0;
-      onChanged();
-      return this;
-    }
-
     private java.lang.Object username_ = "";
     /**
-     * <code>string username = 2;</code>
+     * <code>string username = 1;</code>
      * @return The username.
      */
     public java.lang.String getUsername() {
@@ -519,7 +517,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string username = 2;</code>
+     * <code>string username = 1;</code>
      * @return The bytes for username.
      */
     public com.google.protobuf.ByteString
@@ -536,7 +534,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string username = 2;</code>
+     * <code>string username = 1;</code>
      * @param value The username to set.
      * @return This builder for chaining.
      */
@@ -551,7 +549,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string username = 2;</code>
+     * <code>string username = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearUsername() {
@@ -561,7 +559,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string username = 2;</code>
+     * <code>string username = 1;</code>
      * @param value The bytes for username to set.
      * @return This builder for chaining.
      */
@@ -573,6 +571,82 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       username_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object password_ = "";
+    /**
+     * <code>string password = 2;</code>
+     * @return The password.
+     */
+    public java.lang.String getPassword() {
+      java.lang.Object ref = password_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        password_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string password = 2;</code>
+     * @return The bytes for password.
+     */
+    public com.google.protobuf.ByteString
+        getPasswordBytes() {
+      java.lang.Object ref = password_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        password_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string password = 2;</code>
+     * @param value The password to set.
+     * @return This builder for chaining.
+     */
+    public Builder setPassword(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      password_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string password = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearPassword() {
+      
+      password_ = getDefaultInstance().getPassword();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string password = 2;</code>
+     * @param value The bytes for password to set.
+     * @return This builder for chaining.
+     */
+    public Builder setPasswordBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      password_ = value;
       onChanged();
       return this;
     }

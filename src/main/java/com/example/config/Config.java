@@ -20,6 +20,7 @@ public class Config {
         }
     }
 
+    // 传输常数设置
     public static int getPort(){
         String port = properties.getProperty("trans.port");
         if (port==null){
@@ -28,6 +29,15 @@ public class Config {
         return Integer.parseInt(port);
     }
 
+    public static String getAddress(){
+        String address = properties.getProperty("trans.address");
+        if (address==null){
+            return "localhost";
+        }
+        return address;
+    }
+
+    // 连接属性设置
     public static int getReaderIdleTime(){
         String readerIdleTime = properties.getProperty("conn.readerIdleTime");
         if (readerIdleTime==null){
