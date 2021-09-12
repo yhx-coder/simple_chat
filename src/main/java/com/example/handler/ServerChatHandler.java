@@ -53,8 +53,6 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                 UserDao userDao = session.getMapper(UserDao.class);
 
                 User user = userDao.queryByUsernameAndPassword(username, password);
-//                在这写， 下面 Message 就接收不到对象。很奇怪，必须现用现构造，使得重复构造消息的代码很多。有人解释一下吗？
-//                LoginRes loginRes = Message.newBuilder().getLoginRes();
 
                 // 查到用户
                 if (user != null) {
@@ -199,7 +197,6 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
                 // 先看该组有没有被创建
                 if (userIds == null) {
-                    // 为什么必须在这里发送，无法利用下面的统一消息发送? 奇怪
                     groupJoinRes = Message.newBuilder()
                             .getGroupRes().newBuilderForType()
                             .setStatus(false)
@@ -210,6 +207,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                             .setGroupRes(groupJoinRes)
                             .build();
                     ctx.channel().writeAndFlush(message);
+                    break;
                 }
 
                 // 检查用户是否在该组内
