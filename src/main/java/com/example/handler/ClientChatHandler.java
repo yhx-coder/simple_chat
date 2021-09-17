@@ -10,6 +10,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +27,8 @@ import java.util.concurrent.CountDownLatch;
  * @date: 2021/8/27 18:16
  */
 public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
+
+    private final static Logger logger = LoggerFactory.getLogger(ClientChatHandler.class);
 
     private CountDownLatch latch = new CountDownLatch(1);
 
@@ -231,11 +235,12 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
 
         // 刚查的，在外面捕获子线程的错误。
         selectMenu.setUncaughtExceptionHandler((t, e) -> {
-            System.out.println("客户端崩溃，请重启客户端！");
+            logger.error("客户端崩溃，请重启客户端！");
             ctx.channel().close();
         });
 
         selectMenu.start();
+        super.channelActive(ctx);
     }
 
     @Override

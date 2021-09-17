@@ -1,4 +1,5 @@
 D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\message\GroupJoinedQueryResOrBuilder.java
+D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\pojo\User.java
 D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\message\GroupJoinReq.java
 D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\config\Config.java
 D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\message\GroupJoinReqOrBuilder.java
@@ -35,4 +36,6 @@ D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\message\GroupMem
 D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\message\MsgReq.java
 D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\message\GroupMessageReqOrBuilder.java
 D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\message\LoginReq.java
+D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\dao\UserDao.java
 D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\handler\ClientChatHandler.java
+D:\IDEA\project\java_learn\small_chat\src\main\java\com\example\handler\LogHandler.java

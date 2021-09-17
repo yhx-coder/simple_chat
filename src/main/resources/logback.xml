@@ -1,0 +1,52 @@
+<configuration>
+    <!--设置通用的日志输出格式，以便于后面引用-->
+    <!--
+            日志输出格式：
+            %-5level
+            %d{yyyy-MM-dd HH:mm:ss.SSS}日期
+            %c类的完整名称
+            %M为method
+            %L为行号
+            %thread线程名称
+            %m或者%msg为信息
+            %n换行
+-->
+    <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度
+    %msg：日志消息，%n是换行符-->
+
+    <property name="pattern" value="[%-5level] %d{yyyy-MM-dd HH:mm:ss} %c %M %L [%thread] %m %n"/>
+
+    <!--设置控制台的日志输出格式-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <target>
+            System.err
+        </target>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <file>d:/smallChat/logs/error/chat.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>d:/smallChat/logs/error/chat.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!--设置拦截日志级别-->
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <root level="error">
+        <appender-ref ref="console"/>
+        <appender-ref ref="errorFile"/>
+    </root>
+</configuration>

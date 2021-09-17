@@ -27,7 +27,6 @@ import java.util.concurrent.TimeUnit;
 public class Client {
 
     public static void main(String[] args) throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(1);
 
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
 

@@ -11,6 +11,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -25,12 +27,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
+    public ServerChatHandler() {
+    }
+
     // 防止并发问题
     private static volatile Map<Integer, Channel> map = new ConcurrentHashMap<>();
 
     private static volatile Map<Integer, List<Integer>> userGroupMap = new ConcurrentHashMap<>();
 
     private static volatile Map<Integer, List<Integer>> groupUserMap = new ConcurrentHashMap<>();
+
+    private final static Logger logger = LoggerFactory.getLogger(ServerChatHandler.class);
 
 
     @Override
@@ -89,7 +96,6 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                     resourceAsStream.close();
                     session.close();
                     break;
-
                 }
 
                 // 未找到用户
@@ -387,11 +393,12 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(null);
+        super.channelInactive(ctx);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        cause.printStackTrace();
+        logger.error("服务端内部出现连接异常: " + cause);
         ctx.close();
     }
 }

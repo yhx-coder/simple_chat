@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Server {
     public static void main(String[] args) throws InterruptedException {
+
         EventLoopGroup boss = new NioEventLoopGroup(1);
         EventLoopGroup worker = new NioEventLoopGroup();
 
@@ -38,8 +39,6 @@ public class Server {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
-
-                            pipeline.addLast(new LoggingHandler(LogLevel.ERROR));
 
                             pipeline.addLast(new ProtobufVarint32FrameDecoder());
                             pipeline.addLast(new ProtobufDecoder(Message.getDefaultInstance()));
@@ -61,6 +60,7 @@ public class Server {
                                 }
                             });
 
+                            // 有时间查查为什么必须要新 new 一个。复用不行。
                             pipeline.addLast(new ServerChatHandler());
                         }
                     })
