@@ -392,8 +392,37 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(null);
-        super.channelInactive(ctx);
+
+
+//        Channel 断开，服务端监听到连接断开事件，但是此时 Channel 所绑定的属性已经被移除掉了，因此这里无法直接获取的到 userid。
+//        ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get() 不行
+//        感谢慕课网的 netty 教程
+        Channel channel = ctx.channel();
+        Integer userId = null;
+
+        for (Map.Entry<Integer,Channel> entry : map.entrySet()){
+            Integer uid = entry.getKey();
+            Channel channel1 = entry.getValue();
+            if (channel == channel1){
+                userId=uid;
+                break;
+            }
+        }
+        if (userId!=null){
+            map.remove(userId);
+
+            List<Integer> groups = userGroupMap.get(userId);
+            userGroupMap.remove(userId);
+
+            for (Integer groupId : groups){
+                List<Integer> users = groupUserMap.get(groupId);
+                users.remove(userId);
+                groupUserMap.put(groupId,users);
+            }
+
+            ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(null);
+            super.channelInactive(ctx);
+        }
     }
 
     @Override
