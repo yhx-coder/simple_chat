@@ -63,13 +63,12 @@ message LoginRes{
     }
     LoginStatus status = 1;
     string response = 2;
-    int32 userId = 3;
+    int32 sUserId = 3;
 }
 
 // 消息发送请求
 message MsgReq{
-    int32 sUserId = 1;
-    int32 dUserId = 2;
+    string dUsername = 2;
     string msg = 3;
 }
 
@@ -86,7 +85,7 @@ message MsgRes{
 // 具体消息的封装
 message MsgRX{
     string content = 1;
-    int32 sUserId = 2;
+    string sUsername = 2;
 }
 
 //------------------------ 群聊消息 ----------------------------
@@ -117,7 +116,7 @@ message GroupMemberQueryReq{
 message GroupMemberQueryRes{
     bool status = 1;
     string reason = 2;
-    repeated int32 userId = 3;
+    repeated string username = 3;
 }
 
 message GroupJoinedQueryReq{

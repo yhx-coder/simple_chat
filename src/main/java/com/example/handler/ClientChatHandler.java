@@ -46,7 +46,9 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
             case LOGIN_RES: {
                 LoginRes loginRes = msg.getLoginRes();
                 if (loginRes.getStatus() == LoginRes.LoginStatus.SUCCESS) {
-                    ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(loginRes.getUserId());
+
+                    // 有时间好好研究下通道属性，重点看属性在客户端、服务端间是独立的
+                    ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(loginRes.getSUserId());
                     System.out.println(loginRes.getResponse());
                     latch.countDown();
                 } else {
@@ -57,7 +59,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
             }
             case MSG_RX: {
                 MsgRX msgRX = msg.getMsgRX();
-                System.out.println("用户" + msgRX.getSUserId() + "说: " + msgRX.getContent());
+                System.out.println("用户" + msgRX.getSUsername() + "说: " + msgRX.getContent());
                 break;
             }
             case GROUP_RES: {
@@ -83,10 +85,10 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                 if (!groupMemberQueryRes.getStatus()) {
                     System.out.println(groupMemberQueryRes.getReason());
                 } else {
-                    List<Integer> userIdList = groupMemberQueryRes.getUserIdList();
+                    List<String> userNameList = groupMemberQueryRes.getUsernameList();
                     System.out.print("群组中的用户有: ");
-                    userIdList.forEach(userId -> {
-                        System.out.print(userId + " ");
+                    userNameList.forEach(userName -> {
+                        System.out.print(userName + " ");
                     });
                     System.out.println();
                 }
@@ -127,8 +129,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                     case "send": {
                         MsgReq req = Message.newBuilder()
                                 .getMsgReq().newBuilderForType()
-                                .setSUserId(ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).get())
-                                .setDUserId(Integer.parseInt(s[1]))
+                                .setDUsername(s[1])
                                 .setMsg(s[2])
                                 .build();
 
@@ -246,7 +247,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 //        System.out.println("连接:" + ctx.channel() + " 出现异常: " + cause.getMessage());
-        cause.printStackTrace();
+        logger.error("客户端出现异常: " + cause);
         ctx.close();
     }
 
@@ -282,7 +283,7 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
     }
 
     private void menu() {
-        System.out.println(">>>>>>>发送消息: send [userId] [message]");
+        System.out.println(">>>>>>>发送消息: send [userName] [message]");
         System.out.println(">>>>>>>创建聊天组: gcreate [groupId]");
         System.out.println(">>>>>>>加入聊天组: gjoin [groupId]");
         System.out.println(">>>>>>>向聊天组内发消息: gsend [groupId] [message]");

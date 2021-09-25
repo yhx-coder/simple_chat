@@ -18,6 +18,20 @@ public interface UserDao {
     User queryByUsernameAndPassword(String username,String password);
 
     /**
+     * 根据用户名查询用户
+     * @param username 用户名
+     * @return 用户信息
+     */
+    User queryByUsername(String username);
+
+    /**
+     * 根据用户 Id 查询用户
+     * @param userId 用户 Id
+     * @return 用户信息
+     */
+    User queryByUserId(Integer userId);
+
+    /**
      * 保存用户
      *
      * @return 失败为 -1 ，成功为 1

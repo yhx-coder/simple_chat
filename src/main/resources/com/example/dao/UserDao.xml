@@ -8,6 +8,14 @@
         select * from user where username = #{param1} and password = #{param2}
     </select>
 
+    <select id="queryByUsername" resultType="com.example.pojo.User">
+        select * from user where username = #{param1}
+    </select>
+
+    <select id="queryByUserId" resultType="com.example.pojo.User">
+        select * from user where userId = #{param1}
+    </select>
+
     <insert id="saveUser" useGeneratedKeys="true" keyProperty="userId" parameterType="com.example.pojo.User">
         insert into user(username,password) values (#{param1},#{param2})
     </insert>

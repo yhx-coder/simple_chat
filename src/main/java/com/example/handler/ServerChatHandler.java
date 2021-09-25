@@ -14,7 +14,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,15 +29,26 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
-    public ServerChatHandler() {
+    private final UserDao userDao;
+    private final InputStream resourceAsStream;
+    private final SqlSession session;
+
+    public ServerChatHandler() throws IOException {
+        resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
+        SqlSessionFactoryBuilder sessionFactoryBuilder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = sessionFactoryBuilder.build(resourceAsStream);
+
+        session = factory.openSession();
+
+        userDao = session.getMapper(UserDao.class);
     }
 
     // 防止并发问题
-    private static volatile Map<Integer, Channel> map = new ConcurrentHashMap<>();
+    private static final Map<Integer, Channel> map = new ConcurrentHashMap<>();
 
-    private static volatile Map<Integer, List<Integer>> userGroupMap = new ConcurrentHashMap<>();
+    private static final Map<Integer, List<Integer>> userGroupMap = new ConcurrentHashMap<>();
 
-    private static volatile Map<Integer, List<Integer>> groupUserMap = new ConcurrentHashMap<>();
+    private static final Map<Integer, List<Integer>> groupUserMap = new ConcurrentHashMap<>();
 
     private final static Logger logger = LoggerFactory.getLogger(ServerChatHandler.class);
 
@@ -47,18 +60,9 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
             // 登录请求
             case LOGIN_REQ: {
 
-                // 数据库的连接怎么关啊？放在 finally 块中就显示未初始化。求教。
                 LoginReq loginReq = msg.getLoginReq();
                 String username = loginReq.getUsername();
                 String password = loginReq.getPassword();
-
-                InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
-                SqlSessionFactoryBuilder sessionFactoryBuilder = new SqlSessionFactoryBuilder();
-                SqlSessionFactory factory = sessionFactoryBuilder.build(resourceAsStream);
-
-                SqlSession session = factory.openSession();
-                UserDao userDao = session.getMapper(UserDao.class);
-
                 User user = userDao.queryByUsernameAndPassword(username, password);
 
                 // 查到用户
@@ -71,30 +75,30 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                         LoginRes loginRes = Message.newBuilder()
                                 .getLoginRes().newBuilderForType()
                                 .setStatus(LoginRes.LoginStatus.SUCCESS)
-                                .setResponse("用户: " + userId + " 登录成功")
-                                .setUserId(userId)
+                                .setResponse("用户: " + username + " 登录成功")
+                                .setSUserId(userId)
                                 .build();
                         Message message = Message.newBuilder()
                                 .setMessageType(Message.MessageType.LOGIN_RES)
                                 .setLoginRes(loginRes)
                                 .build();
                         ctx.channel().writeAndFlush(message);
-                        resourceAsStream.close();
-                        session.close();
+
+                        ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(userId);
+                        ctx.channel().attr(AttributeKey.<String>valueOf("username")).set(username);
                         break;
                     }
+
+                    // 以后可以扩展成挤掉线的操作
                     LoginRes loginRes = Message.newBuilder().getLoginRes().newBuilderForType()
-                            .setStatus(LoginRes.LoginStatus.SUCCESS)
-                            .setResponse("用户: " + userId + " 已经登录")
-                            .setUserId(userId)
+                            .setStatus(LoginRes.LoginStatus.FAIL)
+                            .setResponse("用户: " + username + " 已经登录, 不能重复登录!")
                             .build();
                     Message message = Message.newBuilder()
                             .setMessageType(Message.MessageType.LOGIN_RES)
                             .setLoginRes(loginRes)
                             .build();
                     ctx.channel().writeAndFlush(message);
-                    resourceAsStream.close();
-                    session.close();
                     break;
                 }
 
@@ -111,41 +115,55 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                         .build();
                 ctx.channel().writeAndFlush(message);
 
-                resourceAsStream.close();
-                session.close();
                 break;
             }
             // 消息发送
             case MSG_REQ: {
-                int dUserId = msg.getMsgReq().getDUserId();
+                String dUsername = msg.getMsgReq().getDUsername();
+                User user = userDao.queryByUsername(dUsername);
 
-                // 获取的是通信对端的连接，消息要靠这个连接发送
-                Channel channel = map.get(dUserId);
+                // 用户存在
+                if (user != null) {
+                    Integer dUserId = user.getUserId();
+                    // 获取的是通信对端的连接，消息要靠这个连接发送
+                    Channel channel = map.get(dUserId);
 
-                if (channel == null) {
-                    MsgRes msgRes = Message.newBuilder().getMsgRes()
-                            .newBuilderForType()
-                            .setStatus(MsgRes.Status.FAIL)
-                            .setResponse("用户: " + dUserId + " 当前不在线, 消息发送失败!")
-                            .build();
-                    Message message = Message.newBuilder()
-                            .setMessageType(Message.MessageType.MSG_RES)
-                            .setMsgRes(msgRes)
-                            .build();
-                    ctx.channel().writeAndFlush(message);
-                } else {
-                    int sUserId = msg.getMsgReq().getSUserId();
-                    MsgRX msgRes = Message.newBuilder().getMsgRX()
-                            .newBuilderForType()
-                            .setSUserId(sUserId)
-                            .setContent(msg.getMsgReq().getMsg())
-                            .build();
-                    Message message = Message.newBuilder()
-                            .setMessageType(Message.MessageType.MSG_RX)
-                            .setMsgRX(msgRes)
-                            .build();
-                    channel.writeAndFlush(message);
+                    if (channel == null) {
+                        MsgRes msgRes = Message.newBuilder().getMsgRes()
+                                .newBuilderForType()
+                                .setStatus(MsgRes.Status.FAIL)
+                                .setResponse("用户: " + dUsername + " 当前不在线, 消息发送失败!")
+                                .build();
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.MSG_RES)
+                                .setMsgRes(msgRes)
+                                .build();
+                        ctx.channel().writeAndFlush(message);
+                    } else {
+                        MsgRX msgRes = Message.newBuilder().getMsgRX()
+                                .newBuilderForType()
+                                .setSUsername(ctx.channel().attr(AttributeKey.<String>valueOf("username")).get())
+                                .setContent(msg.getMsgReq().getMsg())
+                                .build();
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.MSG_RX)
+                                .setMsgRX(msgRes)
+                                .build();
+                        channel.writeAndFlush(message);
+                    }
+                    break;
                 }
+
+                MsgRes msgRes = Message.newBuilder().getMsgRes()
+                        .newBuilderForType()
+                        .setStatus(MsgRes.Status.FAIL)
+                        .setResponse("用户: " + dUsername + " 不存在, 消息发送失败!")
+                        .build();
+                Message message = Message.newBuilder()
+                        .setMessageType(Message.MessageType.MSG_RES)
+                        .setMsgRes(msgRes)
+                        .build();
+                ctx.channel().writeAndFlush(message);
                 break;
             }
             // 创建聊天组
@@ -159,12 +177,12 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                     groupUserMap.put(groupId, userIds);
 
                     List<Integer> groupIds = userGroupMap.get(userId);
-                    if (groupIds != null) {
-                        groupIds.add(groupId);
-                    } else {
+
+                    if (groupIds == null) {
                         groupIds = new CopyOnWriteArrayList<>();
-                        groupIds.add(groupId);
                     }
+                    groupIds.add(groupId);
+
                     userGroupMap.put(userId, groupIds);
 
 
@@ -196,6 +214,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
             case GROUP_JOIN_REQ: {
                 int userId = msg.getGroupJoinReq().getUserId();
                 int groupId = msg.getGroupJoinReq().getJoinId();
+                String username = ctx.channel().attr(AttributeKey.<String>valueOf("username")).get();
 
                 List<Integer> userIds = groupUserMap.get(groupId);
 
@@ -221,7 +240,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                     groupJoinRes = Message.newBuilder()
                             .getGroupRes().newBuilderForType()
                             .setStatus(false)
-                            .setReason("用户" + userId + "已经在聊天组" + groupId + "中了")
+                            .setReason("用户" + username + "已经在聊天组" + groupId + "中了")
                             .build();
                 } else {
                     userIds.add(userId);
@@ -241,7 +260,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                     groupJoinRes = Message.newBuilder()
                             .getGroupRes().newBuilderForType()
                             .setStatus(true)
-                            .setReason("用户" + userId + "加入聊天组" + groupId + "成功")
+                            .setReason("用户" + username + "加入聊天组" + groupId + "成功")
                             .build();
                 }
 
@@ -257,6 +276,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
             case GROUP_QUIT_REQ: {
                 int userId = msg.getGroupQuitReq().getUserId();
                 int groupId = msg.getGroupQuitReq().getGroupId();
+                String username = ctx.channel().attr(AttributeKey.<String>valueOf("username")).get();
                 List<Integer> groupIds = userGroupMap.get(userId);
 
                 GroupRes groupQuitRes;
@@ -272,13 +292,13 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                     groupQuitRes = Message.newBuilder()
                             .getGroupRes().newBuilderForType()
                             .setStatus(true)
-                            .setReason("用户" + userId + "退出聊天组" + groupId + "成功")
+                            .setReason("用户" + username + "退出聊天组" + groupId + "成功")
                             .build();
                 } else {
                     groupQuitRes = Message.newBuilder()
                             .getGroupRes().newBuilderForType()
                             .setStatus(false)
-                            .setReason("用户" + userId + "未加入聊天组" + groupId)
+                            .setReason("用户" + username + "未加入聊天组" + groupId)
                             .build();
                 }
 
@@ -294,6 +314,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
             case GROUP_JOINED_QUERY_REQ: {
                 GroupJoinedQueryReq groupQueryReq = msg.getGroupQueryReq();
                 int userId = groupQueryReq.getUserId();
+                String username = ctx.channel().attr(AttributeKey.<String>valueOf("username")).get();
                 List<Integer> list = userGroupMap.get(userId);
 
                 GroupJoinedQueryRes groupQueryRes;
@@ -302,7 +323,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                     groupQueryRes = Message.newBuilder()
                             .getGroupQueryRes().newBuilderForType()
                             .setStatus(false)
-                            .setReason("用户" + userId + "未加入过聊天组")
+                            .setReason("用户" + username + "未加入过聊天组")
                             .build();
                 } else {
                     groupQueryRes = Message.newBuilder()
@@ -333,10 +354,15 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                             .setReason("聊天组" + groupId + "未创建")
                             .build();
                 } else {
+                    List<String> usernames = new ArrayList<>();
+                    userIds.forEach(userId ->{
+                        User user = userDao.queryByUserId(userId);
+                        usernames.add(user.getUsername());
+                    });
                     groupMemberQueryRes = Message.newBuilder()
                             .getGroupMemberQueryRes().newBuilderForType()
                             .setStatus(true)
-                            .addAllUserId(userIds)
+                            .addAllUsername(usernames)
                             .build();
                 }
                 Message message = Message.newBuilder()
@@ -400,27 +426,30 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
         Channel channel = ctx.channel();
         Integer userId = null;
 
-        for (Map.Entry<Integer,Channel> entry : map.entrySet()){
+        for (Map.Entry<Integer, Channel> entry : map.entrySet()) {
             Integer uid = entry.getKey();
             Channel channel1 = entry.getValue();
-            if (channel == channel1){
-                userId=uid;
+            if (channel == channel1) {
+                userId = uid;
                 break;
             }
         }
-        if (userId!=null){
+        if (userId != null) {
             map.remove(userId);
 
             List<Integer> groups = userGroupMap.get(userId);
             userGroupMap.remove(userId);
 
-            for (Integer groupId : groups){
+            for (Integer groupId : groups) {
                 List<Integer> users = groupUserMap.get(groupId);
                 users.remove(userId);
-                groupUserMap.put(groupId,users);
+                groupUserMap.put(groupId, users);
             }
 
             ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(null);
+
+            resourceAsStream.close();
+            session.close();
             super.channelInactive(ctx);
         }
     }
@@ -428,6 +457,8 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         logger.error("服务端内部出现连接异常: " + cause);
+        resourceAsStream.close();
+        session.close();
         ctx.close();
     }
 }
