@@ -60,6 +60,7 @@ message LoginRes{
     enum LoginStatus{
             SUCCESS = 0;
             FAIL = 1;
+            REMOTE = 2;
     }
     LoginStatus status = 1;
     string response = 2;

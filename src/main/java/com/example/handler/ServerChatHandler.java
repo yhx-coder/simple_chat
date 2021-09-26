@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -89,17 +88,38 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                         break;
                     }
 
+
+                    map.put(userId,ctx.channel());
+
                     // 以后可以扩展成挤掉线的操作
                     LoginRes loginRes = Message.newBuilder().getLoginRes().newBuilderForType()
-                            .setStatus(LoginRes.LoginStatus.FAIL)
-                            .setResponse("用户: " + username + " 已经登录, 不能重复登录!")
+                            .setStatus(LoginRes.LoginStatus.REMOTE)
+                            .setResponse("用户: " + username + " 已经在其他设备登录。先按enter，再输用户名。")
                             .build();
                     Message message = Message.newBuilder()
                             .setMessageType(Message.MessageType.LOGIN_RES)
                             .setLoginRes(loginRes)
                             .build();
-                    ctx.channel().writeAndFlush(message);
+                    channel.writeAndFlush(message);
+
+
+
+                    LoginRes loginRes1 = Message.newBuilder()
+                            .getLoginRes().newBuilderForType()
+                            .setStatus(LoginRes.LoginStatus.SUCCESS)
+                            .setResponse("用户: " + username + " 登录成功")
+                            .setSUserId(userId)
+                            .build();
+                    Message message1 = Message.newBuilder()
+                            .setMessageType(Message.MessageType.LOGIN_RES)
+                            .setLoginRes(loginRes1)
+                            .build();
+                    ctx.channel().writeAndFlush(message1);
+
+                    ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(userId);
+                    ctx.channel().attr(AttributeKey.<String>valueOf("username")).set(username);
                     break;
+
                 }
 
                 // 未找到用户

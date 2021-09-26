@@ -116,6 +116,10 @@ private static final long serialVersionUID = 0L;
      * <code>FAIL = 1;</code>
      */
     FAIL(1),
+    /**
+     * <code>REMOTE = 2;</code>
+     */
+    REMOTE(2),
     UNRECOGNIZED(-1),
     ;
 
@@ -127,6 +131,10 @@ private static final long serialVersionUID = 0L;
      * <code>FAIL = 1;</code>
      */
     public static final int FAIL_VALUE = 1;
+    /**
+     * <code>REMOTE = 2;</code>
+     */
+    public static final int REMOTE_VALUE = 2;
 
 
     public final int getNumber() {
@@ -155,6 +163,7 @@ private static final long serialVersionUID = 0L;
       switch (value) {
         case 0: return SUCCESS;
         case 1: return FAIL;
+        case 2: return REMOTE;
         default: return null;
       }
     }

@@ -1,24 +1,14 @@
 package com.example.handler;
 
-import com.example.dao.UserDao;
 import com.example.message.*;
-import com.example.pojo.User;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 
 
@@ -31,6 +21,8 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
     private final static Logger logger = LoggerFactory.getLogger(ClientChatHandler.class);
 
     private CountDownLatch latch = new CountDownLatch(1);
+
+    private Thread selectMenu;
 
     // 在这里接收消息，即处理各种 *Res
     @Override
@@ -51,9 +43,20 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                     ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(loginRes.getSUserId());
                     System.out.println(loginRes.getResponse());
                     latch.countDown();
-                } else {
+                } else if (loginRes.getStatus() == LoginRes.LoginStatus.REMOTE) {
+                    // 被人挤下登录状态
+                    selectMenu.interrupt();
+
+                    latch = new CountDownLatch(1);
+
                     System.out.println(loginRes.getResponse());
+//                    logger.error(loginRes.getResponse());
                     login(ctx);
+
+                } else {
+                    // 用户名或密码错误
+                    System.out.println(loginRes.getResponse());
+                    loginInput(ctx);
                 }
                 break;
             }
@@ -105,9 +108,66 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
     // 在这里发送消息，即构造各种 *Req。
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        Thread selectMenu = new Thread(() -> {
+        login(ctx);
+        super.channelActive(ctx);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+//        System.out.println("连接:" + ctx.channel() + " 出现异常: " + cause.getMessage());
+        logger.error("客户端出现异常: " + cause);
+        ctx.close();
+        System.exit(0);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(null);
+        super.channelInactive(ctx);
+    }
+
+    private void loginInput(ChannelHandlerContext ctx) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("请输入用户名: ");
+//        logger.error("请输入用户名: ");
+        String username = scanner.nextLine();
+        System.out.print("请输入密码: ");
+        String password = scanner.nextLine();
+
+
+        // 一定要分两段构建消息，否则要报错。因为要解析的是 Message 。 若一次构建则是 LoginReq 了。
+        LoginReq req = Message.newBuilder()
+                .getLoginReq().newBuilderForType()
+                .setUsername(username)
+                .setPassword(password)
+                .build();
+
+        Message loginReq = Message.newBuilder()
+                .setMessageType(Message.MessageType.LOGIN_REQ)
+                .setLoginReq(req)
+                .build();
+
+        ctx.channel().writeAndFlush(loginReq);
+    }
+
+    private void menu() {
+        System.out.println("*******************************************");
+        System.out.println(">>>>>>>发送消息: send [userName] [message]");
+        System.out.println(">>>>>>>创建聊天组: gcreate [groupId]");
+        System.out.println(">>>>>>>加入聊天组: gjoin [groupId]");
+        System.out.println(">>>>>>>向聊天组内发消息: gsend [groupId] [message]");
+        System.out.println(">>>>>>>查询加入的聊天组: gquery");
+        System.out.println(">>>>>>>查询聊天组内的成员: gquerymen [groupId]");
+        System.out.println(">>>>>>>离开聊天组: gquit [groupId]");
+        System.out.println(">>>>>>>离开聊天室: quit");
+        System.out.println("*******************************************");
+    }
+
+    private void login(ChannelHandlerContext ctx) {
+        selectMenu = new Thread(() -> {
             try {
-                login(ctx);
+                loginInput(ctx);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -120,6 +180,15 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
             // 想解决指令输错的异常，还不用重启客户端，我该怎么办？？？？
 
             while (true) {
+
+                Thread thread = Thread.currentThread();
+                if (thread.isInterrupted()) {
+                    System.out.println("您已下线，请重新登录。");
+//                    logger.error("您已下线，请重新登录。");
+                    break;
+
+                }
+
                 menu();
 
                 Scanner scanner = new Scanner(System.in);
@@ -227,12 +296,16 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                         System.out.println("您已退出聊天室！");
                         return;
                     }
+                    case"":{
+                        break;
+                    }
                     default: {
                         System.out.println("输入指令有误，请重新输入。");
+                        break;
                     }
                 }
             }
-        }, "waitForSelection");
+        });
 
         // 刚查的，在外面捕获子线程的错误。
         selectMenu.setUncaughtExceptionHandler((t, e) -> {
@@ -241,55 +314,6 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
         });
 
         selectMenu.start();
-        super.channelActive(ctx);
     }
 
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-//        System.out.println("连接:" + ctx.channel() + " 出现异常: " + cause.getMessage());
-        logger.error("客户端出现异常: " + cause);
-        ctx.close();
-    }
-
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(null);
-
-        super.channelInactive(ctx);
-    }
-
-    private void login(ChannelHandlerContext ctx) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("请输入用户名: ");
-        String username = scanner.nextLine();
-        System.out.print("请输入密码: ");
-        String password = scanner.nextLine();
-
-
-        // 一定要分两段构建消息，否则要报错。因为要解析的是 Message 。 若一次构建则是 LoginReq 了。
-        LoginReq req = Message.newBuilder()
-                .getLoginReq().newBuilderForType()
-                .setUsername(username)
-                .setPassword(password)
-                .build();
-
-        Message loginReq = Message.newBuilder()
-                .setMessageType(Message.MessageType.LOGIN_REQ)
-                .setLoginReq(req)
-                .build();
-
-        ctx.channel().writeAndFlush(loginReq);
-    }
-
-    private void menu() {
-        System.out.println(">>>>>>>发送消息: send [userName] [message]");
-        System.out.println(">>>>>>>创建聊天组: gcreate [groupId]");
-        System.out.println(">>>>>>>加入聊天组: gjoin [groupId]");
-        System.out.println(">>>>>>>向聊天组内发消息: gsend [groupId] [message]");
-        System.out.println(">>>>>>>查询加入的聊天组: gquery");
-        System.out.println(">>>>>>>查询聊天组内的成员: gquerymen [groupId]");
-        System.out.println(">>>>>>>离开聊天组: gquit [groupId]");
-        System.out.println(">>>>>>>离开聊天室: quit");
-    }
 }

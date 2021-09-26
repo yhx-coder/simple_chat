@@ -134,30 +134,31 @@ public final class MessageProto {
       "OUP_RES\020\014\022\032\n\026GROUP_JOINED_QUERY_REQ\020\r\022\032\n" +
       "\026GROUP_JOINED_QUERY_RES\020\016\022\010\n\004PING\020\017B\r\n\013m" +
       "essageBody\".\n\010LoginReq\022\020\n\010username\030\001 \001(\t" +
-      "\022\020\n\010password\030\002 \001(\t\"\206\001\n\010LoginRes\0221\n\006statu" +
+      "\022\020\n\010password\030\002 \001(\t\"\222\001\n\010LoginRes\0221\n\006statu" +
       "s\030\001 \001(\0162!.chat.simple.LoginRes.LoginStat" +
-      "us\022\020\n\010response\030\002 \001(\t\022\017\n\007sUserId\030\003 \001(\005\"$\n" +
-      "\013LoginStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"(\n\006M" +
-      "sgReq\022\021\n\tdUsername\030\002 \001(\t\022\013\n\003msg\030\003 \001(\t\"g\n" +
-      "\006MsgRes\022*\n\006status\030\001 \001(\0162\032.chat.simple.Ms" +
-      "gRes.Status\022\020\n\010response\030\002 \001(\t\"\037\n\006Status\022" +
-      "\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"+\n\005MsgRX\022\017\n\007conte" +
-      "nt\030\001 \001(\t\022\021\n\tsUsername\030\002 \001(\t\"1\n\016GroupCrea" +
-      "teReq\022\017\n\007groupId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\"." +
-      "\n\014GroupJoinReq\022\016\n\006joinId\030\001 \001(\005\022\016\n\006userId" +
-      "\030\002 \001(\005\"/\n\014GroupQuitReq\022\017\n\007groupId\030\001 \001(\005\022" +
-      "\016\n\006userId\030\002 \001(\005\"&\n\023GroupMemberQueryReq\022\017" +
-      "\n\007groupId\030\001 \001(\005\"G\n\023GroupMemberQueryRes\022\016" +
-      "\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 \001(\t\022\020\n\010userna" +
-      "me\030\003 \003(\t\"%\n\023GroupJoinedQueryReq\022\016\n\006userI" +
-      "d\030\001 \001(\005\"F\n\023GroupJoinedQueryRes\022\016\n\006status" +
-      "\030\001 \001(\010\022\016\n\006reason\030\002 \001(\t\022\017\n\007groupId\030\003 \003(\005\"" +
-      "D\n\017GroupMessageReq\022\017\n\007groupId\030\001 \001(\005\022\017\n\007s" +
-      "UserId\030\002 \001(\005\022\017\n\007message\030\003 \001(\t\"C\n\016GroupMe" +
-      "ssageRX\022\017\n\007sUserId\030\001 \001(\005\022\017\n\007groupId\030\002 \001(" +
-      "\005\022\017\n\007message\030\003 \001(\t\"*\n\010GroupRes\022\016\n\006status" +
-      "\030\001 \001(\010\022\016\n\006reason\030\002 \001(\tB%\n\023com.example.me" +
-      "ssageB\014MessageProtoP\001b\006proto3"
+      "us\022\020\n\010response\030\002 \001(\t\022\017\n\007sUserId\030\003 \001(\005\"0\n" +
+      "\013LoginStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\022\n\n\006R" +
+      "EMOTE\020\002\"(\n\006MsgReq\022\021\n\tdUsername\030\002 \001(\t\022\013\n\003" +
+      "msg\030\003 \001(\t\"g\n\006MsgRes\022*\n\006status\030\001 \001(\0162\032.ch" +
+      "at.simple.MsgRes.Status\022\020\n\010response\030\002 \001(" +
+      "\t\"\037\n\006Status\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"+\n\005Ms" +
+      "gRX\022\017\n\007content\030\001 \001(\t\022\021\n\tsUsername\030\002 \001(\t\"" +
+      "1\n\016GroupCreateReq\022\017\n\007groupId\030\001 \001(\005\022\016\n\006us" +
+      "erId\030\002 \001(\005\".\n\014GroupJoinReq\022\016\n\006joinId\030\001 \001" +
+      "(\005\022\016\n\006userId\030\002 \001(\005\"/\n\014GroupQuitReq\022\017\n\007gr" +
+      "oupId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\"&\n\023GroupMemb" +
+      "erQueryReq\022\017\n\007groupId\030\001 \001(\005\"G\n\023GroupMemb" +
+      "erQueryRes\022\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 \001" +
+      "(\t\022\020\n\010username\030\003 \003(\t\"%\n\023GroupJoinedQuery" +
+      "Req\022\016\n\006userId\030\001 \001(\005\"F\n\023GroupJoinedQueryR" +
+      "es\022\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 \001(\t\022\017\n\007gr" +
+      "oupId\030\003 \003(\005\"D\n\017GroupMessageReq\022\017\n\007groupI" +
+      "d\030\001 \001(\005\022\017\n\007sUserId\030\002 \001(\005\022\017\n\007message\030\003 \001(" +
+      "\t\"C\n\016GroupMessageRX\022\017\n\007sUserId\030\001 \001(\005\022\017\n\007" +
+      "groupId\030\002 \001(\005\022\017\n\007message\030\003 \001(\t\"*\n\010GroupR" +
+      "es\022\016\n\006status\030\001 \001(\010\022\016\n\006reason\030\002 \001(\tB%\n\023co" +
+      "m.example.messageB\014MessageProtoP\001b\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
