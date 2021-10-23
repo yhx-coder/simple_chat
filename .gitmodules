@@ -1,0 +1,3 @@
+[submodule "simple_chat_register"]
+	path = simple_chat_register
+	url = git@github.com:yhx-coder/simple_chat_register.git
