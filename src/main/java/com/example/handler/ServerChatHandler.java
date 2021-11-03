@@ -1,8 +1,13 @@
 package com.example.handler;
 
+
+import com.example.config.Config;
 import com.example.dao.UserDao;
 import com.example.message.*;
+
 import com.example.pojo.User;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.util.JsonFormat;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -13,6 +18,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -85,41 +92,44 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
                         ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(userId);
                         ctx.channel().attr(AttributeKey.<String>valueOf("username")).set(username);
-                        break;
+
+                        // 推送离线时缓存的消息
+                        if (hasUnreadMessage(userId)){
+                            List<Message> messages = retrieveMessage(userId);
+                            for (Message unreadMessage : messages) {
+                                ctx.channel().writeAndFlush(unreadMessage);
+                            }
+                        }
+                    } else {
+                        // 挤掉线的操作
+                        map.put(userId, ctx.channel());
+                        LoginRes loginRes = Message.newBuilder().getLoginRes().newBuilderForType()
+                                .setStatus(LoginRes.LoginStatus.REMOTE)
+                                .setResponse("用户: " + username + " 已经在其他设备登录。先按enter，再输用户名。")
+                                .build();
+                        Message message = Message.newBuilder()
+                                .setMessageType(Message.MessageType.LOGIN_RES)
+                                .setLoginRes(loginRes)
+                                .build();
+                        channel.writeAndFlush(message);
+
+
+                        LoginRes loginRes1 = Message.newBuilder()
+                                .getLoginRes().newBuilderForType()
+                                .setStatus(LoginRes.LoginStatus.SUCCESS)
+                                .setResponse("用户: " + username + " 登录成功")
+                                .setSUserId(userId)
+                                .build();
+                        Message message1 = Message.newBuilder()
+                                .setMessageType(Message.MessageType.LOGIN_RES)
+                                .setLoginRes(loginRes1)
+                                .build();
+                        ctx.channel().writeAndFlush(message1);
+
+                        ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(userId);
+                        ctx.channel().attr(AttributeKey.<String>valueOf("username")).set(username);
                     }
-
-
-                    map.put(userId,ctx.channel());
-
-                    // 以后可以扩展成挤掉线的操作
-                    LoginRes loginRes = Message.newBuilder().getLoginRes().newBuilderForType()
-                            .setStatus(LoginRes.LoginStatus.REMOTE)
-                            .setResponse("用户: " + username + " 已经在其他设备登录。先按enter，再输用户名。")
-                            .build();
-                    Message message = Message.newBuilder()
-                            .setMessageType(Message.MessageType.LOGIN_RES)
-                            .setLoginRes(loginRes)
-                            .build();
-                    channel.writeAndFlush(message);
-
-
-
-                    LoginRes loginRes1 = Message.newBuilder()
-                            .getLoginRes().newBuilderForType()
-                            .setStatus(LoginRes.LoginStatus.SUCCESS)
-                            .setResponse("用户: " + username + " 登录成功")
-                            .setSUserId(userId)
-                            .build();
-                    Message message1 = Message.newBuilder()
-                            .setMessageType(Message.MessageType.LOGIN_RES)
-                            .setLoginRes(loginRes1)
-                            .build();
-                    ctx.channel().writeAndFlush(message1);
-
-                    ctx.channel().attr(AttributeKey.<Integer>valueOf("userId")).set(userId);
-                    ctx.channel().attr(AttributeKey.<String>valueOf("username")).set(username);
                     break;
-
                 }
 
                 // 未找到用户
@@ -149,16 +159,20 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                     Channel channel = map.get(dUserId);
 
                     if (channel == null) {
+                        // 目标用户当前不在线，先将要发送的消息缓存起来。
+                        storeMessage(ctx,msg,dUserId);
+
                         MsgRes msgRes = Message.newBuilder().getMsgRes()
                                 .newBuilderForType()
                                 .setStatus(MsgRes.Status.FAIL)
-                                .setResponse("用户: " + dUsername + " 当前不在线, 消息发送失败!")
+                                .setResponse("用户: " + dUsername + " 当前不在线, 消息已缓存!")
                                 .build();
                         Message message = Message.newBuilder()
                                 .setMessageType(Message.MessageType.MSG_RES)
                                 .setMsgRes(msgRes)
                                 .build();
                         ctx.channel().writeAndFlush(message);
+
                     } else {
                         MsgRX msgRes = Message.newBuilder().getMsgRX()
                                 .newBuilderForType()
@@ -375,7 +389,7 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
                             .build();
                 } else {
                     List<String> usernames = new ArrayList<>();
-                    userIds.forEach(userId ->{
+                    userIds.forEach(userId -> {
                         User user = userDao.queryByUserId(userId);
                         usernames.add(user.getUsername());
                     });
@@ -433,6 +447,10 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
 
                 break;
             }
+
+            default: {
+                break;
+            }
         }
     }
 
@@ -480,5 +498,45 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
         resourceAsStream.close();
         session.close();
         ctx.close();
+    }
+
+
+    // 只缓存一条，一会改成消息列表
+    private void storeMessage(ChannelHandlerContext ctx, Message msg, Integer dUserId) throws InvalidProtocolBufferException {
+        MsgRX msgRes = Message.newBuilder().getMsgRX()
+                .newBuilderForType()
+                .setSUsername(ctx.channel().attr(AttributeKey.<String>valueOf("username")).get())
+                .setContent(msg.getMsgReq().getMsg())
+                .build();
+        Message message = Message.newBuilder()
+                .setMessageType(Message.MessageType.MSG_RX)
+                .setMsgRX(msgRes)
+                .build();
+
+        String unreadMessageJson = JsonFormat.printer().print(message);
+        Jedis jedis = new Jedis(Config.getRedisAddress(), Config.getRedisPort());
+        jedis.lpush(String.valueOf(dUserId), unreadMessageJson);
+        jedis.close();
+    }
+
+    private List<Message> retrieveMessage(Integer dUserId) throws InvalidProtocolBufferException {
+        Jedis jedis = new Jedis(Config.getRedisAddress(), Config.getRedisPort());
+        List<Message> unreadMessageList = new ArrayList<>();
+        while (true) {
+            String unreadMessageJson = jedis.lpop(String.valueOf(dUserId));
+            if (unreadMessageJson == null) {
+                break;
+            }
+            Message.Builder builder = Message.newBuilder();
+            JsonFormat.parser().merge(unreadMessageJson, builder);
+            unreadMessageList.add(builder.build());
+        }
+        jedis.close();
+        return unreadMessageList;
+    }
+
+    private boolean hasUnreadMessage(Integer userId){
+        Jedis jedis = new Jedis(Config.getRedisAddress(), Config.getRedisPort());
+        return jedis.exists(String.valueOf(userId));
     }
 }

@@ -102,6 +102,9 @@ public class ClientChatHandler extends SimpleChannelInboundHandler<Message> {
                 System.out.println("用户" + messageRX.getSUserId() + "说: " + messageRX.getMessage());
                 break;
             }
+            default:{
+                break;
+            }
         }
     }
 

@@ -53,4 +53,20 @@ public class Config {
         }
         return Integer.parseInt(writerIdleTime);
     }
+
+    public static int getRedisPort(){
+        String redisPort = properties.getProperty("redis.port");
+        if (redisPort==null){
+            return 6379;
+        }
+        return Integer.parseInt(redisPort);
+    }
+
+    public static String getRedisAddress(){
+        String redisAddress = properties.getProperty("redis.address");
+        if (redisAddress==null){
+            return "localhost";
+        }
+        return redisAddress;
+    }
 }
