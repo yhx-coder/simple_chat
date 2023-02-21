@@ -536,7 +536,8 @@ public class ServerChatHandler extends SimpleChannelInboundHandler<Message> {
     }
 
     private boolean hasUnreadMessage(Integer userId){
-        Jedis jedis = new Jedis(Config.getRedisAddress(), Config.getRedisPort());
-        return jedis.exists(String.valueOf(userId));
+        try(Jedis jedis = new Jedis(Config.getRedisAddress(), Config.getRedisPort())){
+            return jedis.exists(String.valueOf(userId));
+        }
     }
 }
